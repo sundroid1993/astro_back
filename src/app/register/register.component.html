@@ -1,0 +1,286 @@
+`
+<!-- <p>register works!</p> -->
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('../assets/img/37638.png');">
+        <div class="container-login100">
+            <div *ngIf="!OtherDetailsmoreTab"
+                 style="width: 100px; height: 100px; position: absolute; top: 0%; left: 50%; border-radius: 50%; transform: translate(-50%);">
+                <img *ngIf="!OtherDetailsTab" alt="" src="assets/img/logo.svg"
+                     style="background-color: white; border-radius: 50%;">
+            </div>
+            <div class="wrap-login100 p-t-30 p-b-50" *ngIf="PersonalDetailsTab">
+                <span class="login100-form-title p-b-41">
+                    Personal Details
+                </span>
+                <div class="login100-form p-b-33 p-t-5">
+                    <div class="form-group m-2 mb-0 p-3">
+                        <label> <b> Name </b></label>
+                        <input class="form-control" placeholder="Enter Name" type="text" [(ngModel)]="name">
+                    </div>
+                    <div style="margin: -20px;"></div>
+                    <div class="form-group m-2 mb-0 p-3">
+                        <label><b> Email Id </b></label>
+                        <input class="form-control" placeholder="Enter Email" type="email" [(ngModel)]="email">
+                    </div>
+                    <div style="margin: -20px;"></div>
+                    <div class="form-group m-2 mb-0 p-3">
+                        <label><b> Mobile Number </b></label>
+                        <input class="form-control" placeholder="Enter Mobile" type="phone" [(ngModel)]="phone">
+                    </div>
+                    <div style="margin: -20px;"></div>
+                    <div class="custom-control custom-checkbox m-2 ml-5">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                        <label class="custom-control-label" for="customCheck1">I Agree To The Terms and
+                            Conditions*</label>
+                    </div>
+                    <div class="container-login100-form-btn m-t-32" style="margin-top: 20px;">
+                        <button class="login100-form-btn" (click)="checkAstroByEmailPhone()">
+                            Get OTP
+                        </button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <div class="wrap-login100 p-t-30 p-b-50" *ngIf="VerifyPhoneTab">
+                <span class="login100-form-title p-b-41">
+                    Verify Phone
+                </span>
+                <div class="login100-form p-b-33 p-t-5">
+                    <p class="m-2 ml-4">OTP sent to +91{{phone}}</p>
+                    <div class="form-group m-2 mb-0 p-3">
+                        <label><b> OTP </b></label>
+                        <input class="form-control" [(ngModel)]="otp" placeholder="Enter OTP" type="number" value="">
+                    </div>
+                    <div class="container-login100-form-btn m-t-32 d-flex" style="margin-top: 20px;">
+                        <button class="smallBtn " style="background-color: lightgrey;" (click)="backToBasic()">Back
+                        </button> &nbsp;
+                        <button class="smallBtn " (click)="submitOTP()">Submit</button>
+                    </div>
+
+                    <p class="m-2 ml-4" *ngIf="timeLeft!=0">Resend OTP available in <span
+                            class="text-primary">{{utilService.getTimerTimeLeft(timeLeft)}}</span>.</p>
+
+                    <div class="container-login100-form-btn m-t-32 d-flex" *ngIf="!resend_disabled" style="margin-top: 20px;">
+                        <button class="smallBtn" (click)="registerTempAsto()">Resend OTP on SMS</button> &nbsp;
+                        <!--                        <button class="smallBtn ">Resend OTP on CALL</button>-->
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+
+            <div class="wrap-login1001 p-t-30 p-b-50" *ngIf="OtherDetailsTab">
+                <span class="login100-form-title p-b-41">
+                    Other Details
+                </span>
+                <div class="login100-form p-b-33 p-t-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <img src="assets/img/default_image_profile.png" class="mx-auto d-block m-4"
+                                 (click)="upload()" style="width: 100px; height: auto; border-radius: 20%;" alt="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Gender </b></label>
+                                <select [(ngModel)]="gender" class="form-control">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Date </b></label>
+                                <div class="input-group">
+                                    <input [(ngModel)]="dob" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                                           #d="ngbDatepicker">
+                                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                            type="button"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Primary Skills* </b></label>
+                                <ng-multiselect-dropdown [(ngModel)]="selectedPrimarySkills" [settings]="dropdownSettings"
+                                                         [data]="skills" [placeholder]="'Select Primary Skills'"
+                                                         style="flex-grow: 1;">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> All Skills* </b></label>
+                                <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
+                                                         [data]="skills" [placeholder]="'Select All Skills'"
+                                                         style="flex-grow: 1;">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Language* </b></label>
+                                <ng-multiselect-dropdown [(ngModel)]="selectedLanguages" [settings]="dropdownSettings"
+                                                         [data]="languages" [placeholder]="'Select Languages'"
+                                                         style="flex-grow: 1;">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label><b> Experience* </b></label>
+                                <input [(ngModel)]="experience" class="form-control" placeholder="Enter Experience" type="text" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label><b> How many hours you can contribute daily?* </b></label>
+                                <select [(ngModel)]="daily_hrs" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Are you working on any other online platform?* </b></label>
+<!--                                <div style="display: flex;align-items: center;">-->
+<!--                                    <div style="display: flex;align-items: center" (click)="platformSelected(true)">-->
+<!--                                        <input [(ngModel)]="other_platform_yes" type="radio">-->
+<!--                                        <p>Yes</p>-->
+<!--                                    </div>-->
+<!--                                    <div style="display: flex;align-items: center" (click)="platformSelected(false)">-->
+<!--                                        <input [(ngModel)]="other_platform_no" type="radio">-->
+<!--                                        <p>No</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div style="display: flex;align-items: center">
+                                    <input [(ngModel)]="other_platform" type="radio" id="yes" name="other_platform" value="yes">
+                                    <label for="yes" style="margin-left: 3px;">Yes</label><br>
+                                    <input style="margin-left: 7px;" [(ngModel)]="other_platform" type="radio" id="no" name="other_platform" value="no">
+                                    <label for="no" style="margin-left: 3px;">No</label><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-login100-form-btn m-t-32" style="margin-top: 20px;">
+                        <button class="login100-form-btn" (click)="submitOtherDetails()">
+                            Next
+                        </button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <div class="wrap-login1001 p-t-30 p-b-50" *ngIf="OtherDetailsmoreTab">
+                <span class="login100-form-title p-b-41">
+                    Other Details
+                </span>
+                <div class="login100-form p-b-33 p-t-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label><b> Why do you think we should onboard you?* </b></label>
+                                <input [(ngModel)]="onboard_reason" ngmode class="form-control" placeholder="" type="text" value="">
+                            </div>
+                        </div>
+                        <!-- <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label><b> What is a suitable time for interview?* </b></label>
+                                <input class="form-control" placeholder="Enter Experience" type="text" value="">
+                            </div>
+                        </div> -->
+
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label><b> Which city do you currently live in* </b></label>
+                                <select [(ngModel)]="selectedCity" class="form-control" placeholder="Select City">
+                                    <option *ngFor="let city of cities;" [value]="city.id">{{city.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label><b> Main source of business (other than astrology* </b></label>
+                                <input [(ngModel)]="income_source" class="form-control" placeholder="" type="text" value="">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Did anybody refer you to Atrotalk* </b></label>
+<!--                                <div class="">-->
+<!--                                    <div class="custom-control custom-radio custom-control-inline ml-5">-->
+<!--                                        <input type="radio" id="customRadioInline1" name="customRadioInline1"-->
+<!--                                               class="custom-control-input">-->
+<!--                                        <label class="custom-control-label" for="customRadioInline1">Yes</label>-->
+<!--                                    </div>-->
+<!--                                    <div class="custom-control custom-radio custom-control-inline ml-5">-->
+<!--                                        <input type="radio" id="customRadioInline2" name="customRadioInline1"-->
+<!--                                               class="custom-control-input">-->
+<!--                                        <label class="custom-control-label" for="customRadioInline2">No</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                                <div style="display: flex;align-items: center">
+                                    <input [(ngModel)]="refer" type="radio" id="refer_yes" name="refer" value="yes">
+                                    <label for="refer_yes" style="margin-left: 3px;">Yes</label><br>
+                                    <input style="margin-left: 7px;" [(ngModel)]="refer" type="radio" id="refer_no" name="refer" value="no">
+                                    <label for="refer_no" style="margin-left: 3px;">No</label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label>Long Bio</label>
+                                <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-32 d-flex" style="margin-top: 20px;">
+                        <button class="smallBtn " style="background-color: lightgrey;">Back</button> &nbsp;
+                        <button class="smallBtn " (click)="submitMoreDetails()">Submit</button>
+                    </div>
+                    <p class="ml-4">You can reach out to us for Astroger on boarding support team at onboard@gmail.com
+                        in case of any
+                        issues or queries.</p>
+<!--                    <button class="smallBtn" routerLink="/login">Login</button>-->
+                    <br>
+                </div>
+            </div>
+
+            <div class="wrap-login1001 p-t-30 p-b-50 bg-white" *ngIf="thankyouTab">
+                <div class="login100-form bg-white" style="margin-top: 20px; padding: 100px;">
+                    <p>Thank for submitting your details with Astroplus, you token number is 99999 Our team shall reach
+                        out
+                        to you for interview shortly if the profile gets shortlisted. For more information, drop
+                        an
+                        email at onboard@gmail.com</p>
+
+                    <button class="smallBtn" routerLink="/login">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>

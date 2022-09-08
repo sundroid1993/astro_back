@@ -1,0 +1,32 @@
+<div class="sidebar-wrapper">
+    <div class="logo">
+        <a class="simple-text text-center">
+            <div class="logo-image-small">
+                <img src="assets/img/logo.svg" style="width: 80px;">
+            </div>
+        </a>
+    </div>
+    <ul class="nav">
+        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}}" routerLinkActive="active">
+            <a [routerLink]="[menuItem.path]">
+                <i class="nc-icon {{menuItem.icon}}"></i><i class="fa fa-{{menuItem.icon}}"></i>
+                <p>{{menuItem.title}}</p>
+
+        <li *ngFor="let submenuItem of menuItem.subroutes">
+            <a style="margin-left: 20px; margin-bottom: -10px;" [routerLink]="[submenuItem.path]">
+                <i class="nc-icon {{submenuItem.icon}}" style="font-size: 15px !important;"></i><i
+                    class="fa fa-{{submenuItem.icon}}" style="font-size: 15px !important;"></i>
+                <p>{{submenuItem.title}}</p>
+            </a>
+        </li>
+        </a>
+        </li>
+
+    </ul>
+</div>
+<style>
+    @font-face {
+        font-family: 'Jakob';
+        src: url(assets/fonts/JakobDPNormal.ttf);
+    }
+</style>

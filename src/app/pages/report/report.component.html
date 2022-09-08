@@ -1,0 +1,160 @@
+<!-- <p>report works!</p> -->
+<!-- <div class="card">
+    <div class="card-body p-1">
+        <div class="d-flex">
+            <h5 class="card-title">Pending</h5>
+            <h5 (click)="opendelivered_tab()" [ngClass]="{'active': delivered_tab}" class="card-title">Delivered</h5>
+            <h5 (click)="opendeclined_tab()" [ngClass]="{'active': declined_tab}" class="card-title">Declined</h5>
+
+            <h5 style="font-size: 12px;" class="ml-auto mt-auto mb-auto form-inline mr-5">
+                <input style="font-size: 12px;" class="form-control" (ngModelChange)="onDateSelected()"
+                    placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append" style="font-size: 12px;">
+                    <button class="btn btn-outline-secondary calendar p-2" (click)="d.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                </div>
+            </h5>
+            <h5 style="font-size: 12px;" class="ml-auto mt-auto mb-auto form-inline mr-5">
+                <p>FROM : </p>
+                <input style="font-size: 12px;" class="form-control" placeholder="yyyy-mm-dd" name="dp"
+                    [(ngModel)]="fromDate" ngbDatepicker #fromDT="ngbDatepicker">
+                <div class="input-group-append" style="font-size: 12px;">
+                    <button class="btn btn-outline-secondary calendar p-2" (click)="fromDT.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                </div>
+            </h5>
+            <h5 style="font-size: 12px;" class="ml-auto mt-auto mb-auto form-inline mr-5">
+                <p>TO : </p>
+                <input style="font-size: 12px;" class="form-control" placeholder="yyyy-mm-dd" name="dp"
+                    [(ngModel)]="toDate" ngbDatepicker #toDT="ngbDatepicker">
+                <div class="input-group-append" style="font-size: 12px;">
+                    <button class="btn btn-outline-secondary calendar p-2" (click)="toDT.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                </div>
+            </h5>
+        </div>
+    </div>
+</div> -->
+
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
+<!--        <div class="row">-->
+<!--            <div class="col-8 d-flex w-100">-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">FROM : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control w-auto" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="fromDate" ngbDatepicker #fromDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="fromDT.toggle()"-->
+<!--                                type="button"><i class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">TO : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="toDate" ngbDatepicker #toDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="toDT.toggle()" type="button"><i-->
+<!--                                class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-auto">-->
+<!--                <button class="btn btn-primary" (click)="downloadExel('order_report')">Download</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
+<!--        <div class="row">-->
+<!--            <div class="col-8 d-flex w-100">-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">FROM : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control w-auto" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="fromDate" ngbDatepicker #fromDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="fromDT.toggle()"-->
+<!--                                type="button"><i class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">TO : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="toDate" ngbDatepicker #toDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="toDT.toggle()" type="button"><i-->
+<!--                                class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-auto">-->
+<!--                <button class="btn btn-primary" (click)="downloadExel('rejection_report')">Download</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
+<!--        <div class="row">-->
+<!--            <div class="col-auto align-self-center">-->
+<!--                <h5 class="card-title m-auto">Daily sales report</h5>-->
+<!--            </div>-->
+<!--            <div class="col-8 d-flex w-100">-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">FROM : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control w-auto" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="fromDate" ngbDatepicker #fromDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="fromDT.toggle()"-->
+<!--                                type="button"><i class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">TO : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="toDate" ngbDatepicker #toDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="toDT.toggle()" type="button"><i-->
+<!--                                class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-auto">-->
+<!--                <button class="btn btn-primary" (click)="downloadExel('daily_sales_report')">Download</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
+<!--        <div class="row">-->
+<!--            <div class="col-8 d-flex w-100">-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">FROM : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control w-auto" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="fromDate" ngbDatepicker #fromDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="fromDT.toggle()"-->
+<!--                                type="button"><i class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="form-inline w-50">-->
+<!--                    <p class="m-auto">TO : &nbsp; </p>-->
+<!--                    <input style="font-size: 12px;" class="form-control" placeholder="yyyy-mm-dd" name="dp"-->
+<!--                           [(ngModel)]="toDate" ngbDatepicker #toDT="ngbDatepicker">-->
+<!--                    <div class="input-group-append" style="font-size: 12px;">-->
+<!--                        <button class="btn btn-outline-secondary calendar p-2" (click)="toDT.toggle()" type="button"><i-->
+<!--                                class="fa fa-calendar"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-auto">-->
+<!--                <button class="btn btn-primary" (click)="downloadExel('cost_report')">Download</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

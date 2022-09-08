@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-ui-switch/ui-switch.component.scss';
+
+@font-face {
+    font-family: 'Jakob';
+    src: url(./assets/fonts/JakobDPNormal.ttf);
+}
+
+.cursorpointer {
+    cursor: pointer;
+}
+
+.search_input{
+    padding-left: 10px;padding-right: 10px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,392 @@
+<!-- <p>profile works!</p> -->
+<div class="card card-user" *ngIf="astroUser!=null&&astroUser!=undefined">
+    <div class="card-header pt-0">
+        <div class="d-flex">
+            <h5 (click)="openInformation_tab()" [ngClass]="{'active': Information_tab}" class="card-title">
+                Information
+            </h5>
+            <h5 (click)="openSME_tab()" [ngClass]="{'active': SME_tab}" class="card-title">
+                Profile SME Details</h5>
+            <h5 (click)="openBank_tab()" [ngClass]="{'active': Bank_tab}" class="card-title">
+                Bank Details</h5>
+        </div>
+    </div>
+    <div *ngIf="Information_tab" class="card-body">
+        <div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="form-group">
+                        <label>Image (300 X 300)</label>
+                        <div style="position: relative;">
+                            <img *ngIf="profile_pic==utilService.DEFAULT_IMAGE" [src]="profile_pic" alt=""
+                                 style="width: 100px; height: 100px;">
+                            <img *ngIf="profile_pic!=utilService.DEFAULT_IMAGE" [src]="apiService.IMAGE_BASE_URL+profile_pic" alt=""
+                                 style="width: 100px; height: 100px;">
+                            <label class="btn btn-default btn-sm center-block btn-file m-0"
+                                   style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
+                                <i (click)="openCropper('profile_pic')" aria-hidden="true"
+                                   class="fa fa-upload fa-2x text-white"></i>
+                                <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label>Name</label>
+                        <input [(ngModel)]="user_name" class="form-control" placeholder="Name" type="text">
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group ">
+                        <label>Email address</label>
+                        <input [(ngModel)]="user_email" readonly="true" class="form-control" placeholder="Email" type="email">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label>Phone Number</label>
+                        <input [(ngModel)]="user_phone" readonly="true" class="form-control" placeholder="Phone Number" type="text">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> Gender </b></label>
+                        <select [(ngModel)]="gender" class="form-control">
+                            <option value="1" selected>Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> Date </b></label>
+                        <div class="input-group">
+                            <input [(ngModel)]="dob" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                                   #d="ngbDatepicker">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                    type="button"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> Primary Skills* </b></label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedPrimarySkills" [settings]="dropdownSettings"
+                                                 [data]="skills" [placeholder]="'Select Primary Skills'"
+                                                 style="flex-grow: 1;">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> All Skills* </b></label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
+                                                 [data]="skills" [placeholder]="'Select All Skills'"
+                                                 style="flex-grow: 1;">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> Language* </b></label>
+                        <ng-multiselect-dropdown [(ngModel)]="selectedLanguages" [settings]="dropdownSettings"
+                                                 [data]="languages" [placeholder]="'Select Language'"
+                                                 style="flex-grow: 1;">
+                        </ng-multiselect-dropdown>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label><b> Experience* </b></label>
+                        <input [(ngModel)]="experience" class="form-control" placeholder="Enter Experience" type="text" value="1">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label><b> How many hours you can contribute daily?* </b></label>
+                        <select [(ngModel)]="daily_hrs" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> Are you working on any other online platform?* </b></label>
+                        <div style="display: flex;align-items: center">
+                            <input [(ngModel)]="other_platform" type="radio" id="yes" name="other_platform" value="yes">
+                            <label for="yes" style="margin-left: 3px;">Yes</label><br>
+                            <input style="margin-left: 7px;" [(ngModel)]="other_platform" type="radio" id="no" name="other_platform" value="no">
+                            <label for="no" style="margin-left: 3px;">No</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label><b> Why do you think we should onboard you?* </b></label>
+                        <input [(ngModel)]="onboard_reason" class="form-control" placeholder="Enter Experience" type="text" value="">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label><b> Which city do you currently live in* </b></label>
+                        <select [(ngModel)]="selectedCity" class="form-control" placeholder="Select City">
+                            <option *ngFor="let city of cities;" [value]="city.id">{{city.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label><b> Main source of business (other than astrology* </b></label>
+                        <input [(ngModel)]="income_source" class="form-control" placeholder="Enter Experience" type="text" value="">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label> <b> Did anybody refer you to Atrotalk* </b></label>
+                        <div style="display: flex;align-items: center">
+                            <input [(ngModel)]="refer" type="radio" id="refer_yes" name="refer" value="yes">
+                            <label for="refer_yes" style="margin-left: 3px;">Yes</label><br>
+                            <input style="margin-left: 7px;" [(ngModel)]="refer" type="radio" id="refer_no" name="refer" value="no">
+                            <label for="refer_no" style="margin-left: 3px;">No</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group ">
+                        <label>Long Bio</label>
+                        <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button (click)="updateAstrologer()" class="btn btn-primary btn-round text-center btn-sm" type="submit">Update
+                Profile
+            </button>
+
+        </div>
+    </div>
+    <div *ngIf="SME_tab" class="card-body">
+        <div style="padding: 15px;">
+            <div class="row ">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>per minute chat charges</label>
+                        <input [(ngModel)]="per_min_chat_charge" class="form-control"
+                               placeholder="Enter per minute chat charges" type="number">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>per minute call charges</label>
+                        <input [(ngModel)]="per_min_call_charge" class="form-control" placeholder="Enter per minute call charges"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button (click)="submitAstroCharges()" class="btn btn-primary btn-round text-center" type="submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="Bank_tab" class="card-body">
+        <div>
+            <h4>Bank Details</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Account Holder Name</label>
+                        <input [(ngModel)]="account_holder_name" class="form-control" placeholder="Name" type="text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Account Type</label>
+                        <select [(ngModel)]="account_type" class="form-control" placeholder="Select Account Type"
+                                type="text">
+                            <option value="savings">Savings</option>
+                            <option value="current">Current</option>
+                            <option value="overdaft">Overdraft</option>
+                            <option value="cash_credit">Cash Credit</option>
+                            <option value="loan_account">Loan Account</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Acc Number</label>
+                        <input [(ngModel)]="account_no" class="form-control" placeholder="Enter Acc Number" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>IFSC Code</label>
+                        <input [(ngModel)]="ifsc" class="form-control" placeholder="Enter IFSC Code" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PAN Number</label>
+                        <input [(ngModel)]="pan_number" class="form-control" placeholder="Enter PAN Number" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>PAN Card</label>
+                        <div style=" margin: auto; display: block;">
+                            <img *ngIf="pan_path=='assets/img/default_banner.png'" [src]="pan_path" alt=""
+                                 style="width: 100%; height: 150px; ">
+                            <img *ngIf="pan_path!='assets/img/default_banner.png'"
+                                 [src]="apiService.BASE_IMAGE_URL+pan_path" alt="" style="width: 100%; height: 150px; ">
+                            <label class="btn btn-default btn-sm center-block btn-file m-0"
+                                   style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
+                                <i aria-hidden="true" class="fa fa-upload fa-2x text-white"></i>
+                                <input (change)="onAccountImageSelect($event,'pan')" style="display: none;" type="file">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label>Upload Cancel Cheque</label>
+                        <div style=" margin: auto; display: block;">
+                            <img *ngIf="cheque_path=='assets/img/default_banner.png'" [src]="cheque_path" alt=""
+                                 style="width: 100%; height: 150px; ">
+                            <img *ngIf="cheque_path!='assets/img/default_banner.png'"
+                                 [src]="apiService.BASE_IMAGE_URL+cheque_path" alt=""
+                                 style="width: 100%; height: 150px; ">
+                            <label class="btn btn-default btn-sm center-block btn-file m-0"
+                                   style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
+                                <i aria-hidden="true" class="fa fa-upload fa-2x text-white"></i>
+                                <input (change)="onAccountImageSelect($event,'cheque')" style="display: none;"
+                                       type="file">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="businessDetail!=null" class="card">
+
+            <div class="row">
+                <div class="col-10">
+                    <p>Update submitted On {{utilService.getDateTimeByTime(businessDetail.created_at)}}</p>
+                </div>
+                <div class="col-2">
+                    <p (click)="showHideBusiness()" *ngIf="!showBusiness">SHOW DETAIL</p>
+                    <p (click)="showHideBusiness()" *ngIf="showBusiness">HIDE DETAIL</p>
+                </div>
+            </div>
+
+            <div *ngIf="showBusiness">
+                <h6>Bank Details</h6>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Account Holder Name</label>
+                            <p>{{businessDetailData.account_holder_name}}</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Acc Number</label>
+                            <p>{{businessDetailData.acc_no}}</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>IFSC Code</label>
+                            <p>{{businessDetailData.ifsc_code}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Account Type</label>
+                            <p>{{businessDetailData.account_type}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>PAN Number</label>
+                            <p>{{businessDetailData.pan_card}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>PAN Card</label>
+                            <img [src]="apiService.BASE_IMAGE_URL+businessDetailData.pan_path"
+                                 style="width: 150px;height: 100px;">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Cancel Cheque</label>
+                            <img [src]="apiService.BASE_IMAGE_URL+businessDetailData.cheque_path"
+                                 style="width: 150px;height: 100px;">
+                        </div>
+                    </div>
+                </div>
+
+                <h6>Location Details</h6>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <p>{{businessDetailData.address}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Landmark</label>
+                            <p>{{businessDetailData.landmark}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <p *ngIf="businessDetail.status==0">Pending for approval</p>
+                            <p *ngIf="businessDetail.status==1">Admin Approved</p>
+                            <p *ngIf="businessDetail.status==2">Admin Declined with message</p>
+                        </div>
+                        <div *ngIf="businessDetail.status==2" class="form-group">
+                            <label>Admin Message</label>
+                            <p>{{businessDetail.admin_msg}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div *ngIf="submitBusiness" class="row">
+            <div class="update ml-auto mr-auto">
+                <button (click)="submitBusinessStatus()" class="btn btn-primary btn-round" type="submit">
+                    SUBMIT FOR APPROVAL
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

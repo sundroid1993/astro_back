@@ -1,0 +1,27 @@
+.readNotification {
+    border: solid 1px #E26812;
+    background: #e7e6e6;
+}
+
+.unreadNotification {
+    border: solid 1px #E26812;
+}
+
+.action{
+    margin: auto;
+    cursor: pointer;
+}
+
+.action i{
+    /* padding: 10px;
+    border-radius: 10px;
+    border: solid 1px black; */
+    font-size: 20px;
+}
+
+@media (max-width: 600px) {
+    .card-title {
+        font-size: 12px !important;
+        /* background-color: lightblue; */
+    }
+}

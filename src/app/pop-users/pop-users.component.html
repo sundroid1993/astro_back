@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <div class="card-body">
+<!--                    <input (ngModelChange)="onSearchUsers()" [(ngModel)]="searchUser" class="form-control search_input"-->
+<!--                           placeholder="Search Users">-->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class=" text-primary">
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Phone
+                            </th>
+                            <th>
+                                Created at
+                            </th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of users">
+                                <td>
+                                    {{item.name}}
+                                </td>
+                                <td>
+                                    {{item.email}}
+                                </td>
+                                <td>
+                                    {{item.phone}}
+                                </td>
+                                <td>
+                                    {{utilService.getDateTimeByTime(item.created_on)}}
+                                </td>
+                                <!--                                <td (click)="removeUser(item.id)" class="text-danger">-->
+                                <!--                                    <button class="btn btn-danger">-->
+                                <!--                                        <i class="fa fa-trash"></i>-->
+                                <!--                                    </button>-->
+                                <!--                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <style>
+        .card-title {
+            background-color: transparent;
+            margin: auto 10px auto 0px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: solid 1px #f0b241;
+        }
+
+        .active {
+            background-color: #f0b241;
+            color: white;
+        }
+    </style>

@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chefadmin-dev-170807-authRole",
+      "UnauthRoleArn": "arn:aws:iam::689700804244:role/amplify-chefadmin-dev-170807-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::689700804244:role/amplify-chefadmin-dev-170807-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-chefadmin-dev-170807-deployment",
+      "UnauthRoleName": "amplify-chefadmin-dev-170807-unauthRole",
+      "StackName": "amplify-chefadmin-dev-170807",
+      "StackId": "arn:aws:cloudformation:ap-south-1:689700804244:stack/amplify-chefadmin-dev-170807/8989cd90-332c-11ec-95b4-02dddc77cb5c",
+      "AmplifyAppId": "d2zmv6drqubqeo"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<div class="fixed-plugin">
+    <div class="show-dropdown" ngbDropdown>
+        <a href="javascript:void(0)" id="dropdownConfig" ngbDropdownToggle>
+            <i class="fa fa-cog fa-2x"> </i>
+        </a>
+        <ul aria-labelledby="dropdownConfig" class="" ngbDropdownMenu>
+            <li class="header-title">Sidebar Background</li>
+            <li class="adjustments-line text-center">
+                <a class="switch-trigger background-color" href="javascript:void(0)">
+                    <span (click)="changeSidebarColor('white')" [ngClass]="{'active':sidebarColor==='white'}"
+                          class="badge filter badge-light active"></span>
+                    <span (click)="changeSidebarColor('black')" [ngClass]="{'active':sidebarColor==='black'}"
+                          class="badge filter badge-dark"></span>
+                </a>
+            </li>
+
+            <li class="header-title">Sidebar Active Color</li>
+            <li class="adjustments-line text-center">
+                <a class="switch-trigger active-color" href="javascript:void(0)">
+                    <span (click)="changeSidebarActiveColor('primary')" [ngClass]="{'active':sidebarActiveColor==='primary'}"
+                          class="badge filter badge-primary"></span>
+                    <span (click)="changeSidebarActiveColor('info')" [ngClass]="{'active':sidebarActiveColor==='info'}"
+                          class="badge filter badge-info"></span>
+                    <span (click)="changeSidebarActiveColor('success')" [ngClass]="{'active':sidebarActiveColor==='success'}"
+                          class="badge filter badge-success"></span>
+                    <span (click)="changeSidebarActiveColor('warning')" [ngClass]="{'active':sidebarActiveColor==='warning'}"
+                          class="badge filter badge-warning"></span>
+                    <span (click)="changeSidebarActiveColor('danger')" [ngClass]="{'active':sidebarActiveColor==='danger'}"
+                          class="badge filter badge-danger active"></span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>

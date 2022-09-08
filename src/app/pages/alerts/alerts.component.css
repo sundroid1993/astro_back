@@ -1,0 +1,15 @@
+.readNotification {
+    border: solid 1px #E26812;
+    background: #e7e6e6;
+}
+
+.unreadNotification {
+    border: solid 1px #E26812;
+}
+
+@media (max-width: 600px) {
+    .card-title {
+        font-size: 13px !important;
+        /* background-color: lightblue; */
+    }
+}

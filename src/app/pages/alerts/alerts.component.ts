@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilService } from '../../service/util.service';
-import { ApiService } from '../../service/api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PopupalertComponent } from 'app/modals/popupalert/popupalert.component';
+import {Component, OnInit} from '@angular/core';
+import {UtilService} from '../../service/util.service';
+import {ApiService} from '../../service/api.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PopupalertComponent} from 'app/modals/popupalert/popupalert.component';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-alerts',
@@ -20,14 +21,35 @@ export class AlertsComponent implements OnInit {
     READ_NOTIFICATION_CSS = 'readNotification';
     UNREAD_NOTIFICATION_CSS = 'unreadNotification';
 
+    alerts = [];
+
     constructor(
         public utilService: UtilService,
         private apiService: ApiService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private toaster: ToastrService
     ) {
     }
 
     ngOnInit(): void {
+        this.getNotifications();
+    }
+
+    getNotifications() {
+        this.alerts = [];
+        this.apiService.postAPI(this.apiService.BASE_URL + "notification/getAstroNotifications", {
+            astro_id: this.utilService.getUserID()
+        }).then((result) => {
+            if (result.status) {
+                // chatRequest.request=result.result;
+                this.alerts = result.result;
+            } else {
+                this.toaster.error(result.message)
+            }
+        }, (error) => {
+            console.log(error);
+            this.toaster.error("something went wrong")
+        })
     }
 
 

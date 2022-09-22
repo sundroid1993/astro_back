@@ -15,7 +15,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Total Calls completed today</p>
-                                <p class="card-title">2
+                                <p class="card-title">{{callCompleted}}
                                 <p>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Total chats completed today</p>
-                                <p class="card-title">1
+                                <p class="card-title">{{chatCompleted}}
                                 <p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-7 col-md-8">
                             <div class="numbers">
-                                <p class="card-category">Aaverage Rating</p>
+                                <p class="card-category">Average Rating</p>
                                 <p class="card-title">2
                                 <p>
                             </div>
@@ -69,26 +69,17 @@
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-body ">
-
                     <div class="row">
-                        <div class="col-7 col-md-8">
-                            <div class="" style="margin: 10px;">
-                                <div class="switch ">
-                                    <input id="activeaction" type="checkbox" [(ngModel)]="status">
-                                    <label>
-                                        <span class="fontawesome-ok"></span>
-                                        <span class="fontawesome-remove"></span>
-                                        <div></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-warning">
-                                <p class="card-category font-weight-bolder" style="padding-top: 15px;" *ngIf="status">
-                                    Online</p>
-                                <p class="card-category font-weight-bolder" style="padding-top: 15px;" *ngIf="!status">
-                                    Offline</p>
+                                <img alt="" src="assets/img/users.png" style="margin-top: -20px; width: 60px;">
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Total Users in Queue</p>
+                                <p class="card-title">2
+                                <p>
                             </div>
                         </div>
                     </div>

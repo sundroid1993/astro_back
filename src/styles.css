@@ -3,14 +3,114 @@
 
 @font-face {
     font-family: 'Jakob';
-    src: url(./assets/fonts/JakobDPNormal.ttf);
+    src        : url(./assets/fonts/JakobDPNormal.ttf);
 }
 
 .cursorpointer {
     cursor: pointer;
 }
 
-.search_input{
-    padding-left: 10px;padding-right: 10px;
+.search_input {
+    padding-left : 10px;
+    padding-right: 10px;
     margin-bottom: 10px;
+}
+
+.switch {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.switch input {
+    cursor  : pointer;
+    height  : 100%;
+    opacity : 0;
+    position: absolute;
+    width   : 100%;
+    z-index : 100;
+}
+
+
+.switch {
+    position: relative;
+    width   : 9em !important;
+}
+
+.label-text__switch {
+    font-size  : 0.83rem;
+    font-weight: 700;
+    margin     : unset;
+    text-align : center;
+    padding-top: 0.3em;
+    margin     : unset;
+    font-size  : 0.8rem;
+    text-align : center;
+    color      : lightgrey;
+}
+
+.switch label {
+    background   : #ebebeb;
+    color        : #ebebeb;
+    border-radius: 0.5rem;
+    white-space  : nowrap;
+    display      : block;
+    height       : 2rem;
+    position     : relative;
+    transition   : all .15s ease;
+    width        : 100%;
+    box-shadow   : 0 1px 0 transparent, 0 1px 3px rgb(0 0 0 / 20%) inset;
+}
+
+.switch label div {
+    background   : white;
+    border-radius: 50px;
+    display      : block;
+    height       : 24px;
+    transform    : translateX(0.7em);
+    position     : absolute;
+    top          : 4px;
+    transition   : all .15s ease;
+    width        : 53px;
+    z-index      : 3;
+}
+
+.switch label div:before {
+    background: #E9E9E9;
+    bottom    : 0;
+    box-shadow: -6px 0 0 0 #E9E9E9,
+        6px 0 0 0 #E9E9E9;
+    content   : '';
+    display   : block;
+    height    : 15px;
+    left      : 0;
+    margin    : auto;
+    position  : absolute;
+    right     : 0;
+    top       : 0;
+    transition: all .15s ease;
+    width     : 3px;
+}
+
+.switch .fontawesome-ok {
+    font-size: 1.75rem;
+    left     : 20px;
+    position : relative;
+    top      : 13px;
+    z-index  : 2;
+}
+
+.switch .fontawesome-remove {
+    font-size: 1.8125rem;
+    left     : 51px;
+    position : relative;
+    top      : 12px;
+    z-index  : 2;
+}
+
+.switch input:checked~label {
+    background: #91ffbb;
+    color     : #91ffbb;
+}
+
+.switch input:checked~label div {
+    transform: translateX(5em);
 }

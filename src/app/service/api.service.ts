@@ -10,6 +10,10 @@ export class ApiService {
     BASE_IMAGE_URL = 'http://localhost/astro-api';
     IMAGE_BASE_URL = 'http://localhost/astro-api/';
 
+    // BASE_URL = 'http://34.131.210.116:3000/';
+    // BASE_IMAGE_URL = 'http://34.131.210.116/astro-api';
+    // PROFILE_BASE_IMAGE_URL = 'http://34.131.210.116/astro-api/';
+
     constructor(private http: HttpClient) {
 
     }

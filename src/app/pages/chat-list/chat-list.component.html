@@ -1,0 +1,30 @@
+<!-- <p>conductedchatscalls works!</p> -->
+<div class="row">
+    <div class="col-md-12">
+
+        <div>
+            <div class="card" *ngFor="let user of chatUsers" (click)="openChat(user)">
+                <div class="p-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-auto align-self-center">
+                                <img *ngIf="user.image==null||user.image=='null'" src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
+                                <img *ngIf="user.image!=null" [src]="apiService.BASE_IMAGE_URL+user.image" style="width: 40px;" alt="">
+                            </div>
+                            <div class="col">
+                                <p class="mb-0" style="font-weight: 600;">{{user.first_name}} {{user.last_name}}</p>
+<!--                                <p class="mb-0" style="font-weight: 600;">Amount Charged: 200rs</p>-->
+<!--                                <p class="mb-0" style="font-weight: 600;">Duration: 5mins</p>-->
+                                <p class="mb-0" style="font-weight: 600;">Rating:
+                                    <ngb-rating [rate]="3"></ngb-rating>
+                                </p>
+                                <p class="mb-0" style="font-size: 12px;">{{user.last_msg.msg}}</p>
+                            </div>
+                            <div class="col"> <p class="mb-0" style="font-weight: 600;">{{user.last_msg.created_at | date : 'dd-MMM-yyyy hh:mm a'}}</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

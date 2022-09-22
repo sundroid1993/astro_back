@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {ROUTES} from '../../sidebar/sidebar.component';
-import {Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {UtilService} from '../../service/util.service';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { ROUTES } from '../../sidebar/sidebar.component';
+import { NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { UtilService } from '../../service/util.service';
+import { EmitEvent, Events, EventService } from "../../service/event.service";
 
 @Component({
     moduleId: module.id,
@@ -13,7 +14,7 @@ import {UtilService} from '../../service/util.service';
 export class NavbarComponent implements OnInit {
     location: Location;
     public isCollapsed = true;
-    @ViewChild('navbar-cmp', {static: false}) button;
+    @ViewChild('navbar-cmp', { static: false }) button;
     private listTitles: any[];
     private nativeElement: Node;
     private toggleButton;
@@ -24,11 +25,25 @@ export class NavbarComponent implements OnInit {
         private renderer: Renderer2,
         private element: ElementRef,
         private router: Router,
-        public utilService: UtilService
+        public utilService: UtilService,
+        private eventService: EventService
     ) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+
+        // Detect current route
+        router.events.subscribe(val => {
+            if (val instanceof NavigationEnd) {
+                console.log(val.url);
+                if(val.url == '/dashboard'){
+                    this.showSwitch = false;
+                }
+                else{
+                    this.showSwitch = true;
+                }
+            }
+        });
     }
 
     ngOnInit() {
@@ -38,6 +53,19 @@ export class NavbarComponent implements OnInit {
         this.router.events.subscribe((event) => {
             this.sidebarClose();
         });
+    }
+
+    status: boolean = true;
+    showSwitch: boolean = false;
+
+    onStatusChange() {
+        console.log(this.status);
+        if (this.status) {
+            this.utilService.setItem(this.utilService.ASTRO_STATUS, '1')
+        } else {
+            this.utilService.setItem(this.utilService.ASTRO_STATUS, '0')
+        }
+        this.eventService.emit(new EmitEvent(Events.USER_STATUS_CHANGE, ''));
     }
 
     getTitle() {
@@ -104,8 +132,9 @@ export class NavbarComponent implements OnInit {
     }
 
     logoutUser() {
-        // this.utilService.setItem(this.utilService.USER_LOGIN, '0');
         this.utilService.clearALLData();
+        this.utilService.setItem(this.utilService.USER_LOGIN, '0');
+        this.eventService.emit(new EmitEvent(Events.USER_LOGIN_LOGUT, ''));
         this.router.navigateByUrl('/login');
     }
 }

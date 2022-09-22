@@ -72,11 +72,11 @@ textarea {
 
 textarea:focus,
 input:focus {
-    border-color: transparent !important;
+    // border-color: transparent !important;
 }
 
 input:focus::-webkit-input-placeholder {
-    color: transparent;
+    // color: transparent;
 }
 
 input:focus:-moz-placeholder {
@@ -538,4 +538,9 @@ iframe {
 
 input, select, textarea {
     border: solid 1.5px black !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

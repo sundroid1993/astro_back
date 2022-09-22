@@ -5,6 +5,7 @@ import {PasswordResetComponent} from 'app/modals/password-reset/password-reset.c
 import {ApiService} from 'app/service/api.service';
 import {UtilService} from 'app/service/util.service';
 import {ToastrService} from 'ngx-toastr';
+import {EmitEvent, Events, EventService} from "../service/event.service";
 
 @Component({
     selector: 'app-login',
@@ -25,13 +26,16 @@ export class LoginComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         public utilService: UtilService,
-        private toaster: ToastrService
+        private toaster: ToastrService,
+        private eventService: EventService
     ) {
     }
 
     ngOnInit(): void {
-        if(this.utilService.getItem(this.utilService.USER_LOGIN)=='1'){
+        if (this.utilService.getItem(this.utilService.USER_LOGIN) == '1') {
             this.router.navigateByUrl("/dashboard")
+        } else {
+            this.router.navigateByUrl("/login")
         }
     }
 
@@ -58,17 +62,26 @@ export class LoginComponent implements OnInit {
                 phone: this.phone
             }).then((result) => {
                 if (result.status) {
+                    console.log(result);
+                    if(result.result.status==0){
+                        this.toaster.error("Profile is disabled! Please contact admin for support");
+                        return;
+                    }
+                    // if(result.result.approved==0){
+                    //     this.toaster.error("Profile is currently sent for approval.");
+                    //     return;
+                    // }
                     this.clearTimer()
                     this.setResendEnableTimer()
                     this.otpGenerated = true;
                 } else {
-                    alert(result.message);
+                    this.toaster.error(result.message);
                 }
             }, (error) => {
                 console.log(error);
             })
         } else {
-            alert('Please enter valid phone');
+            this.toaster.error('Please enter valid phone');
         }
     }
 
@@ -103,9 +116,11 @@ export class LoginComponent implements OnInit {
                     this.clearTimer()
                     this.utilService.setItem(this.utilService.USER_LOGIN, '1');
                     this.utilService.setItem(this.utilService.USER_PROFILE, JSON.stringify(result.result));
+                    this.eventService.emit(new EmitEvent(Events.USER_LOGIN_LOGUT, ''));
+                    this.utilService.setItem(this.utilService.ASTRO_STATUS, '1')
                     this.router.navigateByUrl('/dashboard');
                 } else {
-                    alert(result.message);
+                    this.toaster.error(result.message);
                 }
             }, (error) => {
                 console.log(error);

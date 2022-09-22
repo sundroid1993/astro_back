@@ -1,82 +1,19 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngFor="let item of notifications">
         <div>
-            <div class="card" (click)="openNotifications()">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto">
-                                <img src="/assets/img/bell.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0">Admin approved your profile status</p>
-                                <p class="mb-0" style="font-weight: 600;">
-                                    27/07/2022 11:14</p>
-                            </div>
+            <div class="card" *ngFor="let not of notifications">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            <img src="/assets/img/bell.png" style="width: 40px;height: 40px;" alt="">
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto">
-                                <img src="/assets/img/bell.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0">Admin approved your profile status</p>
-                                <p class="mb-0" style="font-weight: 600;">
-                                    27/07/2022 11:14</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto">
-                                <img src="/assets/img/bell.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0">Admin approved your profile status</p>
-                                <p class="mb-0" style="font-weight: 600;">
-                                    27/07/2022 11:14</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto">
-                                <img src="/assets/img/bell.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0">Admin approved your profile status</p>
-                                <p class="mb-0" style="font-weight: 600;">
-                                    27/07/2022 11:14</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto">
-                                <img src="/assets/img/bell.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0">Admin approved your profile status</p>
-                                <p class="mb-0" style="font-weight: 600;">
-                                    27/07/2022 11:14</p>
-                            </div>
+                        <div class="col">
+                            <p class="mb-0" style="font-weight: bolder">Profile is sent to admin for approval <span
+                                    *ngIf="not.approve_status==0">(Pending)</span> <span
+                                    *ngIf="not.approve_status==1">(Approved)</span> <span
+                                    *ngIf="not.approve_status==2">(Declined)</span></p>
+                            <p class="mb-0"
+                               style="font-weight: 600;">{{not.created_at |date:'dd-MMM-yyyy, hh:mm a'}}</p>
                         </div>
                     </div>
                 </div>

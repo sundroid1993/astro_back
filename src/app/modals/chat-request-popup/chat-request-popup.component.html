@@ -1,0 +1,39 @@
+<!-- <p>popupalert works!</p> -->
+<div class="modal-header" *ngIf="chatRequest!=null">
+    <h5 *ngIf="chatRequest.type==0">Chat Request</h5>
+    <h5 *ngIf="chatRequest.type==1">Call Request</h5>
+    <button (click)="close()" aria-label="Close" class="close" type="button" style="padding: 10px;">
+        <span aria-hidden="true" style="font-size: 15px;">&times;</span>
+    </button>
+</div>
+<div class="card" *ngIf="userDetail!=null&&userDetail!=undefined">
+    <div class="row">
+        <label *ngIf="chatRequest.type==0">You have a new Chat Request from the below user:</label>
+        <label *ngIf="chatRequest.type==1">You have a new Call Request from the below user:</label>
+        <label>Left Time : {{utilService.getTimerTimeLeft(timeLeft)}}</label>
+        <div class="col-12">
+            <img *ngIf="utilService.checkValue(userDetail.image)"
+                 [src]="apiService.IMAGE_BASE_URL+userDetail.image"/>
+        </div>
+        <div class="col-12">
+            Client Name : {{userDetail.first_name}} {{userDetail.last_name}}<br>
+            Client Gender : <span *ngIf="userDetail.gender==0">Male</span><span
+                *ngIf="userDetail.gender==2">Female</span><span
+                *ngIf="userDetail.gender==2">Other</span><br>
+            Client DOB : {{userDetail.dob}}<br>
+            Client TOB : {{userDetail.tob}}<br>
+            Client City : {{userDetail.city}}<br>
+            Client State : {{userDetail.state}}<br>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row w-100">
+        <div class="col-6" style="text-align: right">
+            <button class="btn btn-primary m-0" (click)="requestAction(1)">ACCEPT</button>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-primary m-0" (click)="requestAction(3)">DECLINE</button>
+        </div>
+    </div>
+</div>

@@ -11,12 +11,13 @@ export interface RouteInfo {
 }
 
 export const ADMIN_ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
-    { path: '/notifications', title: 'Notifications', icon: 'file', class: '' },
-    { path: '/alerts', title: 'Alerts', icon: 'file', class: '' },
-    { path: '/profile', title: 'Profile', icon: 'file', class: '' },
-    { path: '/Reports', title: 'Reports', icon: 'file', class: '' },
-    { path: '/conductedchatcalls', title: 'Calls/Chats History', icon: 'file', class: '' },
+    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bullet-list-67', class: '' },
+    { path: '/profile', title: 'Profile', icon: 'nc-bullet-list-67', class: '' },
+    { path: '/notifications', title: 'Profile Updates', icon: 'nc-bullet-list-67', class: '' },
+    { path: '/alerts', title: 'Alerts', icon: 'nc-bullet-list-67', class: '' },
+    { path: '/Reports', title: 'Reports', icon: 'nc-bullet-list-67', class: '' },
+    { path: '/conductedchatcalls', title: 'Calls/Chats History', icon: 'nc-bullet-list-67', class: '' },
+    { path: '/chat-list', title: 'Chats', icon: 'nc-bullet-list-67', class: '' },
 ];
 
 export let ROUTES: RouteInfo[] = [];

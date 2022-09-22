@@ -10,8 +10,8 @@
             <hr>
 
         </div>
-        <div>
-            <div class="card">
+        <div *ngIf="Chat_tab">
+            <div class="card" *ngFor="let history of chatHistory">
                 <div class="p-0">
                     <div class="card-body">
                         <div class="row">
@@ -19,114 +19,16 @@
                                 <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
                             </div>
                             <div class="col">
-                                <p class="mb-0" style="font-weight: 600;">Shravan kumar vishwakarma</p>
-                                <p class="mb-0" style="font-weight: 600;">Amount Charged: 200rs</p>
-                                <p class="mb-0" style="font-weight: 600;">Duration: 5mins</p>
+                                <p class="mb-0" style="font-weight: 600;">{{history.first_name}} {{history.last_name}}</p>
+                                <p class="mb-0" style="font-weight: 600;">Amount Charged: Rs. {{history.charges}}</p>
+                                <p class="mb-0" style="font-weight: 600;">Duration: {{utilService.secondsToHms(history.duration)}}</p>
+                                <p class="mb-0" style="font-weight: 600;">{{history.created_Date | date:'dd-MMM-yyyy hh:mm a'}}</p>
+                            </div>
+                            <div class="col" *ngIf="utilService.checkValue(history.ratingDetail)">
                                 <p class="mb-0" style="font-weight: 600;">Rating:
-                                    <ngb-rating [rate]="3"></ngb-rating>
+                                    <ngb-rating [rate]="history.ratingDetail.rating"></ngb-rating>
                                 </p>
-                                <p class="mb-0" style="font-weight: 600;">27/07/2022 11:14</p>
-                            </div>
-                            <div class="col"><b>Review:-</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Aut
-                                quisquam culpa quia omnis fugiat reprehenderit natus fugit quo nisi! Cupiditate ex
-                                distinctio beatae deleniti voluptatum magnam molestias, error culpa explicabo.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto align-self-center">
-                                <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0" style="font-weight: 600;">Shravan kumar vishwakarma</p>
-                                <p class="mb-0" style="font-weight: 600;">Amount Charged: 200rs</p>
-                                <p class="mb-0" style="font-weight: 600;">Duration: 5mins</p>
-                                <p class="mb-0" style="font-weight: 600;">Rating:
-                                    <ngb-rating [rate]="3"></ngb-rating>
-                                </p>
-                                <p class="mb-0" style="font-weight: 600;">27/07/2022 11:14</p>
-                            </div>
-                            <div class="col"><b>Review:-</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Aut
-                                quisquam culpa quia omnis fugiat reprehenderit natus fugit quo nisi! Cupiditate ex
-                                distinctio beatae deleniti voluptatum magnam molestias, error culpa explicabo.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto align-self-center">
-                                <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0" style="font-weight: 600;">Shravan kumar vishwakarma</p>
-                                <p class="mb-0" style="font-weight: 600;">Amount Charged: 200rs</p>
-                                <p class="mb-0" style="font-weight: 600;">Duration: 5mins</p>
-                                <p class="mb-0" style="font-weight: 600;">Rating:
-                                    <ngb-rating [rate]="3"></ngb-rating>
-                                </p>
-                                <p class="mb-0" style="font-weight: 600;">27/07/2022 11:14</p>
-                            </div>
-                            <div class="col"><b>Review:-</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Aut
-                                quisquam culpa quia omnis fugiat reprehenderit natus fugit quo nisi! Cupiditate ex
-                                distinctio beatae deleniti voluptatum magnam molestias, error culpa explicabo.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto align-self-center">
-                                <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0" style="font-weight: 600;">Shravan kumar vishwakarma</p>
-                                <p class="mb-0" style="font-weight: 600;">Amount Charged: 200rs</p>
-                                <p class="mb-0" style="font-weight: 600;">Duration: 5mins</p>
-                                <p class="mb-0" style="font-weight: 600;">Rating:
-                                    <ngb-rating [rate]="3"></ngb-rating>
-                                </p>
-                                <p class="mb-0" style="font-weight: 600;">27/07/2022 11:14</p>
-                            </div>
-                            <div class="col"><b>Review:-</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Aut
-                                quisquam culpa quia omnis fugiat reprehenderit natus fugit quo nisi! Cupiditate ex
-                                distinctio beatae deleniti voluptatum magnam molestias, error culpa explicabo.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="p-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto align-self-center">
-                                <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
-                            </div>
-                            <div class="col">
-                                <p class="mb-0" style="font-weight: 600;">Shravan kumar vishwakarma</p>
-                                <p class="mb-0" style="font-weight: 600;">Amount Charged: 200rs</p>
-                                <p class="mb-0" style="font-weight: 600;">Duration: 5mins</p>
-                                <p class="mb-0" style="font-weight: 600;">Rating:
-                                    <ngb-rating [rate]="3"></ngb-rating>
-                                </p>
-                                <p class="mb-0" style="font-weight: 600;">27/07/2022 11:14</p>
-                            </div>
-                            <div class="col"><b>Review:-</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Aut
-                                quisquam culpa quia omnis fugiat reprehenderit natus fugit quo nisi! Cupiditate ex
-                                distinctio beatae deleniti voluptatum magnam molestias, error culpa explicabo.</div>
+                                <b>Review:-</b>{{history.ratingDetail.review}}</div>
                         </div>
                     </div>
                 </div>

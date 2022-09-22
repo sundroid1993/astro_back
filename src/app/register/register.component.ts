@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../service/api.service';
 import {UtilService} from '../service/util.service';
 import {Router} from '@angular/router';
+import {CropImageComponent} from "../pages/crop-image/crop-image.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-register',
@@ -11,9 +13,12 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
+    terms: boolean = false;
     name = '';
     email = '';
     phone = '';
+
+    profile_pic = this.utilService.DEFAULT_IMAGE;
 
     model: NgbDateStruct;
 
@@ -21,7 +26,24 @@ export class RegisterComponent implements OnInit {
     VerifyPhoneTab: boolean = false;
     OtherDetailsTab: boolean = false;
     OtherDetailsmoreTab: boolean = false;
+    ProfileBankDetails: boolean = false;
     thankyouTab: boolean = false;
+
+    back() {
+        if (this.ProfileBankDetails) {
+            this.unselectAllTabs()
+            this.OtherDetailsmoreTab = true
+        } else if (this.OtherDetailsmoreTab) {
+            this.unselectAllTabs()
+            this.OtherDetailsTab = true
+        } else if (this.OtherDetailsTab) {
+            this.unselectAllTabs()
+            this.VerifyPhoneTab = true
+        } else if (this.VerifyPhoneTab) {
+            this.unselectAllTabs()
+            this.PersonalDetailsTab = true
+        }
+    }
 
     resend_disabled = true;
     timeLeft: number = 120000;
@@ -31,81 +53,46 @@ export class RegisterComponent implements OnInit {
     otp;
 
     dropdownSettings = {};
+    expdropdownSettings = {};
 
     gender = '1';
     dob;
     selectedPrimarySkills = [];
     selectAllSkills = [];
     selectedLanguages = [];
-    experience = '';
+    selectedExperience = [];
     daily_hrs = '';
     other_platform = '';
-    selectedCity;
+    other_platform_name = '';
     refer = '';
     income_source = '';
     onboard_reason = '';
     bio = '';
     cities = [];
+    skills = [];
+    languages = [];
+    experiences = [];
+    min_date = '1925-01-01'
 
+    selectedCities = [];
 
-    skills = [
-        {
-            id: 1,
-            name: 'Skill 1'
-        },
-        {
-            id: 2,
-            name: 'Skill 2'
-        },
-        {
-            id: 3,
-            name: 'Skill 3'
-        },
-        {
-            id: 4,
-            name: 'Skill 4'
-        },
-        {
-            id: 5,
-            name: 'Skill 5'
-        },
-        {
-            id: 6,
-            name: 'Skill 6'
-        },
-        {
-            id: 7,
-            name: 'Skill 7'
-        },
-    ]
-
-    languages = [
-        {
-            id: 1,
-            name: 'Hindi'
-        },
-        {
-            id: 2,
-            name: 'English'
-        },
-        {
-            id: 3,
-            name: 'French'
-        },
-        {
-            id: 4,
-            name: 'Spanish'
-        },
-        {
-            id: 5,
-            name: 'Portugese'
-        }
-    ]
+    per_min_chat_charge = 21;
+    per_min_call_charge = 21;
+    account_holder_name = '';
+    account_type = '';
+    account_no = '';
+    ifsc = '';
+    pan_number = '';
+    pan_path = this.utilService.DEFAULT_BANNER;
+    cheque_path = this.utilService.DEFAULT_BANNER;
+    address_proof = this.utilService.DEFAULT_BANNER;
 
     constructor(
         private apiService: ApiService,
         public utilService: UtilService,
         private router: Router,
+        private modalService: NgbModal,
+        private toaster: ToastrService
     ) {
         this.dropdownSettings = {
             singleSelection: false,
@@ -113,7 +100,16 @@ export class RegisterComponent implements OnInit {
             textField: 'name',
             selectAllText: 'Select All',
             unSelectAllText: 'UnSelect All',
-            itemsShowLimit: 5,
+            itemsShowLimit: 1,
+            allowSearchFilter: true
+        };
+        this.expdropdownSettings = {
+            singleSelection: true,
+            idField: 'id',
+            textField: 'name',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            itemsShowLimit: 1,
             allowSearchFilter: true
         };
     }
@@ -123,6 +119,41 @@ export class RegisterComponent implements OnInit {
             this.router.navigateByUrl('/dashboard')
         }
         this.getAllCities()
+        this.getAllSkills()
+        this.getAllLanguages()
+        this.getAllExperience()
+    }
+
+    getAllSkills() {
+        let url = this.apiService.BASE_URL + 'common/getActiveSkills';
+        this.apiService.getAPI(url).then((result) => {
+            if (result.status) {
+                this.skills = result.result;
+            }
+        })
+    }
+
+    getAllLanguages() {
+        let url = this.apiService.BASE_URL + 'common/getAllLanguages';
+        this.apiService.getAPI(url).then((result) => {
+            if (result.status) {
+                this.languages = result.result;
+            }
+        })
+    }
+
+    getAllExperience() {
+        let url = this.apiService.BASE_URL + 'common/getExperienceForAstro';
+        this.apiService.getAPI(url).then((result) => {
+            if (result.status) {
+                this.experiences = result.result;
+            } else {
+                this.experiences = [];
+            }
+        }, (error) => {
+            console.log(error);
+            this.experiences = [];
+        })
     }
 
     getAllCities() {
@@ -131,7 +162,7 @@ export class RegisterComponent implements OnInit {
             if (result.status) {
                 this.cities = result.result
             } else {
-                alert(result.message);
+                this.toaster.error(result.message);
             }
         }, (error) => {
             console.log(error);
@@ -143,21 +174,22 @@ export class RegisterComponent implements OnInit {
         this.VerifyPhoneTab = false;
         this.OtherDetailsTab = false;
         this.OtherDetailsmoreTab = false;
+        this.ProfileBankDetails = false;
         this.thankyouTab = false;
     }
 
     checkAstroByEmailPhone() {
 
         if (this.name == '') {
-            alert('Enter name');
+            this.toaster.error('Enter name');
             return;
         }
         if (this.email == '') {
-            alert('Enter email');
+            this.toaster.error('Enter email');
             return;
         }
         if (this.phone == '') {
-            alert('Enter phone');
+            this.toaster.error('Enter phone');
             return;
         }
 
@@ -169,7 +201,7 @@ export class RegisterComponent implements OnInit {
             if (result.status) {
                 this.registerTempAsto()
             } else {
-                alert(result.message);
+                this.toaster.error(result.message);
             }
         }, (error) => {
             console.log(error);
@@ -186,7 +218,7 @@ export class RegisterComponent implements OnInit {
                 this.otpGenerated = true;
                 this.setResendEnableTimer();
             } else {
-                alert(result.message);
+                this.toaster.error(result.message);
             }
         }, (error) => {
             console.log(error);
@@ -194,6 +226,7 @@ export class RegisterComponent implements OnInit {
     }
 
     setResendEnableTimer() {
+        this.clearTimer()
         this.timeLeft = 120000;
         this.interval = setInterval(() => {
             // console.log('timeleft:-' + this.timeLeft);
@@ -224,35 +257,39 @@ export class RegisterComponent implements OnInit {
         // this.OtherDetailsmoreTab = true;
         // return;
         if (this.gender == '') {
-            alert('Please select gender');
+            this.toaster.error('Please select gender');
             return;
         }
         if (this.dob == undefined) {
-            alert('Please select date of birth');
+            this.toaster.error('Please select date of birth');
             return;
         }
         if (this.selectedPrimarySkills.length == 0) {
-            alert('Please select primary skills');
+            this.toaster.error('Please select primary skills');
             return;
         }
         if (this.selectAllSkills.length == 0) {
-            alert('Please select all skills');
+            this.toaster.error('Please select all skills');
             return;
         }
         if (this.selectedLanguages.length == 0) {
-            alert('Please select languages');
+            this.toaster.error('Please select languages');
             return;
         }
-        if (this.experience == '') {
-            alert('Please enter experience');
+        if (this.selectedExperience.length == 0) {
+            this.toaster.error('Please enter experience');
             return;
         }
         if (this.daily_hrs == '') {
-            alert('Please enter daily hours');
+            this.toaster.error('Please enter daily hours');
             return;
         }
         if (this.other_platform == '') {
-            alert('Please select other platform');
+            this.toaster.error('Please select other platform');
+            return;
+        }
+        if (this.other_platform == 'yes' && this.other_platform_name == '') {
+            this.toaster.error('Please specify other platform name');
             return;
         }
 
@@ -261,8 +298,56 @@ export class RegisterComponent implements OnInit {
         this.OtherDetailsmoreTab = true;
     }
 
-    upload() {
+    openCropper(type) {
+        let modal = this.modalService.open(CropImageComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        })
+        if (type == 'profile_pic') {
+            modal.componentInstance.ratio = 1 / 1;
+            modal.componentInstance.width = 600;
+        } else if (type == 'pan') {
+            modal.componentInstance.ratio = 2 / 1;
+            modal.componentInstance.width = 600;
+        } else if (type == 'cheque') {
+            modal.componentInstance.ratio = 2 / 1;
+            modal.componentInstance.width = 600;
+        } else if (type == 'address') {
+            modal.componentInstance.ratio = 2 / 1;
+            modal.componentInstance.width = 600;
+        }
 
+        modal.result.then((result) => {
+            console.log(result);
+            if (result != null && result != undefined && result.hasOwnProperty('image')) {
+                this.uploadBaseImage(result.image, type)
+            }
+        })
+    }
+
+    uploadBaseImage(image, type) {
+        this.apiService.postAPI(this.apiService.BASE_URL + "astrologer/uploadImageBase64", {
+            image: image
+        }).then((result) => {
+            if (result.status) {
+                if (type == 'profile_pic') {
+                    this.profile_pic = result.path;
+                } else if (type == 'pan') {
+                    this.pan_path = result.path;
+                } else if (type == 'cheque') {
+                    this.cheque_path = result.path;
+                } else if (type == 'address') {
+                    this.address_proof = result.path;
+                }
+            } else {
+                this.toaster.error(result.message)
+            }
+        }, (error) => {
+            console.log(error.error.message);
+            this.toaster.error(error.error.message)
+        })
     }
 
     backToBasic() {
@@ -272,7 +357,7 @@ export class RegisterComponent implements OnInit {
 
     submitOTP() {
         if (this.otp == undefined || this.otp == '') {
-            alert('Please enter otp');
+            this.toaster.error('Please enter otp');
             return;
         }
         let url = this.apiService.BASE_URL + 'user/verifyTempAstro';
@@ -285,7 +370,7 @@ export class RegisterComponent implements OnInit {
                 this.unselectAllTabs()
                 this.OtherDetailsTab = true;
             } else {
-                alert(result.message);
+                this.toaster.error(result.message);
             }
         }, (error) => {
             console.log(error);
@@ -294,43 +379,109 @@ export class RegisterComponent implements OnInit {
 
     submitMoreDetails() {
         if (this.onboard_reason == '') {
-            alert('Please enter on board reason');
+            this.toaster.error('Please enter on board reason');
             return;
         }
-        if (this.selectedCity == undefined || this.selectedCity == '') {
-            alert('Please select city');
+        if (this.selectedCities.length == 0) {
+            this.toaster.error('Please select city');
             return;
         }
         if (this.income_source == '') {
-            alert('Please enter other income source');
+            this.toaster.error('Please enter other income source');
             return;
         }
         if (this.refer == '') {
-            alert('Please select refer from');
+            this.toaster.error('Please select refer from');
             return;
         }
         if (this.bio == '') {
-            alert('Please enter long bio');
+            this.toaster.error('Please enter long bio');
             return;
         }
 
+        this.unselectAllTabs();
+        this.ProfileBankDetails = true;
+
+    }
+
+    submitProfileDetails() {
+        if (this.per_min_chat_charge == undefined || this.per_min_chat_charge == 0) {
+            this.toaster.error('Please enter per min chat charge');
+            return;
+        }
+        if (this.per_min_call_charge == undefined || this.per_min_call_charge == 0) {
+            this.toaster.error('Please enter per min call charge');
+            return;
+        }
+        if (this.account_holder_name == '') {
+            this.toaster.error('Please enter account holder name');
+            return;
+        }
+        if (this.account_type == '') {
+            this.toaster.error('Please enter account type');
+            return;
+        }
+        if (this.account_no == '') {
+            this.toaster.error('Please enter account no');
+            return;
+        }
+        if (this.ifsc == '') {
+            this.toaster.error('Please enter ifsc code');
+            return;
+        }
+        if (this.pan_number == '') {
+            this.toaster.error('Please enter pan number');
+            return;
+        }
+        if (this.pan_path == '' || this.pan_path == this.utilService.DEFAULT_BANNER) {
+            this.toaster.error('Please upload pan card');
+            return;
+        }
+        if (this.cheque_path == '' || this.pan_path == this.utilService.DEFAULT_BANNER) {
+            this.toaster.error('Please upload cancel cheque image');
+            return;
+        }
+        if (this.address_proof == '' || this.pan_path == this.utilService.DEFAULT_BANNER) {
+            this.toaster.error('Please upload address proof');
+            return;
+        }
+        this.addAstrologer()
+    }
+
+    addAstrologer() {
         let post = {
             name: this.name,
             email: this.email,
             phone: this.phone,
             gender: this.gender,
-            dob: this.dob.year + '-' + this.dob.month + '-' + this.dob.day,
+            // dob: this.dob.year + '-' + this.dob.month + '-' + this.dob.day,
+            dob: this.dob,
             skills: JSON.stringify(this.selectedPrimarySkills),
             all_skills: JSON.stringify(this.selectAllSkills),
             language: JSON.stringify(this.selectedLanguages),
-            experience: this.experience,
+            experience: this.selectedExperience[0].id,
             daily_hrs: this.daily_hrs,
             any_other_platform: this.other_platform,
+            other_platform_name: this.other_platform_name,
             onboarding_reason: this.onboard_reason,
-            city: this.selectedCity,
+            city: this.selectedCities[0].id,
             income_source: this.income_source,
             refer: this.refer,
             bio: this.bio,
+            per_min_chat_charge: this.per_min_chat_charge,
+            per_min_call_charge: this.per_min_call_charge,
+            account_holder_name: this.account_holder_name,
+            account_type: this.account_type,
+            account_no: this.account_no,
+            ifsc: this.ifsc,
+            pan_number: this.pan_number,
+            pan_path: this.pan_path,
+            cheque_path: this.cheque_path,
+            address_proof: this.address_proof,
+        }
+
+        if (this.profile_pic != this.utilService.DEFAULT_IMAGE) {
+            post['profile_pic'] = this.profile_pic
         }
 
         console.log(post)
@@ -340,12 +491,11 @@ export class RegisterComponent implements OnInit {
                 this.unselectAllTabs()
                 this.thankyouTab = true;
             } else {
-                alert(result.message);
+                this.toaster.error(result.message);
             }
         }, (error) => {
             console.log(error);
         })
-
     }
 
 }

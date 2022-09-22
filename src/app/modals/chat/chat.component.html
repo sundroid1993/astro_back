@@ -1,0 +1,60 @@
+<!-- <p>popupalert works!</p> -->
+<div class="modal-header">
+    <h5>Chat</h5>
+    <button (click)="close()" aria-label="Close" class="close" type="button" style="padding: 10px;">
+        <span aria-hidden="true" style="font-size: 15px;">&times;</span>
+    </button>
+</div>
+<div class="card" #target>
+    <div *ngFor="let message of messagesToShow">
+        <div *ngIf="isSender(message)" class="chatbox right sender">
+            <div *ngIf="message.type == 'text'">
+                <p style="margin:0">{{message.message}}</p>
+            </div>
+            <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
+            <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
+            <div *ngIf="message.type == 'image'">
+                <img tappable src="{{apiService.IMAGE_BASE_URL+message.path}}"/>
+            </div>
+            <div *ngIf="message.type == 'video'">
+                <video controls width="100%">
+                    <source src="{{message.message}}" type="video/mp4">
+                </video>
+            </div>
+            <span>{{message.date | date:'dd-MMM,yyyy hh:mm a'}}</span>
+        </div>
+        <div *ngIf="!isSender(message)" class="chatbox left">
+            <div *ngIf="message.type == 'text'">
+                <p style="margin:0">{{message.message}}</p>
+            </div>
+            <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
+            <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
+            <div *ngIf="message.type == 'image'">
+<!--                {{message|json}}-->
+                <img tappable src="{{apiService.IMAGE_BASE_URL+message.path}}"/>
+            </div>
+            <div *ngIf="message.type == 'video'">
+                <video controls width="100%">
+                    <source src="{{message.message}}" type="video/mp4">
+                </video>
+            </div>
+            <span>{{message.date | date:'dd-MMM,yyyy hh:mm a'}}</span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row w-100">
+        <div class="col-2">
+            <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">
+            <button class="btn btn-primary m-0" (click)="file.click()">ATTACH</button>
+        </div>
+        <div class="col-8">
+            <div class="form-group">
+                <input class="form-control m-0" placeholder="Enter message" type="text" [(ngModel)]="msg">
+            </div>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary m-0" (click)="sendMessage('text')">SEND</button>
+        </div>
+    </div>
+</div>

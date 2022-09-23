@@ -76,8 +76,8 @@ export class RegisterComponent implements OnInit {
 
     selectedCities = [];
 
-    per_min_chat_charge = 21;
-    per_min_call_charge = 21;
+    per_min_chat_charge = 0;
+    per_min_call_charge = 0;
     account_holder_name = '';
     account_type = '';
     account_no = '';
@@ -122,6 +122,24 @@ export class RegisterComponent implements OnInit {
         this.getAllSkills()
         this.getAllLanguages()
         this.getAllExperience()
+        this.getConstant()
+    }
+
+    getConstant() {
+        this.apiService.getAPI(this.apiService.BASE_URL + 'common/getConstant').then((result) => {
+            if (result.status) {
+                // this.astro_comission = result.result.astro_comission;
+                // this.min_call = result.result.min_call;
+                // this.min_chat = result.result.min_chat;
+                // this.gst = result.result.gst;
+                this.per_min_call_charge = result.result.call_charges;
+                this.per_min_chat_charge = result.result.chat_charges;
+            } else {
+                this.toaster.error(result.message);
+            }
+        }, (error) => {
+            console.log(error);
+        })
     }
 
     getAllSkills() {

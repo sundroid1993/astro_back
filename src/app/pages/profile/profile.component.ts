@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
     other_platform_name = '';
     reason_other_platform: boolean = false;
     refer = '';
+    refer_id = '';
     income_source = '';
     onboard_reason = '';
     bio = '';
@@ -275,6 +276,10 @@ export class ProfileComponent implements OnInit {
             this.toaster.error('Please select working on other platform');
             return false;
         }
+        if (this.other_platform == 'yes' &&this.other_platform_name=='') {
+            this.toaster.error('Please enter other platform name');
+            return false;
+        }
         if (this.onboard_reason == '') {
             this.toaster.error('Please enter on board reason');
             return false;
@@ -289,6 +294,10 @@ export class ProfileComponent implements OnInit {
         }
         if (this.refer == '') {
             this.toaster.error('Please select reference');
+            return false;
+        }
+        if (this.refer == 'yes' && this.refer_id=='') {
+            this.toaster.error('Please enter refer id');
             return false;
         }
         if (this.bio == '') {
@@ -320,17 +329,19 @@ export class ProfileComponent implements OnInit {
                 email: this.user_email,
                 phone: this.user_phone,
                 gender: this.gender,
-                dob: this.dob.year + '-' + this.dob.month + '-' + this.dob.day,
+                dob: this.dob,
                 skills: JSON.stringify(this.selectedPrimarySkills),
                 all_skills: JSON.stringify(this.selectAllSkills),
                 language: JSON.stringify(this.selectedLanguages),
                 experience: this.selectedExperience[0].id,
                 daily_hrs: this.daily_hrs,
                 any_other_platform: this.other_platform,
+                other_platform_name: this.other_platform_name,
                 onboarding_reason: this.onboard_reason,
                 city: this.selectedCities[0].id,
                 income_source: this.income_source,
                 refer: this.refer,
+                refer_id: this.refer_id,
                 bio: this.bio,
                 user_id: this.utilService.getUserID(),
                 per_min_chat_charge: this.per_min_chat_charge,
@@ -453,8 +464,8 @@ export class ProfileComponent implements OnInit {
         // };
         this.dob = this.astroDetail.dob
         console.log(this.dob)
-        this.selectedPrimarySkills = JSON.parse(this.astroDetail.skills);
         this.selectAllSkills = JSON.parse(this.astroDetail.all_skills);
+        this.selectedPrimarySkills = JSON.parse(this.astroDetail.skills);
         this.selectedLanguages = JSON.parse(this.astroDetail.language);
         this.daily_hrs = this.astroDetail.daily_hrs;
         this.selectedExperience = this.selectedExperience.concat({
@@ -472,6 +483,7 @@ export class ProfileComponent implements OnInit {
         // this.selectedCity = this.astroDetail.city;
         this.onboard_reason = this.astroDetail.onboarding_reason;
         this.refer = this.astroDetail.refer;
+        this.refer_id = this.astroDetail.refer_id;
         this.income_source = this.astroDetail.income_source;
         this.bio = this.astroDetail.bio;
         this.per_min_chat_charge = this.astroDetail.chat_charges;

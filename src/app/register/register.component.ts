@@ -65,6 +65,7 @@ export class RegisterComponent implements OnInit {
     other_platform = '';
     other_platform_name = '';
     refer = '';
+    refer_id = '';
     income_source = '';
     onboard_reason = '';
     bio = '';
@@ -412,6 +413,10 @@ export class RegisterComponent implements OnInit {
             this.toaster.error('Please select refer from');
             return;
         }
+        if (this.refer == 'yes' && this.refer_id == '') {
+            this.toaster.error('Please enter refer id');
+            return;
+        }
         if (this.bio == '') {
             this.toaster.error('Please enter long bio');
             return;
@@ -474,9 +479,9 @@ export class RegisterComponent implements OnInit {
             gender: this.gender,
             // dob: this.dob.year + '-' + this.dob.month + '-' + this.dob.day,
             dob: this.dob,
-            skills: JSON.stringify(this.selectedPrimarySkills),
-            all_skills: JSON.stringify(this.selectAllSkills),
-            language: JSON.stringify(this.selectedLanguages),
+            skills: this.selectedPrimarySkills,
+            all_skills: this.selectAllSkills,
+            language: this.selectedLanguages,
             experience: this.selectedExperience[0].id,
             daily_hrs: this.daily_hrs,
             any_other_platform: this.other_platform,
@@ -485,6 +490,7 @@ export class RegisterComponent implements OnInit {
             city: this.selectedCities[0].id,
             income_source: this.income_source,
             refer: this.refer,
+            refer_id: this.refer_id,
             bio: this.bio,
             per_min_chat_charge: this.per_min_chat_charge,
             per_min_call_charge: this.per_min_call_charge,

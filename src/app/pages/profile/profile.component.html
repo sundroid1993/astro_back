@@ -44,14 +44,14 @@
                 <div class="col-md-6 ">
                     <div class="form-group ">
                         <label>Email address</label>
-                        <input [(ngModel)]="user_email" class="form-control" placeholder="Email" type="email">
+                        <input [(ngModel)]="user_email" readonly="true" class="form-control" placeholder="Email" type="email">
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group ">
                         <label>Phone Number</label>
-                        <input [(ngModel)]="user_phone" class="form-control" placeholder="Phone Number" type="text">
+                        <input [(ngModel)]="user_phone" readonly="true" class="form-control" placeholder="Phone Number" type="text">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -73,7 +73,7 @@
                             <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
                                 type="button"></button>
                         </div> -->
-                        <input type="date" class="form-control" [(ngModel)]="dob" [value]="dob" max='1989-12-31'>
+                        <input type="date" class="form-control" [(ngModel)]="dob" [value]="dob" min='1922-01-01' max="2022-09-01">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -176,6 +176,12 @@
                                 value="no">
                             <label for="refer_no" style="margin-left: 3px;">No</label><br>
                         </div>
+                    </div>
+                </div>
+                <div *ngIf="refer=='yes'" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="form-group ">
+                        <label><b> Refer ID* </b></label>
+                        <input [(ngModel)]="refer_id" class="form-control" placeholder="" type="text" value="">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -366,6 +372,7 @@
                                 *ngIf="not.approve_status==0">(Pending)</span> <span
                                 *ngIf="not.approve_status==1">(Approved)</span> <span
                                 *ngIf="not.approve_status==2">(Declined)</span></p>
+                        <p *ngIf="not.approve_status==2" class="mb-0" style="font-weight: 600;">REASON : {{not.decline_reason}}</p>
                         <p class="mb-0" style="font-weight: 600;">{{not.created_at |date:'dd-MMM-yyyy, hh:mm a'}}</p>
                     </div>
                 </div>

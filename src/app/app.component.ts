@@ -116,6 +116,11 @@ export class AppComponent implements OnInit {
             console.log(data)
             this.eventService.emit(new EmitEvent(Events.CHAT_EVENTS, data));
         });
+        this.socket.on('cancel_request', (data) => {
+            console.log("cancel_request")
+            console.log(data)
+            this.eventService.emit(new EmitEvent(Events.CANCEL_REQUEST, data));
+        });
     }
 
     interval
@@ -192,7 +197,6 @@ export class AppComponent implements OnInit {
     openRequestPopup(eventData) {
         const modalRef = this.modalService.open(ChatRequestPopupComponent, {
             backdrop: 'static',
-            size: 'sm',
             keyboard: false,
             centered: true
         });

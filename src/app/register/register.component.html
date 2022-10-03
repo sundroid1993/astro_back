@@ -1,7 +1,7 @@
 `
 <!-- <p>register works!</p> -->
 <div class="limiter">
-    <div class="container-login100" style="background-image: url('assets/img/37638.png');">
+    <div class="container-login100" style="background-image: url('assets/img/37638.png'); margin-top: -22px">
         <div class="container-login100">
             <!--            <div *ngIf="!ProfileBankDetails&&"-->
             <!--                 style="width: 100px; height: 100px; position: absolute; top: 0%; left: 50%; border-radius: 50%; transform: translate(-50%);">-->
@@ -31,8 +31,8 @@
                     <div style="margin: -20px;"></div>
                     <div class="custom-control custom-checkbox m-2 ml-5">
                         <input type="checkbox" class="custom-control-input" id="customCheck1" [(ngModel)]="terms">
-                        <label class="custom-control-label" for="customCheck1">I Agree To The Terms and
-                            Conditions*</label>
+                        <label class="custom-control-label" for="customCheck1">I Agree To The <a style="text-decoration: underline;" routerLink="/terms">Terms and
+                            Conditions*</a></label>
                     </div>
                     <div class="container-login100-form-btn m-t-32" style="margin-top: 20px;">
                         <button class="login100-form-btn" (click)="checkAstroByEmailPhone()" [disabled]="!terms">
@@ -49,7 +49,7 @@
                     Verify Phone
                 </span>
                 <div class="login100-form p-b-33 p-t-5">
-                    <p class="m-2 ml-4">OTP sent to +91{{phone}}</p>
+                    <p class="m-2 ml-4">OTP has been shared with number +91{{phone}}</p>
                     <div class="form-group m-2 mb-0 p-3">
                         <label><b> OTP </b></label>
                         <input class="form-control" [(ngModel)]="otp" placeholder="Enter OTP" type="number" value=""
@@ -66,7 +66,7 @@
 
                     <div class="container-login100-form-btn m-t-32 d-flex" *ngIf="!resend_disabled"
                         style="margin-top: 20px;">
-                        <button class="smallBtn" (click)="registerTempAsto()">Resend OTP on SMS</button> &nbsp;
+                        <button class="smallBtn" (click)="registerTempAsto()">Resend OTP</button> &nbsp;
                         <!--                        <button class="smallBtn ">Resend OTP on CALL</button>-->
                     </div>
                     <a routerLink="/login" style="text-align: center; margin: auto; display: block;">Already have an account? Login</a>
@@ -281,14 +281,14 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>Long Bio</label>
-                                <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30"
+                                <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30" maxlength="200"
                                     rows="10"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="container-login100-form-btn m-t-32 d-flex" style="margin-top: 20px;">
-                        <button class="smallBtn " (click)="back()">Back</button>
+                        <button class="smallBtn btn-secondary" (click)="back()">Back</button>
                         &nbsp;
                         <button class="smallBtn " (click)="submitMoreDetails()">Next</button>
                     </div>
@@ -335,9 +335,9 @@
                                     placeholder="Select Account Type" type="text">
                                     <option value="savings">Savings</option>
                                     <option value="current">Current</option>
-                                    <option value="overdaft">Overdraft</option>
-                                    <option value="cash_credit">Cash Credit</option>
-                                    <option value="loan_account">Loan Account</option>
+<!--                                    <option value="overdaft">Overdraft</option>-->
+<!--                                    <option value="cash_credit">Cash Credit</option>-->
+<!--                                    <option value="loan_account">Loan Account</option>-->
                                 </select>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ import { UtilService } from "../../service/util.service";
 import { ToastrService } from "ngx-toastr";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { CropImageComponent } from "../crop-image/crop-image.component";
+import {ImageInfoModalComponent} from "../../modals/image-info-modal/image-info-modal.component";
 
 @Component({
     selector: 'app-profile',
@@ -582,6 +583,17 @@ export class ProfileComponent implements OnInit {
             }
         }, (error) => {
             console.log(error);
+        })
+    }
+
+    infoModal(){
+        const modalRef = this.modalService.open(ImageInfoModalComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        });
+        modalRef.result.then((result) => {
         })
     }
 

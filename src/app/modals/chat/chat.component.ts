@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
     @Input() collection_id = "";
     @Input() chatCollection = null;
     @Input() chat_request_id = null;
+    @Input() view_only = false;
     msg = '';
     firestoreSubscription;
     eventServiceSubscription;

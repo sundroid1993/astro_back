@@ -1,4 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {UtilService} from "../../service/util.service";
+import {ApiService} from "../../service/api.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ToastrService} from "ngx-toastr";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-reports',
@@ -7,15 +12,126 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ReportsComponent implements OnInit {
 
-    constructor() {
+    Astrologers_tab: boolean = true;
+    Broker_tab: boolean = false;
+    Customer_tab: boolean = false;
+
+    selectedUser = [];
+    dropdownSettings = {
+        singleSelection: true,
+        idField: 'id',
+        textField: 'name',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 1,
+        allowSearchFilter: true
+    };
+
+    customers = [];
+
+    onCustomerSelected() {
+        setTimeout(()=>{
+            this.getOrders()
+        },500)
     }
 
-    ngOnInit(): void {
+    onAstroSelected() {
+        setTimeout(()=>{
+            this.getOrders()
+        },500)
     }
 
-    showotherreports: boolean = false;
-
-    openAccord() {
-        this.showotherreports = !this.showotherreports
+    onDateChanged() {
+        setTimeout(()=>{
+            this.getOrders()
+        },500)
     }
+
+    async getCustomers() {
+        let result = await this.apiService.getAPI(this.apiService.BASE_URL + 'user/getAllCustomersByName');
+        if (result.status) {
+            this.customers.push({
+                id: 0,
+                name: 'ALL'
+            });
+            for (let item of result.result) {
+                this.customers = this.customers.concat({
+                    id: item.id,
+                    name: item.first_name + ' ' + item.last_name
+                });
+            }
+            this.selectedUser = this.selectedUser.concat({
+                id: 0,
+                name: 'ALL'
+            })
+            // this.onCustomerSelected()
+        } else {
+            this.customers = [];
+            // this.toaster.error('No users found');
+        }
+    }
+
+    openAstrologerstab() {
+        this.Astrologers_tab = true;
+        this.Broker_tab = false;
+        this.Customer_tab = false;
+    }
+
+    openBrokertab() {
+        this.Astrologers_tab = false;
+        this.Broker_tab = true;
+        this.Customer_tab = false;
+    }
+
+    openCustomertab() {
+        this.Astrologers_tab = false;
+        this.Broker_tab = false;
+        this.Customer_tab = true;
+    }
+
+    orders = [];
+    from = '';
+    to = '';
+
+    today = 0;
+    yesterday = 0;
+    week = 0;
+    month = 0;
+    year = 0
+
+    constructor(
+        public utilService: UtilService,
+        private apiService: ApiService,
+        private modalService: NgbModal,
+        private toaster: ToastrService,
+        private datePipe: DatePipe
+    ) {
+        this.from = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+        this.to = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    }
+
+    async ngOnInit() {
+        await this.getCustomers()
+        this.getOrders()
+    }
+
+    getOrders() {
+        this.apiService.postAPI(this.apiService.BASE_URL + 'order-history/getAdminOrders', {
+            from: this.from + ' 00:00:00',
+            to: this.to + ' 23:59:59',
+            selectedUser: this.selectedUser[0].id,
+            selectedAstro: this.utilService.getUserID()
+        }).then((result) => {
+            if (result.status) {
+                this.orders = result.result;
+            } else {
+                this.orders = [];
+                this.toaster.error('No orders found');
+            }
+        }, (error) => {
+            this.orders = [];
+            this.toaster.error(error.message);
+        })
+    }
+
 }

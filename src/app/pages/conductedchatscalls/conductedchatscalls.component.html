@@ -5,13 +5,14 @@
             <div class="d-flex">
                 <h5 (click)="opentab('Chat')" [ngClass]="{'active': Chat_tab}" class="card-title mr-3">Chat</h5>
                 <h5 (click)="opentab('Call')" [ngClass]="{'active': Call_tab}" class="card-title mr-3">Call</h5>
+                <h5 (click)="opentab('Decline')" [ngClass]="{'active': Decline_tab}" class="card-title mr-3">Declined Chat/Call</h5>
             </div>
 
             <hr>
 
         </div>
         <div *ngIf="Chat_tab">
-            <div class="card" *ngFor="let history of chatHistory">
+            <div class="card" *ngFor="let history of chatHistory;let i=index;">
                 <div class="p-0">
                     <div class="card-body">
                         <div class="row">
@@ -19,16 +20,51 @@
                                 <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
                             </div>
                             <div class="col">
-                                <p class="mb-0" style="font-weight: 600;">{{history.first_name}} {{history.last_name}}</p>
-                                <p class="mb-0" style="font-weight: 600;">Amount Charged: Rs. {{history.charges}}</p>
-                                <p class="mb-0" style="font-weight: 600;">Duration: {{utilService.secondsToHms(history.duration)}}</p>
-                                <p class="mb-0" style="font-weight: 600;">{{history.created_Date | date:'dd-MMM-yyyy hh:mm a'}}</p>
+                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">{{history.first_name}} {{history.last_name}}</p>
+                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">Amount Charged: Rs. {{history.charges}}</p>
+                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">Duration: {{utilService.secondsToHms(history.duration)}}</p>
+                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">{{history.created_Date | date:'dd-MMM-yyyy hh:mm a'}}</p>
+
+                                <button *ngIf="!utilService.checkValue(history.report_path)" (click)="pickReport(i)" class="btn btn-primary text-center btn-sm" type="submit">Attach Report</button>
+                                <button  *ngIf="utilService.checkValue(history.report_path)" (click)="viewReport(history)" class="btn btn-primary text-center btn-sm" type="submit">View Report</button>
+
+                                <input id="file_{{i}}" type="file" hidden (change)="doFileInput($event,i)">
                             </div>
-                            <div class="col" *ngIf="utilService.checkValue(history.ratingDetail)">
+                            <div (click)="openChat(history)" class="col" *ngIf="utilService.checkValue(history.ratingDetail)">
                                 <p class="mb-0" style="font-weight: 600;">Rating:
                                     <ngb-rating [rate]="history.ratingDetail.rating"></ngb-rating>
                                 </p>
                                 <b>Review:-</b>{{history.ratingDetail.review}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="Decline_tab">
+            <div class="card" *ngFor="let history of declineHistory;let i=index;">
+                <div class="p-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-auto align-self-center">
+                                <img src="/assets/img/default-avatar.png" style="width: 40px;" alt="">
+                            </div>
+                            <div class="col">
+                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">{{history.first_name}} {{history.last_name}}</p>
+<!--                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">Amount Charged: Rs. {{history.charges}}</p>-->
+<!--                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">Duration: {{utilService.secondsToHms(history.duration)}}</p>-->
+                                <p class="mb-0" style="font-weight: 600;" (click)="openChat(history)">{{history.created_at | date:'dd-MMM-yyyy hh:mm a'}}</p>
+
+<!--                                <button *ngIf="!utilService.checkValue(history.report_path)" (click)="pickReport(i)" class="btn btn-primary text-center btn-sm" type="submit">Attach Report</button>-->
+<!--                                <button  *ngIf="utilService.checkValue(history.report_path)" (click)="viewReport(history)" class="btn btn-primary text-center btn-sm" type="submit">View Report</button>-->
+<!---->
+<!--                                <input id="file_{{i}}" type="file" hidden (change)="doFileInput($event,i)">-->
+                            </div>
+<!--                            <div (click)="openChat(history)" class="col" *ngIf="utilService.checkValue(history.ratingDetail)">-->
+<!--                                <p class="mb-0" style="font-weight: 600;">Rating:-->
+<!--                                    <ngb-rating [rate]="history.ratingDetail.rating"></ngb-rating>-->
+<!--                                </p>-->
+<!--                                <b>Review:-</b>{{history.ratingDetail.review}}-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>

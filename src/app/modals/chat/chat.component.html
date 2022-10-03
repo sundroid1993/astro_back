@@ -14,7 +14,7 @@
             <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
             <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
             <div *ngIf="message.type == 'image'">
-                <img tappable src="{{apiService.IMAGE_BASE_URL+message.path}}"/>
+                <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
             </div>
             <div *ngIf="message.type == 'video'">
                 <video controls width="100%">
@@ -31,7 +31,7 @@
             <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
             <div *ngIf="message.type == 'image'">
 <!--                {{message|json}}-->
-                <img tappable src="{{apiService.IMAGE_BASE_URL+message.path}}"/>
+                <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
             </div>
             <div *ngIf="message.type == 'video'">
                 <video controls width="100%">
@@ -42,7 +42,7 @@
         </div>
     </div>
 </div>
-<div class="modal-footer">
+<div *ngIf="!view_only" class="modal-footer">
     <div class="row w-100">
         <div class="col-2">
             <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">

@@ -40,6 +40,8 @@ import {ChatListComponent} from './pages/chat-list/chat-list.component';
 import {ChatComponent} from './modals/chat/chat.component';
 import {DatePipe} from "@angular/common";
 import { ChatRequestPopupComponent } from './modals/chat-request-popup/chat-request-popup.component';
+import { TermsAndConditionsComponent } from './pages/terms-and-conditions/terms-and-conditions.component';
+import { ImageInfoModalComponent } from './modals/image-info-modal/image-info-modal.component';
 
 @NgModule({
     declarations: [
@@ -59,7 +61,9 @@ import { ChatRequestPopupComponent } from './modals/chat-request-popup/chat-requ
         CropImageComponent,
         ChatListComponent,
         ChatComponent,
-        ChatRequestPopupComponent
+        ChatRequestPopupComponent,
+        TermsAndConditionsComponent,
+        ImageInfoModalComponent
     ],
     imports: [
         BrowserAnimationsModule,

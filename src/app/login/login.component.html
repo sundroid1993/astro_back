@@ -1,6 +1,6 @@
 <!-- <p>login works!</p> -->
 <!-- <p>register works!</p> -->
-<div class="limiter">
+<div class="limiter" style="overflow: hidden !important; width: 100%; height: 100%;">
     <div class="container-login100" style="background-image: url('assets/img/37638.png');">
         <div class="container-login100">
             <div
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <p *ngIf="timeLeft!=0" style="text-align: center; margin: auto; display: block;">Resend OTP
-                        available in <span class="text-primary">{{utilService.getTimerTimeLeft(timeLeft)}}</span>.</p>
+                        in <span class="text-primary">{{utilService.getTimerTimeLeft(timeLeft)}}</span>.</p>
 
                     <div class="container-login100-form-btn m-t-32 d-flex" *ngIf="!resend_disabled"
                         style="margin-top: 20px;">
@@ -55,6 +55,9 @@
                         <!--                        <button class="smallBtn ">Resend OTP on CALL</button>-->
                     </div>
                     <br>
+                    <div class="text-center" style="padding: 10px;">
+                        <p>Need Help, Contact Admin at info@astroplus.com</p>
+                    </div>
                 </div>
             </div>
         </div>

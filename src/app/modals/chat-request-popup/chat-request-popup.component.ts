@@ -5,6 +5,7 @@ import {ApiService} from "../../service/api.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
+import {Events, EventService} from "../../service/event.service";
 
 @Component({
     selector: 'app-chat-request-popup',
@@ -18,6 +19,7 @@ export class ChatRequestPopupComponent implements OnInit {
 
     timeLeft: number = 120000;
     interval;
+    eventServiceSubscription;
 
     constructor(
         private ngFirestore: AngularFirestore,
@@ -26,7 +28,8 @@ export class ChatRequestPopupComponent implements OnInit {
         private modalService: NgbModal,
         private activeModal: NgbActiveModal,
         private toaster: ToastrService,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private eventService: EventService
     ) {
     }
 
@@ -35,6 +38,22 @@ export class ChatRequestPopupComponent implements OnInit {
             this.getUserDetail();
         }
         this.setTimer();
+        this.eventServiceSubscription = this.eventService.on(Events.CANCEL_REQUEST, (data => {
+            console.log("chat event terminated")
+            console.log(data)
+            if (this.utilService.checkValue(data)) {
+                if (data.request_id == this.chatRequest.request_id) {
+                    this.toaster.error("Chat canceled by client");
+                    this.activeModal.close();
+                }
+            }
+        }));
+    }
+
+    ngOnDestroy() {
+        if (this.utilService.checkValue(this.eventServiceSubscription)) {
+            this.eventServiceSubscription.unsubscribe();
+        }
     }
 
     setTimer() {
@@ -57,7 +76,7 @@ export class ChatRequestPopupComponent implements OnInit {
     }
 
     getUserDetail() {
-        this.apiService.postAPI(this.apiService.BASE_URL + "user/getUserById", {
+        this.apiService.postAPI(this.apiService.BASE_URL + "user/getUserDetailById", {
             id: this.chatRequest.user_id
         }).then((result) => {
             if (result.status) {

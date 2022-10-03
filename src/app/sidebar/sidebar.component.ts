@@ -17,7 +17,7 @@ export const ADMIN_ROUTES: RouteInfo[] = [
     { path: '/alerts', title: 'Alerts', icon: 'nc-bullet-list-67', class: '' },
     { path: '/Reports', title: 'Reports', icon: 'nc-bullet-list-67', class: '' },
     { path: '/conductedchatcalls', title: 'Calls/Chats History', icon: 'nc-bullet-list-67', class: '' },
-    { path: '/chat-list', title: 'Chats', icon: 'nc-bullet-list-67', class: '' },
+    // { path: '/chat-list', title: 'Chats', icon: 'nc-bullet-list-67', class: '' },
 ];
 
 export let ROUTES: RouteInfo[] = [];

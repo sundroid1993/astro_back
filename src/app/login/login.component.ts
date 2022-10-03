@@ -6,6 +6,7 @@ import {ApiService} from 'app/service/api.service';
 import {UtilService} from 'app/service/util.service';
 import {ToastrService} from 'ngx-toastr';
 import {EmitEvent, Events, EventService} from "../service/event.service";
+import {ImageInfoModalComponent} from "../modals/image-info-modal/image-info-modal.component";
 
 @Component({
     selector: 'app-login',
@@ -39,6 +40,16 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    infoModal(){
+        const modalRef = this.modalService.open(ImageInfoModalComponent, {
+            backdrop: 'static',
+            size: '',
+            keyboard: false,
+            centered: true
+        });
+        modalRef.result.then((result) => {
+        })
+    }
     forgotPassword() {
         const modalRef = this.modalService.open(PasswordResetComponent, {
             backdrop: 'static',

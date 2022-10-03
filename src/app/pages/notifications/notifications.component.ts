@@ -58,6 +58,7 @@ export class NotificationsComponent implements OnInit {
             if (result.status) {
                 this.notifications = result.result;
                 this.notifications.reverse()
+                console.log(result.result)
             }
         }, (error) => {
             console.log(error);

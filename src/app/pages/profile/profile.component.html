@@ -17,16 +17,16 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="form-group">
-                        <label>Image (300 X 300)</label>
+                        <label>Image (300 X 300) <i class="fa fa-info-circle" (click)="infoModal()"></i></label>
                         <div style="position: relative;">
                             <img *ngIf="profile_pic==utilService.DEFAULT_IMAGE" [src]="profile_pic" alt=""
-                                style="width: 100px; height: 100px;">
+                                 style="width: 100px; height: 100px;">
                             <img *ngIf="profile_pic!=utilService.DEFAULT_IMAGE"
                                 [src]="apiService.BASE_IMAGE_URL+profile_pic" alt=""
                                 style="width: 100px; height: 100px;">
-                            <label class="btn btn-default btn-sm center-block btn-file m-0"
+                            <label class="btn btn-default btn-sm center-block btn-file m-0" (click)="openCropper('profile_pic')"
                                 style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
-                                <i (click)="openCropper('profile_pic')" aria-hidden="true"
+                                <i  aria-hidden="true"
                                     class="fa fa-upload fa-2x text-white"></i>
                                 <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
                             </label>
@@ -44,7 +44,7 @@
                 <div class="col-md-6 ">
                     <div class="form-group ">
                         <label>Email address</label>
-                        <input [(ngModel)]="user_email" readonly="true" class="form-control" placeholder="Email" type="email">
+                        <input [(ngModel)]="user_email" class="form-control" placeholder="Email" type="email">
                     </div>
                 </div>
 
@@ -186,14 +186,14 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> <b> per minute chat charges </b></label>
+                        <label> <b> Chat Charges Per Minute </b></label>
                         <input [(ngModel)]="per_min_chat_charge" class="form-control"
                             placeholder="Enter per minute chat charges" type="number">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> <b> per minute call charges </b></label>
+                        <label> <b>  Call Charges Per Minute </b></label>
                         <input [(ngModel)]="per_min_call_charge" class="form-control"
                             placeholder="Enter per minute call charges" type="text">
                     </div>
@@ -214,14 +214,14 @@
             <div class="row ">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>per minute chat charges</label>
+                        <label> Chat Charges Per Minute</label>
                         <input [(ngModel)]="per_min_chat_charge" class="form-control"
                             placeholder="Enter per minute chat charges" type="number">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>per minute call charges</label>
+                        <label> Call Charges Per Minute</label>
                         <input [(ngModel)]="per_min_call_charge" class="form-control"
                             placeholder="Enter per minute call charges" type="text">
                     </div>
@@ -252,9 +252,9 @@
                             type="text">
                             <option value="savings">Savings</option>
                             <option value="current">Current</option>
-                            <option value="overdaft">Overdraft</option>
-                            <option value="cash_credit">Cash Credit</option>
-                            <option value="loan_account">Loan Account</option>
+<!--                            <option value="overdaft">Overdraft</option>-->
+<!--                            <option value="cash_credit">Cash Credit</option>-->
+<!--                            <option value="loan_account">Loan Account</option>-->
                         </select>
                     </div>
                 </div>
@@ -358,7 +358,7 @@
 
     <div class="card-footer">
         <button *ngIf="astroDetail!=null&&showUpdateButton" (click)="updateAstrologer()"
-            class="btn btn-primary btn-round text-center btn-sm" type="submit">Update Astrologer Profile
+            class="btn btn-primary btn-round text-center btn-sm" type="submit">Update Profile & Submit for Approval
         </button>
         <!--            <p class="border-bottom">{{not.created_at | date:'dd-MMM-yyyy hh:mm a'}} - Profile update sent to admin for approvals</p>-->
         <div class="card" *ngFor="let not of astroProfileUpdateList">

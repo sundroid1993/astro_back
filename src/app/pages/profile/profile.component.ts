@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from "../../service/api.service";
-import { UtilService } from "../../service/util.service";
-import { ToastrService } from "ngx-toastr";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { CropImageComponent } from "../crop-image/crop-image.component";
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from "../../service/api.service";
+import {UtilService} from "../../service/util.service";
+import {ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CropImageComponent} from "../crop-image/crop-image.component";
 import {ImageInfoModalComponent} from "../../modals/image-info-modal/image-info-modal.component";
 
 @Component({
@@ -59,6 +59,9 @@ export class ProfileComponent implements OnInit {
     cheque_path = this.utilService.DEFAULT_BANNER;
     address_proof = this.utilService.DEFAULT_BANNER;
 
+    qualification = '';
+    institute = '';
+
     astroDetail;
 
     astroProfileUpdateList = [];
@@ -104,8 +107,7 @@ export class ProfileComponent implements OnInit {
     on_other_platform() {
         if (this.other_platform == 'yes') {
             this.reason_other_platform = true;
-        }
-        else {
+        } else {
             this.reason_other_platform = false;
         }
     }
@@ -177,7 +179,6 @@ export class ProfileComponent implements OnInit {
             }
         })
     }
-
 
     openCropper(type) {
         console.log(type)
@@ -277,7 +278,7 @@ export class ProfileComponent implements OnInit {
             this.toaster.error('Please select working on other platform');
             return false;
         }
-        if (this.other_platform == 'yes' &&this.other_platform_name=='') {
+        if (this.other_platform == 'yes' && this.other_platform_name == '') {
             this.toaster.error('Please enter other platform name');
             return false;
         }
@@ -297,7 +298,7 @@ export class ProfileComponent implements OnInit {
             this.toaster.error('Please select reference');
             return false;
         }
-        if (this.refer == 'yes' && this.refer_id=='') {
+        if (this.refer == 'yes' && this.refer_id == '') {
             this.toaster.error('Please enter refer id');
             return false;
         }
@@ -341,6 +342,8 @@ export class ProfileComponent implements OnInit {
                 onboarding_reason: this.onboard_reason,
                 city: this.selectedCities[0].id,
                 income_source: this.income_source,
+                qualification: this.qualification,
+                institute: this.institute,
                 refer: this.refer,
                 refer_id: this.refer_id,
                 bio: this.bio,
@@ -485,6 +488,12 @@ export class ProfileComponent implements OnInit {
         this.onboard_reason = this.astroDetail.onboarding_reason;
         this.refer = this.astroDetail.refer;
         this.refer_id = this.astroDetail.refer_id;
+        if (this.utilService.checkValue(this.astroDetail.qualification)) {
+            this.qualification = this.astroDetail.qualification;
+        }
+        if (this.utilService.checkValue(this.astroDetail.institute)) {
+            this.institute = this.astroDetail.institute;
+        }
         this.income_source = this.astroDetail.income_source;
         this.bio = this.astroDetail.bio;
         this.per_min_chat_charge = this.astroDetail.chat_charges;
@@ -586,7 +595,7 @@ export class ProfileComponent implements OnInit {
         })
     }
 
-    infoModal(){
+    infoModal() {
         const modalRef = this.modalService.open(ImageInfoModalComponent, {
             backdrop: 'static',
             size: 'xl',

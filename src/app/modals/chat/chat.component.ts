@@ -58,8 +58,8 @@ export class ChatComponent implements OnInit {
         console.log(this.user_id)
         console.log(this.astro_id)
 
-        setTimeout(()=>{
-            console.log("Collection_id:-"+this.collection_id)
+        setTimeout(() => {
+            console.log("Collection_id:-" + this.collection_id)
             this.firestoreSubscription = this.ngFirestore.collection('conversations').doc(this.collection_id).valueChanges().subscribe((res: any) => {
                 console.log(res)
                 if (!this.firstMsg) {
@@ -75,7 +75,7 @@ export class ChatComponent implements OnInit {
                 }
                 this.firstMsg = false;
             });
-        },1000)
+        }, 1000)
 
 
         this.eventServiceSubscription = this.eventService.on(Events.CHAT_EVENTS, (data => {
@@ -117,11 +117,13 @@ export class ChatComponent implements OnInit {
                 // this.initVoiceSDK()
                 for (let msg of result.result) {
                     this.messagesToShow.push({
+                        id: msg.id,
                         date: msg.created_at,
                         message: msg.msg,
                         sender: msg.sender,
                         path: msg.path,
-                        type: msg.type
+                        type: msg.type,
+                        show_attac: msg.show_attac
                     })
                 }
                 // this.scrollBottom()
@@ -148,6 +150,7 @@ export class ChatComponent implements OnInit {
             message: this.msg,
             type: type,
             path: path,
+            show_attac: 1,
             date: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
         }
         this.scrollBottom()
@@ -208,5 +211,11 @@ export class ChatComponent implements OnInit {
         }, (error) => {
             console.log(error);
         })
+    }
+
+    updateAttachView(message: any) {
+        this.apiService.postAPI(this.apiService.BASE_URL + "chat/updateAttachmentShow", {
+            id: message.id
+        });
     }
 }

@@ -30,8 +30,18 @@
             <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
             <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
             <div *ngIf="message.type == 'image'">
+                <!--                {{message|json}}-->
 <!--                {{message|json}}-->
-                <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
+                <div *ngIf="!utilService.checkValue(message.show_attac)||message.show_attac==0">
+                    <label>Do you want to view attachment?</label>
+                    <div style="display: flex">
+                        <button class="btn btn-primary" (click)="message.show_attac=1;updateAttachView(message)">Yes</button>
+                        <button class="btn btn-danger">No</button>
+                    </div>
+                </div>
+                <div *ngIf="utilService.checkValue(message.show_attac)&&message.show_attac==1">
+                    <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
+                </div>
             </div>
             <div *ngIf="message.type == 'video'">
                 <video controls width="100%">

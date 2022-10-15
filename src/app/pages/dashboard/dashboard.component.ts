@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
     callCompleted = 0;
     chatCompleted = 1;
     avg_rating = 0;
+    today_revenue = 0
+    total_revenue = 0
 
     public canvas: any;
     public ctx;
@@ -68,6 +70,8 @@ export class DashboardComponent implements OnInit {
                 this.callCompleted = result.result.calls;
                 this.chatCompleted = result.result.chat;
                 this.avg_rating = result.result.avgRating;
+                this.today_revenue = result.result.today_revenue;
+                this.total_revenue = result.result.total_revenue;
             } else {
                 this.toaster.error(result.message)
             }

@@ -5,6 +5,7 @@ import {UtilService} from '../service/util.service';
 import {Router} from '@angular/router';
 import {CropImageComponent} from "../pages/crop-image/crop-image.component";
 import {ToastrService} from "ngx-toastr";
+import {TermsAndConditionsComponent} from "../pages/terms-and-conditions/terms-and-conditions.component";
 
 @Component({
     selector: 'app-register',
@@ -63,6 +64,8 @@ export class RegisterComponent implements OnInit {
     selectedExperience = [];
     daily_hrs = '';
     other_platform = '';
+    qualification = '';
+    institute = '';
     other_platform_name = '';
     refer = '';
     refer_id = '';
@@ -283,6 +286,10 @@ export class RegisterComponent implements OnInit {
             this.toaster.error('Please select date of birth');
             return;
         }
+        if (this.qualification == 'yes' && this.institute == '') {
+            this.toaster.error('Please enter institute name');
+            return;
+        }
         if (this.selectedPrimarySkills.length == 0) {
             this.toaster.error('Please select primary skills');
             return;
@@ -484,6 +491,8 @@ export class RegisterComponent implements OnInit {
             language: this.selectedLanguages,
             experience: this.selectedExperience[0].id,
             daily_hrs: this.daily_hrs,
+            qualification: this.qualification,
+            institute: this.institute,
             any_other_platform: this.other_platform,
             other_platform_name: this.other_platform_name,
             onboarding_reason: this.onboard_reason,
@@ -522,4 +531,20 @@ export class RegisterComponent implements OnInit {
         })
     }
 
+    openTermsCondition() {
+        // /terms
+        let modal = this.modalService.open(TermsAndConditionsComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        })
+
+        modal.result.then((result) => {
+            console.log(result);
+            this.terms = result.status;
+        })
+
+        modal.componentInstance.terms = this.terms
+    }
 }

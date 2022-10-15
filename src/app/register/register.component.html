@@ -30,8 +30,8 @@
                     </div>
                     <div style="margin: -20px;"></div>
                     <div class="custom-control custom-checkbox m-2 ml-5">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" [(ngModel)]="terms">
-                        <label class="custom-control-label" for="customCheck1">I Agree To The <a style="text-decoration: underline;" routerLink="/terms">Terms and
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" readonly="true" [(ngModel)]="terms">
+                        <label class="custom-control-label" for="customCheck1">I Agree To The <a style="text-decoration: underline;" (click)="openTermsCondition()">Terms and
                             Conditions*</a></label>
                     </div>
                     <div class="container-login100-form-btn m-t-32" style="margin-top: 20px;">
@@ -124,6 +124,33 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Are you qualified* </b></label>
+                                <div style="display: flex;align-items: center">
+                                    <input [(ngModel)]="qualification" type="radio" id="qual_yes" name="other_platform"
+                                           value="yes">
+                                    <label for="yes" style="margin-left: 3px;">Yes</label><br>
+                                    <input style="margin-left: 7px;" [(ngModel)]="qualification" type="radio" id="qual_no"
+                                           name="other_platform" value="no">
+                                    <label for="no" style="margin-left: 3px;">No</label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="qualification=='yes'" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> Name of Institute* </b></label>
+                                <input type="text" maxlength="250" class="form-control" [(ngModel)]="institute">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group m-2 mb-0 p-3">
+                                <label> <b> All Skills* </b></label>
+                                <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
+                                                         [data]="skills" [placeholder]="'Select All Skills'" style="flex-grow: 1;">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="form-group m-2 mb-0 p-3">
                                 <label> <b> All Skills* </b></label>
                                 <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
                                                          [data]="skills" [placeholder]="'Select All Skills'" style="flex-grow: 1;">
@@ -149,7 +176,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
-                                <label><b> Experience* </b></label>
+                                <label><b> Define Experience* </b></label>
                                 <ng-multiselect-dropdown [(ngModel)]="selectedExperience"
                                     [settings]="expdropdownSettings" [data]="experiences"
                                     [placeholder]="'Select Experience'" style="flex-grow: 1;">
@@ -280,7 +307,7 @@
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
-                                <label>Long Bio</label>
+                                <label>Long Bio (200 characters)</label>
                                 <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30" maxlength="200"
                                     rows="10"></textarea>
                             </div>

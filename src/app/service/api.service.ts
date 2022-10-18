@@ -6,17 +6,17 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ApiService {
 
-    BASE_URL = 'http://localhost:3000/';
-    BASE_IMAGE_URL = 'http://localhost/astro-api';
-    IMAGE_BASE_URL = 'http://localhost/astro-api/';
+    // BASE_URL = 'http://localhost:3000/';
+    // BASE_IMAGE_URL = 'http://localhost/astro-api';
+    // IMAGE_BASE_URL = 'http://localhost/astro-api/';
 
         // BASE_URL = 'http://34.131.210.116:3000/';
     // BASE_IMAGE_URL = 'http://34.131.210.116/astro-api';
     // PROFILE_BASE_IMAGE_URL = 'http://34.131.210.116/astro-api/';
 
-    // BASE_URL = 'http://43.204.169.71:3000/';
-    // BASE_IMAGE_URL = 'http://43.204.169.71/astro-api';
-    // PROFILE_BASE_IMAGE_URL = 'http://43.204.169.71/astro-api/';
+    BASE_URL = 'http://43.204.169.71:3000/';
+    BASE_IMAGE_URL = 'http://43.204.169.71/astro-api';
+    PROFILE_BASE_IMAGE_URL = 'http://43.204.169.71/astro-api/';
 
     constructor(private http: HttpClient) {
 

@@ -536,6 +536,23 @@ iframe {
     }
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
     border: solid 1.5px black !important;
+}
+
+.btn-secondary {
+    background-color: #333333;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #333333;
+    color: white;
+}
+
+.btn-secondary:active {
+    background-color: #333333;
+    color: white;
 }

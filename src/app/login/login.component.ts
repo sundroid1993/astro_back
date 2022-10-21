@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {PasswordResetComponent} from 'app/modals/password-reset/password-reset.component';
-import {ApiService} from 'app/service/api.service';
-import {UtilService} from 'app/service/util.service';
-import {ToastrService} from 'ngx-toastr';
-import {EmitEvent, Events, EventService} from "../service/event.service";
-import {ImageInfoModalComponent} from "../modals/image-info-modal/image-info-modal.component";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PasswordResetComponent } from 'app/modals/password-reset/password-reset.component';
+import { ApiService } from 'app/service/api.service';
+import { UtilService } from 'app/service/util.service';
+import { ToastrService } from 'ngx-toastr';
+import { EmitEvent, Events, EventService } from "../service/event.service";
+import { ImageInfoModalComponent } from "../modals/image-info-modal/image-info-modal.component";
 
 @Component({
     selector: 'app-login',
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    infoModal(){
+    infoModal() {
         const modalRef = this.modalService.open(ImageInfoModalComponent, {
             backdrop: 'static',
             size: '',
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
             }).then((result) => {
                 if (result.status) {
                     console.log(result);
-                    if(result.result.status==0){
+                    if (result.result.status == 0) {
                         this.toaster.error("Profile is disabled! Please contact admin for support");
                         return;
                     }
@@ -86,7 +86,13 @@ export class LoginComponent implements OnInit {
                     this.setResendEnableTimer()
                     this.otpGenerated = true;
                 } else {
-                    this.toaster.error(result.message);
+                    if (result.message == 'No user found') {
+                        this.toaster.error('Your profile is not a registered. Please register by clicking registration link below');
+                    }
+                    else {
+                        this.toaster.error('Smething went wrong!');
+                    }
+
                 }
             }, (error) => {
                 console.log(error);

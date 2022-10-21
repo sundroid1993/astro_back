@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
                         this.toaster.error('Your profile is not a registered. Please register by clicking registration link below');
                     }
                     else {
-                        this.toaster.error('Smething went wrong!');
+                        this.toaster.error('Something went wrong!');
                     }
 
                 }

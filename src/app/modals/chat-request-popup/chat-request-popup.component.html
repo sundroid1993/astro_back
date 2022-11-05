@@ -14,7 +14,7 @@
         <label>Left Time : {{utilService.getTimerTimeLeft(timeLeft)}}</label>
         <div class="col-12">
             <img *ngIf="utilService.checkValue(userDetail.image)"
-                 [src]="apiService.BASE_IMAGE_URL+userDetail.image"/>
+                 [src]="apiService.BASE_IMAGE_URL+'/'+userDetail.image" style="width: 100px !important; margin: auto; display: block;"/>
         </div>
         <div class="col-12">
             <b> Client Name : </b> {{userDetail.first_name}} {{userDetail.last_name}}<br>

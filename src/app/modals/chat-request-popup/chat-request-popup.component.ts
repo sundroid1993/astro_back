@@ -81,6 +81,7 @@ export class ChatRequestPopupComponent implements OnInit {
         }).then((result) => {
             if (result.status) {
                 this.userDetail = result.result;
+                localStorage.setItem('userDetail', JSON.stringify((this.userDetail)));
             }
         }, (error) => {
             console.log(error);

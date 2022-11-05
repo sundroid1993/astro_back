@@ -8,6 +8,7 @@ import { ConductedchatscallsComponent } from 'app/pages/conductedchatscalls/cond
 import { ProfileComponent } from 'app/pages/profile/profile.component';
 import { ReportsComponent } from 'app/pages/reports/reports.component';
 import {ChatListComponent} from "../../pages/chat-list/chat-list.component";
+import {HistoryComponent} from "../../pages/history/history.component";
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -18,4 +19,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'popup-users', component: PopUsersComponent },
     { path: 'conductedchatcalls', component: ConductedchatscallsComponent },
     { path: 'chat-list', component: ChatListComponent },
+    { path: 'history', component: HistoryComponent },
 ];

@@ -42,6 +42,8 @@ import {DatePipe} from "@angular/common";
 import { ChatRequestPopupComponent } from './modals/chat-request-popup/chat-request-popup.component';
 import { TermsAndConditionsComponent } from './pages/terms-and-conditions/terms-and-conditions.component';
 import { ImageInfoModalComponent } from './modals/image-info-modal/image-info-modal.component';
+import { HistoryComponent } from './pages/history/history.component';
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
     declarations: [
@@ -63,7 +65,8 @@ import { ImageInfoModalComponent } from './modals/image-info-modal/image-info-mo
         ChatComponent,
         ChatRequestPopupComponent,
         TermsAndConditionsComponent,
-        ImageInfoModalComponent
+        ImageInfoModalComponent,
+        HistoryComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -86,6 +89,7 @@ import { ImageInfoModalComponent } from './modals/image-info-modal/image-info-mo
         AngularFirestoreModule,
         AngularFireStorageModule,
         AngularFireDatabaseModule,
+        NgxPaginationModule,
     ],
     providers: [
         DatePipe

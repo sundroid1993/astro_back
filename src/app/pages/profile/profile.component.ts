@@ -389,7 +389,7 @@ export class ProfileComponent implements OnInit {
                 data: base64
             }).then((result) => {
                 if (result.status) {
-                    this.toaster.success('Updates sent to admin for approvals');
+                    this.toaster.success('Thanks for providing the information. Your profile is now in review with AstroPlus team. You can proceed to your Dashboard view now.');
                     // this.getAstroProfile()
                     this.checkUpdateForAstro()
                 } else {
@@ -604,6 +604,12 @@ export class ProfileComponent implements OnInit {
         });
         modalRef.result.then((result) => {
         })
+    }
+
+    omit_special_char(event){
+        var k;
+        k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+        return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
     }
 
 

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild, AfterViewChecked} from '@angular/core';
 import {UtilService} from "../../service/util.service";
 import {ApiService} from "../../service/api.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit {
     firestoreSubscription;
     eventServiceSubscription;
 
-    messagesToShow = [];
+    messagesToShow: Msg[] = [];
 
 
     constructor(
@@ -52,11 +52,14 @@ export class ChatComponent implements OnInit {
         });
     }
 
+    userDetail;
+
     ngOnInit(): void {
         this.getPreviousMsgs()
 
         console.log(this.user_id)
         console.log(this.astro_id)
+        this.userDetail = JSON.parse(localStorage.getItem('userDetail'));
 
         setTimeout(() => {
             console.log("Collection_id:-" + this.collection_id)
@@ -105,7 +108,6 @@ export class ChatComponent implements OnInit {
         }
     }
 
-
     getPreviousMsgs() {
         let url = this.apiService.BASE_URL + "chat/getPreviousMsgs"
         this.apiService.postAPI(url, {
@@ -123,9 +125,19 @@ export class ChatComponent implements OnInit {
                         sender: msg.sender,
                         path: msg.path,
                         type: msg.type,
-                        show_attac: msg.show_attac
+                        show_attac: msg.show_attac,
+                        firstChatMsg: false
                     })
                 }
+                this.messagesToShow.push({
+                    date: '',
+                    message: 'Customer has joined the chat',
+                    sender: '',
+                    path: '',
+                    type: '',
+                    show_attac: false,
+                    firstChatMsg: true
+                })
                 // this.scrollBottom()
                 this.scrollToElement()
             } else {
@@ -136,8 +148,22 @@ export class ChatComponent implements OnInit {
         })
     }
 
-    scrollBottom() {
+    @ViewChild('scrollMe') private myScrollCont: ElementRef;
 
+    scrollBottom() {
+        // document.querySelector( '.card').scrollTo({top:0,behavior:'smooth'});
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    ngAfterViewChecked() {
+        this.scrollToBottom();
+    }
+
+    scrollToBottom(): void {
+        try {
+            this.myScrollCont.nativeElement.scrollTop = this.myScrollCont.nativeElement.scrollHeight;
+        } catch (err) {
+        }
     }
 
     close() {
@@ -145,15 +171,18 @@ export class ChatComponent implements OnInit {
     }
 
     sendMessage(type, path = '') {
-        let messsage = {
+        let messsage: Msg = {
             sender: this.astro_id,
             message: this.msg,
             type: type,
             path: path,
             show_attac: 1,
-            date: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
+            date: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+            firstChatMsg: false
         }
-        this.scrollBottom()
+
+        // this.scrollBottom();
+        // this.scrollToBottom();
         this.messagesToShow.push(messsage);
 
         this.ngFirestore.collection('conversations').doc(this.collection_id).set(messsage).then((result) => {
@@ -213,9 +242,24 @@ export class ChatComponent implements OnInit {
         })
     }
 
-    updateAttachView(message: any) {
-        this.apiService.postAPI(this.apiService.BASE_URL + "chat/updateAttachmentShow", {
-            id: message.id
+    async updateAttachView(message: any, index) {
+        await this.apiService.postAPI(this.apiService.BASE_URL + "chat/updateAttachmentShow", {
+            id: message.id,
+            status: message.show_attac
         });
+        if (message.show_attac == 2) {
+            this.messagesToShow.splice(index, 1);
+        }
     }
+}
+
+interface Msg {
+    id?;
+    date;
+    message;
+    sender;
+    path;
+    type;
+    show_attac;
+    firstChatMsg?;
 }

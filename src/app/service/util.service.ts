@@ -101,21 +101,66 @@ export class UtilService {
     }
 
     secondsToHms(d) {
+        if (d == null || d == undefined || d == 0) {
+            return "0 sec";
+        }
         d = Number(d);
         var h = Math.floor(d / 3600);
         var m = Math.floor(d % 3600 / 60);
         var s = Math.floor(d % 3600 % 60);
-        let time='';
-        if(h>0){
-            time+=h+"hr ";
+        let time = '';
+        if (h > 0) {
+            time += h + "hr ";
         }
-        if(m>0){
-            time+=m+"min ";
+        if (m > 0) {
+            time += m + "min ";
         }
-        if(s>0){
-            time+=s+"sec";
+        if (s > 0) {
+            time += s + "sec";
         }
 
         return time;
+    }
+
+    validateEmail(email) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            return true
+        }
+        return false
+    }
+
+    getCallStatus(status) {
+        if (status == null) {
+            return "Declined"
+        }
+        switch (status) {
+            case 0:
+                return "In Progress";
+            case 1:
+                return "Busy";
+            case 2:
+                return "No Answer";
+            case 3:
+                return "Cancelled";
+            case 4:
+                return "Failed";
+            case 5:
+                return "Completed";
+        }
+    }
+
+    getChatStatus(status) {
+        switch (status) {
+            case null:
+                return "Declined";
+            case 0:
+                return "In Progress";
+            case 1:
+                return "Accepted";
+            case 2:
+                return "Ended";
+            case 3:
+                return "Declined";
+        }
     }
 }

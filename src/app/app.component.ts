@@ -161,7 +161,6 @@ export class AppComponent implements OnInit {
         let user_id = eventData.user_id;
         let astroId = this.utilService.getUserID();
 
-
         let collectionDetail = await this.apiService.postAPI(this.apiService.BASE_URL + "chat/getUserCollection", {
             user_id: user_id,
             astro_id: this.utilService.getUserID()

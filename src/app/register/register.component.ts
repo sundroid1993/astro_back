@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
     PersonalDetailsTab: boolean = true;
     VerifyPhoneTab: boolean = false;
-    OtherDetailsTab: boolean = false;
+    OtherDetailsTab: boolean = false
     OtherDetailsmoreTab: boolean = false;
     ProfileBankDetails: boolean = false;
     thankyouTab: boolean = false;
@@ -54,6 +54,7 @@ export class RegisterComponent implements OnInit {
     otp;
 
     dropdownSettings = {};
+    primaryDDSetting = {};
     expdropdownSettings = {};
 
     gender = '1';
@@ -106,6 +107,16 @@ export class RegisterComponent implements OnInit {
             unSelectAllText: 'UnSelect All',
             itemsShowLimit: 1,
             allowSearchFilter: true
+        };
+        this.primaryDDSetting = {
+            singleSelection: false,
+            idField: 'id',
+            textField: 'name',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            itemsShowLimit: 1,
+            allowSearchFilter: true,
+            limitSelection: 3
         };
         this.expdropdownSettings = {
             singleSelection: true,
@@ -210,8 +221,16 @@ export class RegisterComponent implements OnInit {
             this.toaster.error('Enter email');
             return;
         }
+        // if (this.utilService.validateEmail(this.email)) {
+        //     this.toaster.error('Enter valid email');
+        //     return;
+        // }
         if (this.phone == '') {
             this.toaster.error('Enter phone');
+            return;
+        }
+        if(!this.terms){
+            this.toaster.error("Please select terms and conditions");
             return;
         }
 
@@ -287,20 +306,20 @@ export class RegisterComponent implements OnInit {
             this.toaster.error('Please select date of birth');
             return;
         }
-        if (this.qualification == 'yes' && this.institute == '') {
-            this.toaster.error('Please enter institute name');
+        if (this.selectedLanguages.length == 0) {
+            this.toaster.error('Please select languages');
             return;
         }
-        if (this.selectedPrimarySkills.length == 0) {
-            this.toaster.error('Please select primary skills');
+        if (this.qualification == 'yes' && this.institute == '') {
+            this.toaster.error('Please enter institute name');
             return;
         }
         if (this.selectAllSkills.length == 0) {
             this.toaster.error('Please select all skills');
             return;
         }
-        if (this.selectedLanguages.length == 0) {
-            this.toaster.error('Please select languages');
+        if (this.selectedPrimarySkills.length == 0) {
+            this.toaster.error('Please select primary skills');
             return;
         }
         if (this.selectedExperience.length == 0) {
@@ -552,5 +571,11 @@ export class RegisterComponent implements OnInit {
         })
 
         modal.componentInstance.terms = this.terms
+    }
+
+    omit_special_char(event){
+        var k;
+        k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+        return((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
     }
 }

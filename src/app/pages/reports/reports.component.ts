@@ -15,6 +15,7 @@ export class ReportsComponent implements OnInit {
     Astrologers_tab: boolean = true;
     Broker_tab: boolean = false;
     Customer_tab: boolean = false;
+    type = 0;
 
     selectedUser = [];
     dropdownSettings = {
@@ -30,25 +31,31 @@ export class ReportsComponent implements OnInit {
     customers = [];
 
     onCustomerSelected() {
-        setTimeout(()=>{
+        setTimeout(() => {
             this.getOrders()
-        },500)
+        }, 500)
     }
 
     onAstroSelected() {
-        setTimeout(()=>{
+        setTimeout(() => {
             this.getOrders()
-        },500)
+        }, 500)
     }
 
     onDateChanged() {
-        setTimeout(()=>{
+        setTimeout(() => {
             this.getOrders()
-        },500)
+        }, 500)
+    }
+
+    onTypeChanged() {
+        setTimeout(() => {
+            this.getOrders()
+        }, 500)
     }
 
     async getCustomers() {
-        let result = await this.apiService.getAPI(this.apiService.BASE_URL + 'user/getAllCustomersByName');
+        let result = await this.apiService.getAPI(this.apiService.BASE_URL + 'user/getAstroCustomers/'+this.utilService.getUserID());
         if (result.status) {
             this.customers.push({
                 id: 0,
@@ -92,12 +99,15 @@ export class ReportsComponent implements OnInit {
     orders = [];
     from = '';
     to = '';
+    status = -1;
 
     today = 0;
     yesterday = 0;
     week = 0;
     month = 0;
     year = 0
+
+    p = 1;
 
     constructor(
         public utilService: UtilService,
@@ -116,11 +126,14 @@ export class ReportsComponent implements OnInit {
     }
 
     getOrders() {
-        this.apiService.postAPI(this.apiService.BASE_URL + 'order-history/getAdminOrders', {
+        this.orders = [];
+        this.apiService.postAPI(this.apiService.BASE_URL + 'order-history/getAstroOrders', {
             from: this.from + ' 00:00:00',
             to: this.to + ' 23:59:59',
             selectedUser: this.selectedUser[0].id,
-            selectedAstro: this.utilService.getUserID()
+            selectedAstro: this.utilService.getUserID(),
+            type: this.type,
+            status: this.status
         }).then((result) => {
             if (result.status) {
                 this.orders = result.result;
@@ -130,6 +143,25 @@ export class ReportsComponent implements OnInit {
             }
         }, (error) => {
             this.orders = [];
+            this.toaster.error(error.message);
+        })
+    }
+
+    downloadReport() {
+        this.apiService.postAPI(this.apiService.BASE_URL + 'report/downloadAstrologerReport', {
+            from: this.from + ' 00:00:00',
+            to: this.to + ' 23:59:59',
+            selectedUser: this.selectedUser[0].id,
+            selectedAstro: this.utilService.getUserID(),
+            type: this.type,
+            status: this.status
+        }).then((result) => {
+            if (result.status) {
+                window.open(this.apiService.BASE_IMAGE_URL+result.result)
+            } else {
+                this.toaster.error('No orders found');
+            }
+        }, (error) => {
             this.toaster.error(error.message);
         })
     }

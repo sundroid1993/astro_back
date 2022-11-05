@@ -1,70 +1,84 @@
 <!-- <p>popupalert works!</p> -->
 <div class="modal-header">
-    <h5>Chat</h5>
-    <button (click)="close()" aria-label="Close" class="close" type="button" style="padding: 10px;">
+    <h5>Chat with {{userDetail.first_name}} {{userDetail.last_name}}</h5>
+    <button *ngIf="view_only" (click)="close()" aria-label="Close" class="close" type="button" style="padding: 10px;">
         <span aria-hidden="true" style="font-size: 15px;">&times;</span>
     </button>
 </div>
-<div class="card" #target>
-    <div *ngFor="let message of messagesToShow">
-        <div *ngIf="isSender(message)" class="chatbox right sender">
-            <div *ngIf="message.type == 'text'">
-                <p style="margin:0">{{message.message}}</p>
+<div class="card" #scrollMe>
+    <div *ngFor="let message of messagesToShow;let i=index">
+        <div *ngIf="utilService.checkValue(message.firstChatMsg)&&message.firstChatMsg">
+            <div class="text-center">
+                <label style="background: #f48731;padding: 7px;color: #FFFFFF;">Customer has joined the chat</label>
             </div>
-            <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
-            <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
-            <div *ngIf="message.type == 'image'">
-                <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
-            </div>
-            <div *ngIf="message.type == 'video'">
-                <video controls width="100%">
-                    <source src="{{message.message}}" type="video/mp4">
-                </video>
-            </div>
-            <span>{{message.date | date:'dd-MMM,yyyy hh:mm a'}}</span>
         </div>
-        <div *ngIf="!isSender(message)" class="chatbox left">
-            <div *ngIf="message.type == 'text'">
-                <p style="margin:0">{{message.message}}</p>
-            </div>
-            <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
-            <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
-            <div *ngIf="message.type == 'image'">
-                <!--                {{message|json}}-->
-<!--                {{message|json}}-->
-                <div *ngIf="!utilService.checkValue(message.show_attac)||message.show_attac==0">
-                    <label>Do you want to view attachment?</label>
-                    <div style="display: flex">
-                        <button class="btn btn-primary" (click)="message.show_attac=1;updateAttachView(message)">Yes</button>
-                        <button class="btn btn-danger">No</button>
-                    </div>
+        <div *ngIf="!utilService.checkValue(message.firstChatMsg)||!message.firstChatMsg">
+            <div *ngIf="isSender(message)" class="chatbox right sender">
+                <div *ngIf="message.type == 'text'">
+                    <p style="margin:0">{{message.message}}</p>
                 </div>
-                <div *ngIf="utilService.checkValue(message.show_attac)&&message.show_attac==1">
+                <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
+                <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
+                <div *ngIf="message.type == 'image'">
                     <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
                 </div>
+                <div *ngIf="message.type == 'video'">
+                    <video controls width="100%">
+                        <source src="{{message.message}}" type="video/mp4">
+                    </video>
+                </div>
+                <span>{{message.date | date:'dd-MMM,yyyy hh:mm a'}}</span>
             </div>
-            <div *ngIf="message.type == 'video'">
-                <video controls width="100%">
-                    <source src="{{message.message}}" type="video/mp4">
-                </video>
+            <div *ngIf="!isSender(message)" class="chatbox left">
+                <div *ngIf="message.type == 'text'">
+                    <p style="margin:0">{{message.message}}</p>
+                </div>
+                <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
+                <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
+                <div *ngIf="message.type == 'image'">
+                    <!--                {{message|json}}-->
+                    <!--                {{message|json}}-->
+                    <div *ngIf="!utilService.checkValue(message.show_attac)||message.show_attac==0">
+                        <label>Do you want to view attachment?</label>
+                        <div style="display: flex">
+                            <button class="btn btn-primary" (click)="message.show_attac=1;updateAttachView(message,i)">Yes
+                            </button>
+                            <button class="btn btn-danger" (click)="message.show_attac=2;updateAttachView(message,i)">No
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="utilService.checkValue(message.show_attac)&&message.show_attac==1">
+                        <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
+                    </div>
+                </div>
+                <div *ngIf="message.type == 'video'">
+                    <video controls width="100%">
+                        <source src="{{message.message}}" type="video/mp4">
+                    </video>
+                </div>
+                <span>{{message.date | date:'dd-MMM,yyyy hh:mm a'}}</span>
             </div>
-            <span>{{message.date | date:'dd-MMM,yyyy hh:mm a'}}</span>
         </div>
     </div>
 </div>
 <div *ngIf="!view_only" class="modal-footer">
     <div class="row w-100">
         <div class="col-2">
-            <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">
-            <button class="btn btn-primary m-0" (click)="file.click()">ATTACH</button>
+            <div class="m-auto">
+                <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">
+                <button class="btn btn-primary m-0" (click)="file.click()">ATTACH</button>
+            </div>
         </div>
         <div class="col-8">
             <div class="form-group">
-                <input class="form-control m-0" placeholder="Enter message" type="text" [(ngModel)]="msg">
+                <textarea class="form-control m-0" (keyup.enter)="sendMessage('text')" placeholder="Enter message"
+                          type="text" [(ngModel)]="msg" style="height: 40px;"></textarea>
             </div>
         </div>
         <div class="col-2">
-            <button class="btn btn-primary m-0" (click)="sendMessage('text')">SEND</button>
+            <div class="m-auto">
+                <button class="btn btn-primary m-0" (click)="sendMessage('text')">SEND</button>
+            </div>
         </div>
     </div>
 </div>

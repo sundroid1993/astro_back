@@ -22,11 +22,19 @@
                             <img *ngIf="profile_pic==utilService.DEFAULT_IMAGE" [src]="profile_pic" alt=""
                                 style="width: 100px; height: 100px;">
                             <img *ngIf="profile_pic!=utilService.DEFAULT_IMAGE"
+<<<<<<< Updated upstream
                                 [src]="apiService.BASE_IMAGE_URL+profile_pic" alt=""
                                 style="width: 100px; height: 100px;">
                             <label class="btn btn-default btn-sm center-block btn-file m-0"
                                 (click)="openCropper('profile_pic')"
                                 style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
+=======
+                                 [src]="apiService.BASE_IMAGE_URL+profile_pic" alt=""
+                                 style="width: 100px; height: 100px;">
+                            <label class="btn btn-default btn-sm center-block btn-file m-0"
+                                   (click)="openCropper('profile_pic')"
+                                   style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
+>>>>>>> Stashed changes
                                 <i aria-hidden="true" class="fa fa-upload fa-2x text-white"></i>
                                 <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
                             </label>
@@ -52,7 +60,11 @@
                     <div class="form-group ">
                         <label>Phone Number</label>
                         <input [(ngModel)]="user_phone" readonly="true" class="form-control" placeholder="Phone Number"
+<<<<<<< Updated upstream
                             type="text">
+=======
+                               type="text">
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -75,7 +87,11 @@
                                 type="button"></button>
                         </div> -->
                         <input type="date" class="form-control" [(ngModel)]="dob" [value]="dob" min='1922-01-01'
+<<<<<<< Updated upstream
                             max="2022-09-01">
+=======
+                               max="2022-09-01">
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -101,7 +117,12 @@
                     <div class="form-group ">
                         <label> <b> All Skills* </b></label>
                         <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
+<<<<<<< Updated upstream
                             [data]="skillList" [placeholder]="'Select All Skills'" style="flex-grow: 1;">
+=======
+                                                 [data]="skillList" [placeholder]="'Select All Skills'"
+                                                 style="flex-grow: 1;">
+>>>>>>> Stashed changes
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
@@ -109,7 +130,8 @@
                     <div class="form-group ">
                         <label> <b> Primary Skills* </b></label>
                         <ng-multiselect-dropdown [(ngModel)]="selectedPrimarySkills" [settings]="dropdownSettings"
-                            [data]="selectAllSkills" [placeholder]="'Select Primary Skills'" style="flex-grow: 1;">
+                                                 [data]="selectAllSkills" [placeholder]="'Select Primary Skills'"
+                                                 style="flex-grow: 1;">
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
@@ -117,7 +139,8 @@
                     <div class="form-group ">
                         <label> <b> Language* </b></label>
                         <ng-multiselect-dropdown [(ngModel)]="selectedLanguages" [settings]="dropdownSettings"
-                            [data]="languages" [placeholder]="'Select Language'" style="flex-grow: 1;">
+                                                 [data]="languages" [placeholder]="'Select Language'"
+                                                 style="flex-grow: 1;">
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
@@ -125,7 +148,8 @@
                     <div class="form-group ">
                         <label><b> Define Experience in Years* </b></label>
                         <ng-multiselect-dropdown [(ngModel)]="selectedExperience" [settings]="expDD"
-                            [data]="experienceList" [placeholder]="'Select Experience'" style="flex-grow: 1;">
+                                                 [data]="experienceList" [placeholder]="'Select Experience'"
+                                                 style="flex-grow: 1;">
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
@@ -151,13 +175,13 @@
                         <label> <b> Are you working on any other online platform? </b></label>
                         <div style="display: flex;align-items: center">
                             <input [(ngModel)]="other_platform" type="radio" id="yes" name="other_platform" value="yes"
-                                (change)="on_other_platform">
+                                   (change)="on_other_platform">
                             <label for="yes" style="margin-left: 3px;">Yes</label><br>
                             <input style="margin-left: 7px;" [(ngModel)]="other_platform" type="radio" id="no"
-                                name="other_platform" value="no" (change)="on_other_platform">
+                                   name="other_platform" value="no" (change)="on_other_platform">
                             <label for="no" style="margin-left: 3px;">No</label><br>
                             <input class="form-control" placeholder="" type="text" *ngIf="reason_other_platform"
-                                value="">
+                                   value="">
                         </div>
                     </div>
                 </div>
@@ -177,7 +201,7 @@
                     <div class="form-group ">
                         <label><b> Which city do you currently live in* </b></label>
                         <ng-multiselect-dropdown [(ngModel)]="selectedCities" [settings]="expDD" [data]="cities"
-                            [placeholder]="'Select City'" style="flex-grow: 1;">
+                                                 [placeholder]="'Select City'" style="flex-grow: 1;">
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
@@ -194,7 +218,7 @@
                             <input [(ngModel)]="refer" type="radio" id="refer_yes" name="refer" value="yes">
                             <label for="refer_yes" style="margin-left: 3px;">Yes</label><br>
                             <input style="margin-left: 7px;" [(ngModel)]="refer" type="radio" id="refer_no" name="refer"
-                                value="no">
+                                   value="no">
                             <label for="refer_no" style="margin-left: 3px;">No</label><br>
                         </div>
                     </div>
@@ -209,21 +233,29 @@
                     <div class="form-group">
                         <label> <b> Chat Charges Per Minute </b></label>
                         <input [(ngModel)]="per_min_chat_charge" class="form-control"
+<<<<<<< Updated upstream
                             placeholder="Enter Chat Charges Per Minute" type="number">
+=======
+                               placeholder="Enter Chat Charges Per Minute" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label> <b> Call Charges Per Minute </b></label>
                         <input [(ngModel)]="per_min_call_charge" class="form-control"
+<<<<<<< Updated upstream
                             placeholder="Enter Call Charges Per Minute" type="text">
+=======
+                               placeholder="Enter Call Charges Per Minute" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group ">
-                        <label> <b> Long Bio </b></label>
+                        <label> <b> Long Bio ({{200 - bio.length}} chars left)</b></label>
                         <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30"
-                            rows="10"></textarea>
+                                  rows="10" maxlength="200"></textarea>
                     </div>
                 </div>
             </div>
@@ -237,14 +269,22 @@
                     <div class="form-group">
                         <label> Chat Charges Per Minute</label>
                         <input [(ngModel)]="per_min_chat_charge" class="form-control"
+<<<<<<< Updated upstream
                             placeholder="Enter Chat Charges Per Minute" type="number">
+=======
+                               placeholder="Enter Chat Charges Per Minute" type="number">
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label> Call Charges Per Minute</label>
                         <input [(ngModel)]="per_min_call_charge" class="form-control"
+<<<<<<< Updated upstream
                             placeholder="Enter Call Charges Per Minute" type="text">
+=======
+                               placeholder="Enter Call Charges Per Minute" type="text">
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
@@ -263,14 +303,15 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Account Holder Name</label>
-                        <input [(ngModel)]="account_holder_name" class="form-control" placeholder="Name" type="text">
+                        <input [(ngModel)]="account_holder_name" class="form-control" placeholder="Name"
+                               (keypress)="omit_special_char($event)">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Account Type</label>
                         <select [(ngModel)]="account_type" class="form-control" placeholder="Select Account Type"
-                            type="text">
+                                type="text">
                             <option value="savings">Savings</option>
                             <option value="current">Current</option>
                             <!--                            <option value="overdaft">Overdraft</option>-->
@@ -284,19 +325,27 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Acc Number</label>
-                        <input [(ngModel)]="account_no" class="form-control" placeholder="Enter Acc Number" type="text">
+                        <input [(ngModel)]="account_no" class="form-control" placeholder="Enter Acc Number"
+                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                               type="number"
+                               maxlength="17" min="0">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>IFSC Code</label>
-                        <input [(ngModel)]="ifsc" class="form-control" placeholder="Enter IFSC Code" type="text">
+                        <input [(ngModel)]="ifsc" class="form-control" placeholder="Enter IFSC Code"
+                               type="text" (keypress)="omit_special_char($event)"
+                               maxlength="11" min="0" title="Please enter valid PAN number. E.g. AAAAA9999A" required
+                               type="text">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>PAN Number</label>
-                        <input [(ngModel)]="pan_number" class="form-control" placeholder="Enter PAN Number" type="text">
+                        <input [(ngModel)]="pan_number" class="form-control" placeholder="Enter PAN Number"
+                               maxlength="10" (keypress)="omit_special_char($event)" min="0"
+                               title="Please enter valid PAN number. E.g. AAAAA9999A" required type="text">
                     </div>
                 </div>
             </div>
@@ -306,13 +355,13 @@
                         <label>PAN Card</label>
                         <div style=" margin: auto; display: block;">
                             <img *ngIf="pan_path==null||pan_path==undefined||pan_path==utilService.DEFAULT_BANNER"
-                                [src]="utilService.DEFAULT_BANNER" alt="" style="width: 100%; height: 150px; ">
+                                 [src]="utilService.DEFAULT_BANNER" alt="" style="width: 100%; height: 150px; ">
                             <img *ngIf="pan_path!=null&&pan_path!=undefined&&pan_path!=utilService.DEFAULT_BANNER"
-                                [src]="apiService.BASE_IMAGE_URL+pan_path" alt="" style="width: 100%; height: 150px; ">
+                                 [src]="apiService.BASE_IMAGE_URL+pan_path" alt="" style="width: 100%; height: 150px; ">
                             <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
+                                   style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
                                 <i (click)="openCropper('pan_image')" aria-hidden="true"
-                                    class="fa fa-upload fa-2x text-white"></i>
+                                   class="fa fa-upload fa-2x text-white"></i>
                                 <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
                             </label>
                             <!--                                <button (change)="openCropper('pan_image')" class="btn btn-primary btn-round" type="submit">-->
@@ -327,14 +376,14 @@
                         <label>Upload Cancel Cheque</label>
                         <div style=" margin: auto; display: block;">
                             <img *ngIf="cheque_path==null||cheque_path==undefined||cheque_path==utilService.DEFAULT_BANNER"
-                                [src]="utilService.DEFAULT_BANNER" alt="" style="width: 100%; height: 150px; ">
+                                 [src]="utilService.DEFAULT_BANNER" alt="" style="width: 100%; height: 150px; ">
                             <img *ngIf="cheque_path!=null&&cheque_path!=undefined&&cheque_path!=utilService.DEFAULT_BANNER"
-                                [src]="apiService.BASE_IMAGE_URL+cheque_path" alt=""
-                                style="width: 100%; height: 150px; ">
+                                 [src]="apiService.BASE_IMAGE_URL+cheque_path" alt=""
+                                 style="width: 100%; height: 150px; ">
                             <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
+                                   style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
                                 <i (click)="openCropper('cheque_image')" aria-hidden="true"
-                                    class="fa fa-upload fa-2x text-white"></i>
+                                   class="fa fa-upload fa-2x text-white"></i>
                                 <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
                             </label>
                             <!--                                <button (click)="openCropper('cheque_image')" class="btn btn-primary btn-round" type="submit">-->
@@ -349,14 +398,14 @@
                         <label>Upload Recoganised Address Proof</label>
                         <div style=" margin: auto; display: block;">
                             <img *ngIf="address_proof==null||address_proof==undefined||address_proof==utilService.DEFAULT_BANNER||address_proof==''"
-                                [src]="utilService.DEFAULT_BANNER" alt="" style="width: 100%; height: 150px; ">
+                                 [src]="utilService.DEFAULT_BANNER" alt="" style="width: 100%; height: 150px; ">
                             <img *ngIf="address_proof!=null&&address_proof!=undefined&&address_proof!=utilService.DEFAULT_BANNER&&address_proof!=''"
-                                [src]="apiService.BASE_IMAGE_URL+address_proof" alt=""
-                                style="width: 100%; height: 150px; ">
+                                 [src]="apiService.BASE_IMAGE_URL+address_proof" alt=""
+                                 style="width: 100%; height: 150px; ">
                             <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
+                                   style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
                                 <i (click)="openCropper('address_image')" aria-hidden="true"
-                                    class="fa fa-upload fa-2x text-white"></i>
+                                   class="fa fa-upload fa-2x text-white"></i>
                                 <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
                             </label>
                             <!--                                <button (click)="openCropper('cheque_image')" class="btn btn-primary btn-round" type="submit">-->
@@ -379,7 +428,11 @@
 
     <div class="card-footer">
         <button *ngIf="astroDetail!=null&&showUpdateButton" (click)="updateAstrologer()"
+<<<<<<< Updated upstream
             class="btn btn-primary btn-round text-center btn-sm" type="submit">Change Update profile & Submit for
+=======
+                class="btn btn-primary btn-round text-center btn-sm" type="submit">Change Update profile & Submit for
+>>>>>>> Stashed changes
             Approval
         </button>
         <!--            <p class="border-bottom">{{not.created_at | date:'dd-MMM-yyyy hh:mm a'}} - Profile update sent to admin for approvals</p>-->
@@ -387,7 +440,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-auto">
-                        <img src="/assets/img/bell.png" style="width: 40px;height: 40px;" alt="">
+                        <img src="assets/img/bell.png" style="width: 40px;height: 40px;" alt="">
                     </div>
                     <div class="col">
                         <p class="mb-0" style="font-weight: bolder">Profile is sent to admin for approval <span

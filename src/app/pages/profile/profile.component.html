@@ -20,21 +20,13 @@
                         <label>Image (300 X 300) <i class="fa fa-info-circle" (click)="infoModal()"></i></label>
                         <div style="position: relative;">
                             <img *ngIf="profile_pic==utilService.DEFAULT_IMAGE" [src]="profile_pic" alt=""
-                                style="width: 100px; height: 100px;">
+                                 style="width: 100px; height: 100px;">
                             <img *ngIf="profile_pic!=utilService.DEFAULT_IMAGE"
-<<<<<<< Updated upstream
-                                [src]="apiService.BASE_IMAGE_URL+profile_pic" alt=""
-                                style="width: 100px; height: 100px;">
-                            <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                (click)="openCropper('profile_pic')"
-                                style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
-=======
                                  [src]="apiService.BASE_IMAGE_URL+profile_pic" alt=""
                                  style="width: 100px; height: 100px;">
                             <label class="btn btn-default btn-sm center-block btn-file m-0"
                                    (click)="openCropper('profile_pic')"
                                    style="position: absolute; bottom: 0%;left: 50%;transform: translate(0%, -50%, 0%, -50%);">
->>>>>>> Stashed changes
                                 <i aria-hidden="true" class="fa fa-upload fa-2x text-white"></i>
                                 <!--                            <input (change)="onselectimage($event,'profile_pic')" style="display: none;" type="file">-->
                             </label>
@@ -60,11 +52,7 @@
                     <div class="form-group ">
                         <label>Phone Number</label>
                         <input [(ngModel)]="user_phone" readonly="true" class="form-control" placeholder="Phone Number"
-<<<<<<< Updated upstream
-                            type="text">
-=======
                                type="text">
->>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -87,11 +75,7 @@
                                 type="button"></button>
                         </div> -->
                         <input type="date" class="form-control" [(ngModel)]="dob" [value]="dob" min='1922-01-01'
-<<<<<<< Updated upstream
-                            max="2022-09-01">
-=======
                                max="2022-09-01">
->>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -99,10 +83,10 @@
                         <label> <b> Are you qualified* </b></label>
                         <div style="display: flex;align-items: center">
                             <input [(ngModel)]="qualification" type="radio" id="qual_yes" name="qualification"
-                                value="yes">
+                                   value="yes">
                             <label for="yes" style="margin-left: 3px;">Yes</label><br>
                             <input style="margin-left: 7px;" [(ngModel)]="qualification" type="radio" id="qual_no"
-                                name="qualification" value="no">
+                                   name="qualification" value="no">
                             <label for="no" style="margin-left: 3px;">No</label><br>
                         </div>
                     </div>
@@ -117,12 +101,8 @@
                     <div class="form-group ">
                         <label> <b> All Skills* </b></label>
                         <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
-<<<<<<< Updated upstream
-                            [data]="skillList" [placeholder]="'Select All Skills'" style="flex-grow: 1;">
-=======
                                                  [data]="skillList" [placeholder]="'Select All Skills'"
                                                  style="flex-grow: 1;">
->>>>>>> Stashed changes
                         </ng-multiselect-dropdown>
                     </div>
                 </div>
@@ -233,22 +213,14 @@
                     <div class="form-group">
                         <label> <b> Chat Charges Per Minute </b></label>
                         <input [(ngModel)]="per_min_chat_charge" class="form-control"
-<<<<<<< Updated upstream
-                            placeholder="Enter Chat Charges Per Minute" type="number">
-=======
                                placeholder="Enter Chat Charges Per Minute" type="number" min="0" oninput="this.value = Math.abs(this.value)">
->>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label> <b> Call Charges Per Minute </b></label>
                         <input [(ngModel)]="per_min_call_charge" class="form-control"
-<<<<<<< Updated upstream
-                            placeholder="Enter Call Charges Per Minute" type="text">
-=======
                                placeholder="Enter Call Charges Per Minute" type="number" min="0" oninput="this.value = Math.abs(this.value)">
->>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-12">
@@ -269,22 +241,14 @@
                     <div class="form-group">
                         <label> Chat Charges Per Minute</label>
                         <input [(ngModel)]="per_min_chat_charge" class="form-control"
-<<<<<<< Updated upstream
-                            placeholder="Enter Chat Charges Per Minute" type="number">
-=======
                                placeholder="Enter Chat Charges Per Minute" type="number">
->>>>>>> Stashed changes
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label> Call Charges Per Minute</label>
                         <input [(ngModel)]="per_min_call_charge" class="form-control"
-<<<<<<< Updated upstream
-                            placeholder="Enter Call Charges Per Minute" type="text">
-=======
                                placeholder="Enter Call Charges Per Minute" type="text">
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
@@ -428,11 +392,7 @@
 
     <div class="card-footer">
         <button *ngIf="astroDetail!=null&&showUpdateButton" (click)="updateAstrologer()"
-<<<<<<< Updated upstream
-            class="btn btn-primary btn-round text-center btn-sm" type="submit">Change Update profile & Submit for
-=======
                 class="btn btn-primary btn-round text-center btn-sm" type="submit">Change Update profile & Submit for
->>>>>>> Stashed changes
             Approval
         </button>
         <!--            <p class="border-bottom">{{not.created_at | date:'dd-MMM-yyyy hh:mm a'}} - Profile update sent to admin for approvals</p>-->

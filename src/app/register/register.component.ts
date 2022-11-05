@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from '../service/api.service';
-import { UtilService } from '../service/util.service';
-import { Router } from '@angular/router';
-import { CropImageComponent } from "../pages/crop-image/crop-image.component";
-import { ToastrService } from "ngx-toastr";
-import { TermsAndConditionsComponent } from "../pages/terms-and-conditions/terms-and-conditions.component";
+import {Component, OnInit} from '@angular/core';
+import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ApiService} from '../service/api.service';
+import {UtilService} from '../service/util.service';
+import {Router} from '@angular/router';
+import {CropImageComponent} from "../pages/crop-image/crop-image.component";
+import {ToastrService} from "ngx-toastr";
+import {TermsAndConditionsComponent} from "../pages/terms-and-conditions/terms-and-conditions.component";
 
 @Component({
     selector: 'app-register',

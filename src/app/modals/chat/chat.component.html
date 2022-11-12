@@ -1,6 +1,7 @@
 <!-- <p>popupalert works!</p> -->
 <div class="modal-header">
-    <h5>Chat with {{userDetail.first_name}} {{userDetail.last_name}}</h5>
+    <h5>Chat with {{userDetail.first_name}} {{userDetail.last_name}} <span
+            *ngIf="secsUsed!=0">({{utilService.hms(secsUsed)}})</span></h5>
     <button *ngIf="view_only" (click)="close()" aria-label="Close" class="close" type="button" style="padding: 10px;">
         <span aria-hidden="true" style="font-size: 15px;">&times;</span>
     </button>
@@ -41,7 +42,8 @@
                     <div *ngIf="!utilService.checkValue(message.show_attac)||message.show_attac==0">
                         <label>Do you want to view attachment?</label>
                         <div style="display: flex">
-                            <button class="btn btn-primary" (click)="message.show_attac=1;updateAttachView(message,i)">Yes
+                            <button class="btn btn-primary" (click)="message.show_attac=1;updateAttachView(message,i)">
+                                Yes
                             </button>
                             <button class="btn btn-danger" (click)="message.show_attac=2;updateAttachView(message,i)">No
                             </button>

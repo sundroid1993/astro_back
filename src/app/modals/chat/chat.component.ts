@@ -25,9 +25,10 @@ export class ChatComponent implements OnInit {
     msg = '';
     firestoreSubscription;
     eventServiceSubscription;
+    chatRequestUpdatedSubs;
 
     messagesToShow: Msg[] = [];
-
+    startedAt;
 
     constructor(
         private ngFirestore: AngularFirestore,
@@ -91,13 +92,45 @@ export class ChatComponent implements OnInit {
                 }
             }
         }));
+        this.chatRequestUpdatedSubs = this.eventService.on(Events.CHAT_REQUEST_UPDATED, (data => {
+            console.log("chat request updated")
+            console.log(data)
+            if (this.utilService.checkValue(data)) {
+                if (data.id == this.chat_request_id) {
+                    this.startedAt = new Date();
+                    this.startTimer();
+                    this.chatRequestUpdatedSubs.unsubscribe();
+                }
+            }
+        }));
 
+    }
+
+    intervalPopup;
+    secsUsed = 0;
+
+    startTimer() {
+        this.clearTimer()
+        this.intervalPopup = setInterval(() => {
+            this.secsUsed = ((new Date().getTime() - this.startedAt.getTime())) / 1000;
+            console.log(this.secsUsed)
+        }, 1000);
+    }
+
+    clearTimer() {
+        if (this.intervalPopup != null) {
+            clearInterval(this.intervalPopup);
+        }
     }
 
     ngOnDestroy() {
         if (this.utilService.checkValue(this.eventServiceSubscription)) {
             this.eventServiceSubscription.unsubscribe();
         }
+        if (this.utilService.checkValue(this.chatRequestUpdatedSubs)) {
+            this.chatRequestUpdatedSubs.unsubscribe();
+        }
+        this.clearTimer();
     }
 
     isSender(message) {

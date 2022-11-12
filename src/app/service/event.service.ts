@@ -39,6 +39,7 @@ export enum Events {
     USER_STATUS_CHANGE,
     CHAT_EVENTS,
     CANCEL_REQUEST,
+    CHAT_REQUEST_UPDATED,
     CHAT_MSG,
     SEND_MSG
 }

@@ -146,7 +146,7 @@ export class HistoryComponent implements OnInit {
             reader.readAsDataURL(target.files[0]);
             reader.onload = (e: any) => {
                 let name = file.name;
-                if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg")) {
+                if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".pdf")) {
                     console.log(reader.result);
                     console.log(file)
 

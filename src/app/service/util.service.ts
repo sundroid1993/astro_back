@@ -163,4 +163,24 @@ export class UtilService {
                 return "Declined";
         }
     }
+
+    hms(d) {
+        console.log(d);
+        d = Number(d);
+        var h = Math.floor(d / 3600);
+        var m = Math.floor(d % 3600 / 60);
+        var s = Math.floor(d % 3600 % 60);
+
+        return this.properFormatNumber(h) + ":" + this.properFormatNumber(m) + ":" + this.properFormatNumber(s);
+    }
+
+    properFormatNumber(number: number): string {
+        let numString = '';
+        if (number < 10) {
+            numString = '0' + number;
+        } else {
+            numString = number + '';
+        }
+        return numString;
+    }
 }

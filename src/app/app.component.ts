@@ -73,10 +73,16 @@ export class AppComponent implements OnInit {
         }));
 
         this.eventService.on(Events.USER_STATUS_CHANGE, (data => {
-            console.log(data);
+            console.log(JSON.stringify(data));
+            console.log("astro_status:-" + this.utilService.getItem(this.utilService.ASTRO_STATUS))
+            let astro_status=this.utilService.getItem(this.utilService.ASTRO_STATUS);
+            console.log(astro_status);
+
             if (this.utilService.getItem(this.utilService.ASTRO_STATUS) == '1') {
+                console.log("in if")
                 this.connectSocket()
             } else {
+                console.log("in else")
                 this.disconnectSocket()
             }
         }));
@@ -94,11 +100,16 @@ export class AppComponent implements OnInit {
             console.log(this.socket.id);
             this.updateSocketId();
             this.startInterval()
+            setTimeout(() => {
+                this.socket.emit('astro_connected', {
+                    astro_id: this.utilService.getUserID()
+                })
+            }, 1000)
         });
         this.socket.on('disconnect', () => {
             console.log("socket disconnect");
             this.firebaseId = '';
-            this.updateSocketId();
+            // this.updateSocketId();
             if (this.utilService.checkValue(this.interval)) {
                 clearInterval(this.interval)
                 this.interval = null;
@@ -106,7 +117,7 @@ export class AppComponent implements OnInit {
             // this.startInterval()
         });
         this.socket.on('new_astro_request', (data) => {
-            console.log(data)
+            console.log("new_astro_request:-" + JSON.stringify(data))
             if (this.utilService.checkValue(data)) {
                 this.openRequestModal(data)
             }
@@ -120,6 +131,11 @@ export class AppComponent implements OnInit {
             console.log("cancel_request")
             console.log(data)
             this.eventService.emit(new EmitEvent(Events.CANCEL_REQUEST, data));
+        });
+        this.socket.on('chat_request_updated', (data) => {
+            console.log("chat_request_updated")
+            console.log(data)
+            this.eventService.emit(new EmitEvent(Events.CHAT_REQUEST_UPDATED, data));
         });
     }
 

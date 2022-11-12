@@ -221,10 +221,10 @@ export class RegisterComponent implements OnInit {
             this.toaster.error('Enter email');
             return;
         }
-        // if (this.utilService.validateEmail(this.email)) {
-        //     this.toaster.error('Enter valid email');
-        //     return;
-        // }
+        if (!this.utilService.validateEmail(this.email)) {
+            this.toaster.error('Enter valid email');
+            return;
+        }
         if (this.phone == '') {
             this.toaster.error('Enter phone');
             return;

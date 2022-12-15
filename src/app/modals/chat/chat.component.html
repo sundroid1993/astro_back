@@ -23,7 +23,7 @@
                     <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
                     <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
                     <div *ngIf="message.type == 'image'">
-                        <img src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
+                        <img src="{{apiService.BASE_IMAGE_URL+message.path}}" />
                     </div>
                     <div *ngIf="message.type == 'video'">
                         <video controls width="100%">
@@ -45,16 +45,16 @@
                             <label>Do you want to view attachment?</label>
                             <div style="display: flex">
                                 <button class="btn btn-primary"
-                                        (click)="message.show_attac=1;updateAttachView(message,i)">
+                                    (click)="message.show_attac=1;updateAttachView(message,i)">
                                     Yes
                                 </button>
                                 <button class="btn btn-danger"
-                                        (click)="message.show_attac=2;updateAttachView(message,i)">No
+                                    (click)="message.show_attac=2;updateAttachView(message,i)">No
                                 </button>
                             </div>
                         </div>
                         <div *ngIf="utilService.checkValue(message.show_attac)&&message.show_attac==1">
-                            <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}"/>
+                            <img tappable src="{{apiService.BASE_IMAGE_URL+message.path}}" />
                         </div>
                     </div>
                     <div *ngIf="message.type == 'video'">
@@ -68,29 +68,22 @@
         </div>
     </div>
 </div>
-<div *ngIf="!view_only" class="modal-footer">
-    <div class="row w-100">
-        <div class="col-2">
-            <div class="m-auto">
-                <button class="btn btn-primary m-0" (click)="openKundli()">KUNDLI</button>
+<div *ngIf="view_only" class="modal-footer m-0 p-0" style="padding: 0% !important;">
+    <div class="row w-100 m-0 p-0">
+        <div class="col m-0 p-0">
+            <div class="form-group p-0 w-100">
+                <textarea class="form-control m-1" (keyup.enter)="sendMessage('text')" placeholder="Enter message"
+                    type="text" [(ngModel)]="msg" rows="2" style="width: 100%;"></textarea>
             </div>
         </div>
-        <div class="col-2">
-            <div class="m-auto">
-                <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">
-                <button class="btn btn-primary m-0" (click)="file.click()">ATTACH</button>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="form-group">
-                <textarea class="form-control m-0" (keyup.enter)="sendMessage('text')" placeholder="Enter message"
-                          type="text" [(ngModel)]="msg" style="height: 40px;"></textarea>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="m-auto">
-                <button class="btn btn-primary m-0" (click)="sendMessage('text')">SEND</button>
-            </div>
+        <div class="col-auto pr-0">
+            <button class="btn btn-primary btn-sm m-1" (click)="openKundli()">KUNDLI</button>
+            <br>
+            <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">
+            <button class="btn btn-primary m-1" (click)="file.click()"><i class="fa fa-paperclip"
+                    aria-hidden="true"></i></button>
+            <button class="btn btn-primary m-1" (click)="sendMessage('text')"><i class="fa fa-sign-in"
+                    aria-hidden="true"></i></button>
         </div>
     </div>
 </div>

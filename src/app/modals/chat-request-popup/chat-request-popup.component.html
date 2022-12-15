@@ -19,22 +19,29 @@
         <div class="col-12">
             <b> Client Name : </b> {{userDetail.first_name}} {{userDetail.last_name}}<br>
             <b>Client Gender : </b> <span *ngIf="userDetail.gender==0">Male</span><span
-                *ngIf="userDetail.gender==2">Female</span><span
+                *ngIf="userDetail.gender==1">Female</span><span
                 *ngIf="userDetail.gender==2">Other</span><br>
-                <b>Client DOB : </b> {{userDetail.dob}}<br>
-                    <b>Client TOB : </b> {{userDetail.tob}}<br>
-                        <b>Client City : </b> {{userDetail.cityDetail.name}}<br>
-                            <b>Client State : </b> {{userDetail.stateDetail.name}}<br>
+            <b>Client DOB : </b> {{userDetail.dob}}<br>
+            <b>Client TOB : </b> {{userDetail.tob}}<br>
+            <b>Client City : </b> {{userDetail.cityDetail.name}}<br>
+            <b>Client State : </b> {{userDetail.stateDetail.name}}<br>
+
+            <p style="font-size: 12px; margin: auto; display: block;"><b> Safety Tip: </b> Please do not share your
+                personal contact details like Phone number, email ID, PAN, Aadhar or Bank details. </p>
+
         </div>
     </div>
     </div>
 </div>
 <div class="modal-footer">
     <div class="row w-100">
-        <div class="col-6" style="text-align: right">
+        <div class="col-4">
+            <button class="btn btn-primary m-0" (click)="openKundli()">KUNDLI</button>
+        </div>
+        <div class="col-4">
             <button class="btn btn-primary m-0" (click)="requestAction(1)">ACCEPT</button>
         </div>
-        <div class="col-6">
+        <div class="col-4">
             <button class="btn btn-primary m-0" (click)="requestAction(3)">DECLINE</button>
         </div>
     </div>

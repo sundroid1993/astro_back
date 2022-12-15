@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild, AfterViewChecked} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {UtilService} from "../../service/util.service";
 import {ApiService} from "../../service/api.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -6,6 +6,7 @@ import {ToastrService} from "ngx-toastr";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {DatePipe} from "@angular/common";
 import {Events, EventService} from "../../service/event.service";
+import {UserKundliComponent} from "../../pages/user-kundli/user-kundli.component";
 
 @Component({
     selector: 'app-chat',
@@ -26,6 +27,7 @@ export class ChatComponent implements OnInit {
     firestoreSubscription;
     eventServiceSubscription;
     chatRequestUpdatedSubs;
+    userDetail;
 
     messagesToShow: Msg[] = [];
     startedAt;
@@ -53,14 +55,13 @@ export class ChatComponent implements OnInit {
         });
     }
 
-    userDetail;
-
     ngOnInit(): void {
+        console.log(this.chatCollection)
         this.getPreviousMsgs()
 
         console.log(this.user_id)
         console.log(this.astro_id)
-        this.userDetail = JSON.parse(localStorage.getItem('userDetail'));
+        // this.userDetail = JSON.parse(localStorage.getItem('userDetail'));
 
         setTimeout(() => {
             console.log("Collection_id:-" + this.collection_id)
@@ -73,6 +74,7 @@ export class ChatComponent implements OnInit {
                             this.lastMsgDate = res.date;
                             if (res.sender != this.astro_id) {
                                 this.messagesToShow.push(res);
+                                this.scrollToBottom();
                             }
                         }
                     }
@@ -103,7 +105,21 @@ export class ChatComponent implements OnInit {
                 }
             }
         }));
+        this.getUserDetail()
 
+    }
+
+    getUserDetail() {
+        this.apiService.postAPI(this.apiService.BASE_URL + "user/getUserDetailById", {
+            id: this.chatCollection.user_id
+        }).then((result) => {
+            if (result.status) {
+                this.userDetail = result.result;
+                // localStorage.setItem('userDetail', JSON.stringify((this.userDetail)));
+            }
+        }, (error) => {
+            console.log(error);
+        })
     }
 
     intervalPopup;
@@ -113,7 +129,7 @@ export class ChatComponent implements OnInit {
         this.clearTimer()
         this.intervalPopup = setInterval(() => {
             this.secsUsed = ((new Date().getTime() - this.startedAt.getTime())) / 1000;
-            console.log(this.secsUsed)
+            // console.log("secsused:-" + this.secsUsed);
         }, 1000);
     }
 
@@ -162,15 +178,20 @@ export class ChatComponent implements OnInit {
                         firstChatMsg: false
                     })
                 }
-                this.messagesToShow.push({
-                    date: '',
-                    message: 'Customer has joined the chat',
-                    sender: '',
-                    path: '',
-                    type: '',
-                    show_attac: false,
-                    firstChatMsg: true
-                })
+                if (!this.view_only) {
+                    this.messagesToShow.push({
+                        date: '',
+                        message: 'Customer has joined the chat',
+                        sender: '',
+                        path: '',
+                        type: '',
+                        show_attac: false,
+                        firstChatMsg: true
+                    })
+
+                    this.scrollToBottom();
+                }
+
                 // this.scrollBottom()
                 this.scrollToElement()
             } else {
@@ -185,16 +206,21 @@ export class ChatComponent implements OnInit {
 
     scrollBottom() {
         // document.querySelector( '.card').scrollTo({top:0,behavior:'smooth'});
+        console.log("scrolling to height");
         window.scrollTo(0, document.body.scrollHeight);
     }
 
     ngAfterViewChecked() {
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
 
     scrollToBottom(): void {
         try {
-            this.myScrollCont.nativeElement.scrollTop = this.myScrollCont.nativeElement.scrollHeight;
+            setTimeout(()=>{
+                console.log("scrollTop height");
+                this.myScrollCont.nativeElement.scrollTop = this.myScrollCont.nativeElement.scrollHeight;
+                this.scrollBottom()
+            },500)
         } catch (err) {
         }
     }
@@ -217,6 +243,7 @@ export class ChatComponent implements OnInit {
         // this.scrollBottom();
         // this.scrollToBottom();
         this.messagesToShow.push(messsage);
+        this.scrollToBottom();
 
         this.ngFirestore.collection('conversations').doc(this.collection_id).set(messsage).then((result) => {
 
@@ -283,6 +310,19 @@ export class ChatComponent implements OnInit {
         if (message.show_attac == 2) {
             this.messagesToShow.splice(index, 1);
         }
+    }
+
+    openKundli() {
+        const modalRef = this.modalService.open(UserKundliComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        });
+        modalRef.result.then((result) => {
+            console.log('dismissed:-' + JSON.stringify(result));
+        })
+        modalRef.componentInstance.user_id = this.chatCollection.user_id;
     }
 }
 

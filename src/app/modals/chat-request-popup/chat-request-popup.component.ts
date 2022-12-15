@@ -6,6 +6,7 @@ import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
 import {Events, EventService} from "../../service/event.service";
+import {UserKundliComponent} from "../../pages/user-kundli/user-kundli.component";
 
 @Component({
     selector: 'app-chat-request-popup',
@@ -43,11 +44,23 @@ export class ChatRequestPopupComponent implements OnInit {
             console.log(data)
             if (this.utilService.checkValue(data)) {
                 if (data.request_id == this.chatRequest.request_id) {
-                    this.toaster.error("Chat canceled by client");
+                    if(this.chatRequest.type==0){
+                        this.toaster.error("Chat canceled by client");
+                    }else{
+                        this.toaster.error("Call canceled by client");
+                    }
                     this.activeModal.close();
                 }
             }
         }));
+        this.playAudio()
+    }
+
+    playAudio() {
+        let audio = new Audio();
+        audio.src = 'assets/alarm.mp3';
+        audio.load();
+        audio.play();
     }
 
     ngOnDestroy() {
@@ -89,7 +102,8 @@ export class ChatRequestPopupComponent implements OnInit {
     }
 
     close() {
-        this.activeModal.close();
+        // this.activeModal.close();
+        this.requestAction(3)
     }
 
     requestAction(action) {
@@ -124,4 +138,16 @@ export class ChatRequestPopupComponent implements OnInit {
     //   })
     // }
 
+    openKundli() {
+        const modalRef = this.modalService.open(UserKundliComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        });
+        modalRef.result.then((result) => {
+            console.log('dismissed:-' + JSON.stringify(result));
+        })
+        modalRef.componentInstance.user_id = this.chatRequest.user_id;
+    }
 }

@@ -4,6 +4,7 @@ import {ApiService} from "../../service/api.service";
 import {UtilService} from "../../service/util.service";
 import {ToastrService} from "ngx-toastr";
 import {ChatComponent} from "../../modals/chat/chat.component";
+import {UserKundliComponent} from "../user-kundli/user-kundli.component";
 
 @Component({
     selector: 'app-history',
@@ -70,6 +71,15 @@ export class HistoryComponent implements OnInit {
         }).then((result) => {
             if (result.status) {
                 if (this.type == 0) {
+                    for (let item of result.result) {
+                        if (this.utilService.checkValue(item) && this.utilService.checkValue(item.ratingDetail) && item.ratingDetail.review != '') {
+                            try{
+                                item.ratingDetail.review = atob(item.ratingDetail.review);
+                            }catch (e){
+
+                            }
+                        }
+                    }
                     this.chatHistory = result.result;
                 } else {
                     this.callHistory = result.result;
@@ -107,6 +117,7 @@ export class HistoryComponent implements OnInit {
     }
 
     openChat(chatCollection) {
+        console.log(chatCollection);
         const modalRef = this.modalService.open(ChatComponent, {
             backdrop: 'static',
             size: 'lg',
@@ -121,6 +132,7 @@ export class HistoryComponent implements OnInit {
         modalRef.componentInstance.collection_id = chatCollection.collection_id;
         modalRef.componentInstance.chatCollection = chatCollection;
         modalRef.componentInstance.view_only = true;
+
     }
 
     pickReport(index) {
@@ -202,5 +214,18 @@ export class HistoryComponent implements OnInit {
         }, (error) => {
             console.log(error);
         })
+    }
+
+    openKundli(user_id) {
+        const modalRef = this.modalService.open(UserKundliComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        });
+        modalRef.result.then((result) => {
+            console.log('dismissed:-' + JSON.stringify(result));
+        })
+        modalRef.componentInstance.user_id = user_id;
     }
 }

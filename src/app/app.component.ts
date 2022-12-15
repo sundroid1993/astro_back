@@ -1,15 +1,15 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UtilService} from './service/util.service';
 import {Router} from '@angular/router';
 import {ApiService} from "./service/api.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {EmitEvent, Events, EventService} from "./service/event.service";
-import {PopupalertComponent} from "./modals/popupalert/popupalert.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ChatRequestPopupComponent} from "./modals/chat-request-popup/chat-request-popup.component";
 import {ChatComponent} from "./modals/chat/chat.component";
 import {ToastrService} from "ngx-toastr";
 import {io} from 'socket.io-client';
+import {UserKundliComponent} from "./pages/user-kundli/user-kundli.component";
 
 @Component({
     selector: 'app-root',
@@ -86,8 +86,6 @@ export class AppComponent implements OnInit {
                 this.disconnectSocket()
             }
         }));
-
-
     }
 
     connectSocket() {
@@ -229,6 +227,7 @@ export class AppComponent implements OnInit {
                             if (eventData.type == 0) {
                                 this.makeCollection(result.result)
                             } else {
+                                this.openKundli(eventData.user_id)
                                 this.toaster.success("You will soon receive a call from user.")
                             }
                         }
@@ -242,6 +241,19 @@ export class AppComponent implements OnInit {
             }
         })
         modalRef.componentInstance.chatRequest = eventData;
+    }
+
+    openKundli(user_id) {
+        const modalRef = this.modalService.open(UserKundliComponent, {
+            backdrop: 'static',
+            size: 'xl',
+            keyboard: false,
+            centered: true
+        });
+        modalRef.result.then((result) => {
+            console.log('dismissed:-' + JSON.stringify(result));
+        })
+        modalRef.componentInstance.user_id = user_id;
     }
 
     updateFirebaseChat(chats) {

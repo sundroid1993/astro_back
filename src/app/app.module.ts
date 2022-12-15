@@ -44,6 +44,7 @@ import { TermsAndConditionsComponent } from './pages/terms-and-conditions/terms-
 import { ImageInfoModalComponent } from './modals/image-info-modal/image-info-modal.component';
 import { HistoryComponent } from './pages/history/history.component';
 import {NgxPaginationModule} from "ngx-pagination";
+import { UserKundliComponent } from './pages/user-kundli/user-kundli.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import {NgxPaginationModule} from "ngx-pagination";
         ChatRequestPopupComponent,
         TermsAndConditionsComponent,
         ImageInfoModalComponent,
-        HistoryComponent
+        HistoryComponent,
+        UserKundliComponent
     ],
     imports: [
         BrowserAnimationsModule,

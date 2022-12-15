@@ -1,0 +1,438 @@
+<!-- <p>add-astrologers works!</p> -->
+<div class="m-0 p-0">
+    <div class="d-flex justify-content-end">
+        <div class="mr-auto">
+            <h4 class="m-3">Kundli Detail</h4>
+        </div>
+        <div>
+            <button (click)="closeModal()" aria-label="Close" class="close m-3" style="zoom: 1.2; outline: none;"
+                    type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="modal-body">
+
+        <div class="tabs">
+            <p (click)="openBasic()" [ngClass]="{'active': Basic}" style="cursor: pointer">Basic</p>
+            <p (click)="openLagna()" [ngClass]="{'active': Lagna}" style="cursor: pointer">Lagna</p>
+            <p (click)="openNavamsa()" [ngClass]="{'active': Navamsa}" style="cursor: pointer">Navamsa</p>
+            <p (click)="openLife()" [ngClass]="{'active': Life}" style="cursor: pointer">Life report</p>
+            <p (click)="openTransit()" [ngClass]="{'active': Transit}" style="cursor: pointer">Transit Chart</p>
+            <p (click)="openDasha()" [ngClass]="{'active': Dasha}" style="cursor: pointer">Dasha</p>
+            <p (click)="openPlanets()" [ngClass]="{'active': Planets}" style="cursor: pointer">Planets</p>
+            <p (click)="openDivisional()" [ngClass]="{'active': Divisional}" style="cursor: pointer">Divisional
+                Chart</p>
+        </div>
+
+        <br>
+
+        <div *ngIf="Basic">
+            <div class="heading_div">
+                <p>Basic Details</p>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td style="color: #C41135;">Name</td>
+                        <td>{{user_name}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Date</td>
+                        <td>{{date_birth}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Time</td>
+                        <td>{{time_birth}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Place</td>
+                        <td>{{place}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Latitude</td>
+                        <td>{{lat}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Longitude</td>
+                        <td>{{lng}}</td>
+                    </tr>
+                    <!--      <tr>-->
+                    <!--        <td style="color: #C41135;">Timezone</td>-->
+                    <!--        <td>{{timezone}}</td>-->
+                    <!--      </tr>-->
+                    <tr>
+                        <td style="color: #C41135;">Sunrise</td>
+                        <td>{{sunrise}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Sunset</td>
+                        <td>{{sunset}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+            <br>
+
+
+            <div class="heading_div">
+                <p>Panchang Details</p>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td style="color: #C41135;">Tithi</td>
+                        <td>{{tithi}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Karan</td>
+                        <td>{{karan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Yog</td>
+                        <td>{{yog}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Nakshatra</td>
+                        <td>{{nakshatra}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Sunrise</td>
+                        <td>{{sunrise}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Sunset</td>
+                        <td>{{sunset}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+            <br>
+            <div class="heading_div">
+                <p>Avakhada Details</p>
+            </div>
+            <br>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td style="color: #C41135;">Ascendant</td>
+                        <td>{{ascendant}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Varna</td>
+                        <td>{{varna}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Yoni</td>
+                        <td>{{yoni}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Gan</td>
+                        <td>{{gan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Nadi</td>
+                        <td>{{nadi}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Sign Lord</td>
+                        <td>{{sign_Lord}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Nakshatra-Charan</td>
+                        <td>{{nakshatra_charan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Yog</td>
+                        <td>{{yog}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Karan</td>
+                        <td>{{karan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Charan</td>
+                        <td>{{charan}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Tithi</td>
+                        <td>{{tithi}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Yunja</td>
+                        <td>{{yunja}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Tatva</td>
+                        <td>{{tatva}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Name Alphabet</td>
+                        <td>{{name_alphabet}}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #C41135;">Paya</td>
+                        <td>{{paya}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="Lagna">
+            <div class="heading_div">
+                <p>Lagna / Ascendant / D1 Chart</p>
+            </div>
+            <br>
+            <div *ngIf="lagnaSVG!=''" [innerHTML]="lagnaSVG" style="text-align: center"></div>
+            <br>
+
+        </div>
+
+        <div *ngIf="Navamsa">
+            <div class="heading_div">
+                <p>Navamsa / D9 Chart</p>
+            </div>
+            <br>
+
+            <div *ngIf="navmasaSVG!=''" [innerHTML]="navmasaSVG" style="text-align: center"></div>
+            <br>
+
+        </div>
+
+        <div *ngIf="Life">
+            <div class="tabs">
+                <p (click)="openAscendant()" [ngClass]="{'active': Ascendant}" style="cursor: pointer">Ascendant</p>
+                <p (click)="openPlanetary()" [ngClass]="{'active': Planetary}" style="cursor: pointer">Planetary</p>
+                <p (click)="openManglik()" [ngClass]="{'active': Manglik}" style="cursor: pointer">Manglik</p>
+                <p (click)="openVimshottari()" [ngClass]="{'active': Vimshottari}" style="cursor: pointer">Vimshottari
+                    dasha</p>
+            </div>
+
+
+            <div *ngIf="Ascendant">
+                <p class="red_head">Description</p>
+
+                <p class="red_head_desc">{{ascendant_zodiac}}</p>
+
+
+                <p class="red_head">Conclusion</p>
+                <p class="red_head_desc">{{ascendant_report}}</p>
+
+                <br>
+
+                <!-- <button class="btn btn-block m-2 mx-auto d-block btn_Chat1">Chat/Call With Astrologer Now</button> -->
+            </div>
+
+
+            <div *ngIf="Planetary">
+                <div *ngFor="let plant of planets">
+                    <p class="red_head">{{plant.name}} Consideration</p>
+                    <p class="red_head_desc">{{plant.desc}}</p>
+                    <br>
+                </div>
+                <!-- <button class="btn btn-block m-2 mx-auto d-block btn_Chat1">Chat/Call With Astrologer Now</button> -->
+            </div>
+
+
+            <div *ngIf="Manglik">
+                <p class="red_head">Manglik Analysis</p>
+
+                <div class="img_cont">
+                    <!--        <img src="assets/images/marry_image.png" alt="">-->
+                    <p>{{user_name}}</p>
+                </div>
+
+                <p class="red_head">Conclusion</p>
+                <p class="red_head_desc">{{manglik_report}}</p>
+
+                <br>
+
+                <!-- <button class="btn btn-block m-2 mx-auto d-block btn_Chat1">Chat/Call With Astrologer Now</button> -->
+            </div>
+
+            <div *ngIf="Vimshottari">
+                <div class="table-responsive">
+                    <table class="table" *ngIf="dashaTab=='vim'">
+                        <thead>
+                        <tr>
+                            <th>Planet</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngIf="vim_major!=null">
+                            <td style="color: #C41135;">{{vim_major.planet}}</td>
+                            <td>{{vim_major.start}}</td>
+                            <td>{{vim_major.end}}</td>
+                        </tr>
+                        <tr *ngIf="vim_minor!=null">
+                            <td style="color: #C41135;">{{vim_minor.planet}}</td>
+                            <td>{{vim_minor.start}}</td>
+                            <td>{{vim_minor.end}}</td>
+                        </tr>
+                        <tr *ngIf="vim_sub_minor!=null">
+                            <td style="color: #C41135;">{{vim_sub_minor.planet}}</td>
+                            <td>{{vim_sub_minor.start}}</td>
+                            <td>{{vim_sub_minor.end}}</td>
+                        </tr>
+                        <tr *ngIf="vim_sub_sub_minor!=null">
+                            <td style="color: #C41135;">{{vim_sub_sub_minor.planet}}</td>
+                            <td>{{vim_sub_sub_minor.start}}</td>
+                            <td>{{vim_sub_sub_minor.end}}</td>
+                        </tr>
+                        <tr *ngIf="vim_sub_sub_sub_minor!=null">
+                            <td style="color: #C41135;">{{vim_sub_sub_sub_minor.planet}}</td>
+                            <td>{{vim_sub_sub_sub_minor.start}}</td>
+                            <td>{{vim_sub_sub_sub_minor.end}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+
+                <!-- <button class="btn btn-block m-2 mx-auto d-block btn_Chat1">Chat/Call With Astrologer Now</button> -->
+            </div>
+        </div>
+
+
+        <div *ngIf="Divisional">
+            <div class="tabs">
+                <p *ngFor="let item of divisionalCharts;" (click)="openDivisionalItem(item)"
+                   [ngClass]="{'active': selectedDivisional==item}" style="cursor: pointer">{{item}}</p>
+            </div>
+            <br>
+            <div *ngIf="divisionalSVG!=''" [innerHTML]="divisionalSVG" style="text-align: center"></div>
+            <br>
+
+            <!--    <ion-segment scrollable [(ngModel)]="selectedDivisional"-->
+            <!--                 style="width: 100%;padding-top: 7px;z-index: 2"-->
+            <!--                 [value]="selectedDivisional" (ionChange)="onDivisionalChanged()">-->
+            <!--      <ion-segment-button *ngFor="let item of divisionalCharts;let i=index;" [value]="item" id="{{i}}">-->
+            <!--        <ion-label>{{item}}</ion-label>-->
+            <!--      </ion-segment-button>-->
+            <!--    </ion-segment>-->
+
+        </div>
+
+        <div *ngIf="Dasha">
+            <div class="tabs2">
+                <p [ngClass]="dashaTab=='vim'?'active':''" (click)="changeDashaTab('vim')" style="cursor: pointer">
+                    Vimshottri</p>
+                <p [ngClass]="dashaTab=='yog'?'active':''" (click)="changeDashaTab('yog')" style="cursor: pointer">
+                    Yogini</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table" *ngIf="dashaTab=='vim'">
+                    <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let item of vimDasha">
+                        <td style="color: #C41135;">{{item.planet}}</td>
+                        <td>{{item.start}}</td>
+                        <td>{{item.end}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table" *ngIf="dashaTab=='yog'">
+                    <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <!--        <th>Duration</th>-->
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let item of yogDasha">
+                        <td style="color: #C41135;">{{item.dasha_name}}</td>
+                        <td>{{item.start_date}}</td>
+                        <td>{{item.end_date}}</td>
+                        <!--        <td>{{item.duration}}</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+        </div>
+
+        <div *ngIf="Lagna||Navamsa||Transit||Planets||Divisional">
+            <div class="tabs2">
+                <p [ngClass]="lagnaTab=='sign'?'active':''" (click)="changeLagnaTab('sign')" style="cursor: pointer">
+                    Sign</p>
+                <p [ngClass]="lagnaTab=='nakshatra'?'active':''" (click)="changeLagnaTab('nakshatra')"
+                   style="cursor: pointer">Nakshatra</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table" *ngIf="lagnaTab=='sign'">
+                    <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Sign</th>
+                        <th>Sign Lord</th>
+                        <th>Degree</th>
+                        <th>House</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let item of planetData">
+                        <td style="color: #C41135;">{{item.name}}</td>
+                        <td>{{item.sign}}</td>
+                        <td>{{item.signLord}}</td>
+                        <td>{{item.normDegree.toFixed(2)}}</td>
+                        <td>{{item.house}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table" *ngIf="lagnaTab=='nakshatra'">
+                    <thead>
+                    <tr>
+                        <th>Planet</th>
+                        <th>Nakshatra</th>
+                        <th>Nakshatra Lord</th>
+                        <th>House</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let item of planetData">
+                        <td style="color: #C41135;">{{item.name}}</td>
+                        <td>{{item.nakshatra}}</td>
+                        <td>{{item.nakshatraLord}}</td>
+                        <td>{{item.house}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+        </div>
+
+
+    </div>
+</div>
+

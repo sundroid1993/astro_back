@@ -165,7 +165,7 @@ export class UtilService {
     }
 
     hms(d) {
-        console.log(d);
+        // console.log(d);
         d = Number(d);
         var h = Math.floor(d / 3600);
         var m = Math.floor(d % 3600 / 60);

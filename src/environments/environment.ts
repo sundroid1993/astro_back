@@ -6,13 +6,13 @@
 export const environment = {
     production: false,
     firebaseConfig: {
-        apiKey: "AIzaSyBCAiCYWkx5HQRHd9IChIgfXD6smbqmPiQ",
-        authDomain: "gs11-36221.firebaseapp.com",
+        apiKey: "AIzaSyDpTEvPpAtBNzZMwJOA6CL_QYwUVXHPujE",
+        authDomain: "astroplus-a116e.firebaseapp.com",
         databaseURL: "https://gs11-36221-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "gs11-36221",
-        storageBucket: "gs11-36221.appspot.com",
-        messagingSenderId: "989787348433",
-        appId: "1:989787348433:web:e3c65d669f148f196094f0",
-        measurementId: "G-0E7PG6L06H"
+        projectId: "astroplus-a116e",
+        storageBucket: "astroplus-a116e.appspot.com",
+        messagingSenderId: "1050346885946",
+        appId: "1:1050346885946:web:191fbe5299e6e511f4b603",
+        measurementId: "G-Y0CJRFPNK3"
     }
 };

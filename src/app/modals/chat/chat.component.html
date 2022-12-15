@@ -79,10 +79,9 @@
         <div class="col-auto pr-0">
             <button class="btn btn-primary btn-sm m-1" (click)="openKundli()">KUNDLI</button>
             <br>
+            <button class="btn btn-primary m-1 p-2" (click)="sendMessage('text')">Send</button>
             <input (change)="onselectimage($event)" type="file" accept="image/*" #file style="display: none;">
-            <button class="btn btn-primary m-1" (click)="file.click()"><i class="fa fa-paperclip"
-                    aria-hidden="true"></i></button>
-            <button class="btn btn-primary m-1" (click)="sendMessage('text')"><i class="fa fa-sign-in"
+            <button class="btn btn-primary m-1 p-2" (click)="file.click()"><i class="fa fa-paperclip"
                     aria-hidden="true"></i></button>
         </div>
     </div>

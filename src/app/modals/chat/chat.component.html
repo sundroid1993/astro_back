@@ -1,8 +1,11 @@
 <!-- <p>popupalert works!</p> -->
 <div class="modal-header">
     <h5 *ngIf="userDetail==null||userDetail==undefined">Chat ({{utilService.hms(secsUsed)}})</h5>
-    <h5 *ngIf="userDetail!=null&&userDetail!=undefined">Chat with {{userDetail.first_name}} {{userDetail.last_name}}
+    <h5 *ngIf="!view_only&&userDetail!=null&&userDetail!=undefined">Chat
+        with {{userDetail.first_name}} {{userDetail.last_name}}
         ({{utilService.hms(secsUsed)}})</h5>
+    <h5 *ngIf="view_only&&userDetail!=null&&userDetail!=undefined">Chat
+        with {{userDetail.first_name}} {{userDetail.last_name}}</h5>
     <button *ngIf="view_only" (click)="close()" aria-label="Close" class="close" type="button" style="padding: 10px;">
         <span aria-hidden="true" style="font-size: 15px;">&times;</span>
     </button>
@@ -38,7 +41,7 @@
                     </div>
                     <div *ngIf="message.type == 'location'" [innerHtml]="message.message"></div>
                     <div *ngIf="message.type == 'contact'" [innerHtml]="message.message"></div>
-                    <div *ngIf="message.type == 'image'">
+                    <div *ngIf="message.type == 'image'" (click)="openImage(apiService.BASE_IMAGE_URL+message.path)">
                         <!--                {{message|json}}-->
                         <!--                {{message|json}}-->
                         <div *ngIf="!utilService.checkValue(message.show_attac)||message.show_attac==0">
@@ -68,12 +71,12 @@
         </div>
     </div>
 </div>
-<div *ngIf="view_only" class="modal-footer m-0 p-0" style="padding: 0% !important;">
+<div *ngIf="!view_only" class="modal-footer m-0 p-0" style="padding: 0% !important;">
     <div class="row w-100 m-0 p-0">
         <div class="col m-0 p-0">
             <div class="form-group p-0 w-100">
                 <textarea class="form-control m-1" (keyup.enter)="sendMessage('text')" placeholder="Enter message"
-                    type="text" [(ngModel)]="msg" rows="2" style="width: 100%;"></textarea>
+                          type="text" [(ngModel)]="msg" rows="2" style="width: 100%;"></textarea>
             </div>
         </div>
         <div class="col-auto pr-0">

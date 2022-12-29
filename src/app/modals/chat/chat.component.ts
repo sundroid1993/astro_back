@@ -48,15 +48,18 @@ export class ChatComponent implements OnInit {
     lastMsgDate = '';
 
     scrollToElement(): void {
-        this.myScrollContainer.nativeElement.scroll({
-            top: this.myScrollContainer.nativeElement.scrollHeight,
-            left: 0,
-            behavior: 'smooth'
-        });
+        if (this.utilService.checkValue(this.myScrollContainer) && this.utilService.checkValue(this.myScrollContainer.nativeElement)) {
+            this.myScrollContainer.nativeElement.scroll({
+                top: this.myScrollContainer.nativeElement.scrollHeight,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
     }
 
     ngOnInit(): void {
         console.log(this.chatCollection)
+        console.log("viewonly:-"+this.view_only);
         this.getPreviousMsgs()
 
         console.log(this.user_id)
@@ -216,10 +219,12 @@ export class ChatComponent implements OnInit {
 
     scrollToBottom(): void {
         try {
-            setTimeout(()=>{
+            setTimeout(()=> {
                 console.log("scrollTop height");
-                this.myScrollCont.nativeElement.scrollTop = this.myScrollCont.nativeElement.scrollHeight;
-                this.scrollBottom()
+                if (this.utilService.checkValue(this.myScrollCont) && this.utilService.checkValue(this.myScrollCont.nativeElement)) {
+                    this.myScrollCont.nativeElement.scrollTop = this.myScrollCont.nativeElement.scrollHeight;
+                    this.scrollBottom()
+                }
             },500)
         } catch (err) {
         }
@@ -323,6 +328,10 @@ export class ChatComponent implements OnInit {
             console.log('dismissed:-' + JSON.stringify(result));
         })
         modalRef.componentInstance.user_id = this.chatCollection.user_id;
+    }
+
+    openImage(url: string) {
+
     }
 }
 

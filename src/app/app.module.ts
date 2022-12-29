@@ -45,6 +45,7 @@ import { ImageInfoModalComponent } from './modals/image-info-modal/image-info-mo
 import { HistoryComponent } from './pages/history/history.component';
 import {NgxPaginationModule} from "ngx-pagination";
 import { UserKundliComponent } from './pages/user-kundli/user-kundli.component';
+import { ImageViewerComponent } from './modals/image-viewer/image-viewer.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +69,8 @@ import { UserKundliComponent } from './pages/user-kundli/user-kundli.component';
         TermsAndConditionsComponent,
         ImageInfoModalComponent,
         HistoryComponent,
-        UserKundliComponent
+        UserKundliComponent,
+        ImageViewerComponent
     ],
     imports: [
         BrowserAnimationsModule,

@@ -116,11 +116,21 @@ export class ApiService {
     postAPIWHeaders(url, postData): Promise<any> {
         console.log('url:-' + url);
         console.log('postData:-' + JSON.stringify(postData, null, 4));
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Authorization': 'Bearer ' + btoa("617724:795425809389e59a9acd293961843145")
-            })
-        };
+        let httpOptions;
+        if(postData.selected_lang=='hi'){
+            httpOptions={
+                headers: new HttpHeaders({
+                    'Authorization': 'Bearer ' + btoa("617724:795425809389e59a9acd293961843145"),
+                    'accept-language': 'hi'
+                })
+            }
+        }else{
+            httpOptions={
+                headers: new HttpHeaders({
+                    'Authorization': 'Bearer ' + btoa("617724:795425809389e59a9acd293961843145"),
+                })
+            }
+        }
         return new Promise((resolve, reject) => {
             this.http.post(url, postData, httpOptions).subscribe(result => {
                 // loading.dismiss();

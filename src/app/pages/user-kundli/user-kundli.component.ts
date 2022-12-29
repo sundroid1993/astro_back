@@ -105,6 +105,11 @@ export class UserKundliComponent implements OnInit {
 
     ngOnInit(): void {
         console.log(this.customerDetail);
+        if(this.utilService.getItem("selected_lang")=='hi'){
+            this.selected_lang='hi';
+        }else{
+            this.selected_lang='en';
+        }
 
         let url = this.apiService.BASE_URL + 'user/getUserDetailById'
         this.apiService.postAPI(url, {
@@ -187,7 +192,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
 
             this.ascendant = result.ascendant;
@@ -233,7 +239,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
 
             // this.aynanamsha = "";
@@ -356,7 +363,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
             this.vimDasha = result;
         }, (error) => {
@@ -375,7 +383,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
             this.yogDasha = result;
         }, (error) => {
@@ -411,7 +420,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
             this.planetData = result;
         }, (error) => {
@@ -470,7 +480,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
             // this.lagnaSVG = result.svg;
             if (this.Lagna) {
@@ -513,7 +524,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
             if (this.Ascendant) {
                 this.ascendant_zodiac = result.asc_report.ascendant;
@@ -530,7 +542,8 @@ export class UserKundliComponent implements OnInit {
             'min': this.min,
             lat: this.lat,
             lon: this.lng,
-            tzone: 5.5
+            tzone: 5.5,
+            selected_lang:this.selected_lang
         }).then((result) => {
             // if (this.Ascendant) {
             //   this.ascendant_zodiac = result.asc_report.ascendant;
@@ -571,7 +584,8 @@ export class UserKundliComponent implements OnInit {
                     'min': this.min,
                     lat: this.lat,
                     lon: this.lng,
-                    tzone: 5.5
+                    tzone: 5.5,
+                    selected_lang:this.selected_lang
                 }).then((result) => {
                     this.planets[i].desc = result.house_report;
                 }, (error) => {
@@ -592,13 +606,21 @@ export class UserKundliComponent implements OnInit {
                 'min': this.min,
                 lat: this.lat,
                 lon: this.lng,
-                tzone: 5.5
+                tzone: 5.5,
+                selected_lang:this.selected_lang
             }).then((result) => {
                 this.manglik_report = result.manglik_report;
             }, (error) => {
                 console.log(error);
             })
         }
+    }
+
+    selected_lang = 'hi';
+
+    onLangChangeSelected() {
+        this.utilService.setItem("selected_lang",this.selected_lang)
+        this.ngOnInit()
     }
 }
 

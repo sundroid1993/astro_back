@@ -70,16 +70,16 @@ export class HistoryComponent implements OnInit {
             type: this.type
         }).then((result) => {
             if (result.status) {
-                if (this.type == 0) {
-                    for (let item of result.result) {
-                        if (this.utilService.checkValue(item) && this.utilService.checkValue(item.ratingDetail) && item.ratingDetail.review != '') {
-                            try{
-                                item.ratingDetail.review = atob(item.ratingDetail.review);
-                            }catch (e){
+                for (let item of result.result) {
+                    if (this.utilService.checkValue(item) && this.utilService.checkValue(item.ratingDetail) && item.ratingDetail.review != '') {
+                        try{
+                            item.ratingDetail.review = atob(item.ratingDetail.review);
+                        }catch (e){
 
-                            }
                         }
                     }
+                }
+                if (this.type == 0) {
                     this.chatHistory = result.result;
                 } else {
                     this.callHistory = result.result;

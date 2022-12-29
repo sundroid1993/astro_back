@@ -7,6 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
 import {Events, EventService} from "../../service/event.service";
 import {UserKundliComponent} from "../../pages/user-kundli/user-kundli.component";
+import {Howl, Howler} from 'howler';
 
 @Component({
     selector: 'app-chat-request-popup',
@@ -57,10 +58,16 @@ export class ChatRequestPopupComponent implements OnInit {
     }
 
     playAudio() {
-        let audio = new Audio();
-        audio.src = 'assets/alarm.mp3';
-        audio.load();
-        audio.play();
+        // let audio = new Audio();
+        // audio.src = 'assets/alarm.mp3';
+        // audio.load();
+        // audio.play();
+
+        const sound = new Howl({
+            src: ['assets/alarm.mp3']
+        });
+        sound.play();
+        Howler.volume(1);
     }
 
     ngOnDestroy() {

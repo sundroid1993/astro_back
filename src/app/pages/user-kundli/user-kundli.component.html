@@ -4,7 +4,11 @@
         <div class="mr-auto">
             <h4 class="m-3">Kundli Detail</h4>
         </div>
-        <div>
+        <div style="display: flex;align-items: center">
+            <select class="form-control" [(ngModel)]="selected_lang" (ngModelChange)="onLangChangeSelected()" style="height: 40px;">
+                <option value="hi">Hindi</option>
+                <option value="en">English</option>
+            </select>
             <button (click)="closeModal()" aria-label="Close" class="close m-3" style="zoom: 1.2; outline: none;"
                 type="button">
                 <span aria-hidden="true">&times;</span>

@@ -164,7 +164,7 @@ export class HistoryComponent implements OnInit {
 
                     this.sendAttachment(reader.result, i, type)
                 } else {
-                    this.toaster.error("Only png and jpg file are allowed");
+                    this.toaster.error("Only png, jpg and pdf files are allowed");
                 }
                 // if (type == 'S10') {
                 //   this.uploadS10Image(type, file, index);
@@ -178,7 +178,7 @@ export class HistoryComponent implements OnInit {
 
     sendAttachment(base64, i, type) {
         this.apiService.postAPI(this.apiService.BASE_URL + "chat/uploadImageBase64", {
-            image: base64
+            image: base64,
         }).then((result) => {
             if (result.status) {
                 this.attachReport(result.path, i, type)

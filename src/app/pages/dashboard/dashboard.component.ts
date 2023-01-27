@@ -7,6 +7,27 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 import {EmitEvent, Events, EventService} from "../../service/event.service";
 
+import {
+    ApexAxisChartSeries,
+    ApexChart,
+    ApexDataLabels,
+    ApexGrid,
+    ApexStroke,
+    ApexTitleSubtitle,
+    ApexXAxis,
+    ChartComponent
+} from 'ng-apexcharts';
+
+export type ChartOptions = {
+    series: ApexAxisChartSeries;
+    chart: ApexChart;
+    xaxis: ApexXAxis;
+    dataLabels: ApexDataLabels;
+    grid: ApexGrid;
+    stroke: ApexStroke;
+    title: ApexTitleSubtitle;
+};
+
 
 @Component({
     selector: 'dashboard-cmp',
@@ -94,6 +115,97 @@ export class DashboardComponent implements OnInit {
 
 
     ngAfterViewInit() {
+        this.apiService.getAPI(this.apiService.BASE_URL + 'common/getRevenueByMonthByAstroId/'+this.utilService.getUserID()).then((result) => {
+            if (result.status) {
+                let series = {
+                    name: 'Revenue',
+                    data: []
+                }
+                let categories = [];
+
+
+                for (let item of result.result) {
+                    series.data.push(Number(item.total).toFixed(0))
+                    categories.push(item.month_name)
+                }
+
+                this.chartOptions={
+                    series: [
+                        series
+                    ],
+                    chart: {
+                        height: 350,
+                        // width: 100,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
+                    title: {
+                        text: '',
+                        align: 'left'
+                    },
+                    grid: {
+                        row: {
+                            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                            // opacity: 0.5
+                        }
+                    },
+                    xaxis: {
+                        categories: categories
+                    }
+
+                }
+            }
+        })
+    }
+
+
+    public chartOptions: Partial<ChartOptions> = {
+        series: [
+            // {
+            //     name: 'Orders',
+            //     data: [1, 2, 3, 4, 5]
+            // },
+            // {
+            //     name: 'Revenue',
+            //     data: [5,4,3,2,1]
+            // }
+        ],
+        chart: {
+            height: 350,
+            // width: 100,
+            type: 'line',
+            zoom: {
+                enabled: false
+            }
+        },
+        dataLabels: {
+            enabled: true
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        title: {
+            text: '',
+            align: 'left'
+        },
+        grid: {
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                // opacity: 0.5
+            }
+        },
+        xaxis: {
+            categories: []
+        }
+
     }
 
     onStatusChange() {

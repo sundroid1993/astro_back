@@ -42,6 +42,7 @@
     "jquery": "3.5.1",
     "jspdf": "^2.5.1",
     "moment": "2.29.1",
+    "ng-apexcharts": "^1.7.4",
     "ng-multiselect-dropdown": "^0.3.8",
     "ngx-google-places-autocomplete": "^2.0.5",
     "ngx-image-cropper": "^5.0.1",

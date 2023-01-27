@@ -353,7 +353,8 @@ export class RegisterComponent implements OnInit {
         })
         if (type == 'profile_pic') {
             modal.componentInstance.ratio = 1 / 1;
-            modal.componentInstance.width = 600;
+            modal.componentInstance.width = 300;
+            modal.componentInstance.maintainAspectRatio = true;
         } else if (type == 'pan') {
             modal.componentInstance.ratio = 2 / 1;
             modal.componentInstance.width = 600;

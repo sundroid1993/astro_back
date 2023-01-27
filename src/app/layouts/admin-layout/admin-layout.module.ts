@@ -11,6 +11,7 @@ import {NotificationsComponent} from '../../pages/notifications/notifications.co
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {GooglePlaceModule} from 'ngx-google-places-autocomplete';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
         NgbModule,
         GooglePlaceModule,
         NgMultiSelectDropDownModule,
+        NgApexchartsModule,
     ],
     declarations: [
         DashboardComponent,

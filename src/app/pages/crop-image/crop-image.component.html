@@ -8,7 +8,7 @@
             <div class="row" style="margin-top: 15px;">
                 <div class="text-center col-md-8">
                     <h5>Crop Image</h5>
-                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="maintainAspectRatio"
                         [aspectRatio]="ratio" [resizeToWidth]="width" format="png" (imageCropped)="imageCropped($event)"
                         (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()"
                         (loadImageFailed)="loadImageFailed()"></image-cropper>

@@ -14,6 +14,7 @@ export class CropImageComponent implements OnInit {
 
     @Input() ratio = 2.5 / 1;
     @Input() width = 256;
+    @Input() maintainAspectRatio = false;
 
     constructor(
         private modalService: NgbModal,

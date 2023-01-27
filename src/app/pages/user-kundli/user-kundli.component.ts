@@ -88,7 +88,20 @@ export class UserKundliComponent implements OnInit {
 
     vimDasha = [];
     yogDasha = [];
+    
+    vim_major = null;
+    vim_minor = null;
+    vim_sub_minor = null;
+    vim_sub_sub_minor = null;
+    vim_sub_sub_sub_minor = null;
 
+    planets = [{name: 'SUN', desc: ''}, {name: 'MOON', desc: ''}, {name: 'MARS', desc: ''}, {
+        name: 'MERCURY',
+        desc: ''
+    }, {name: 'JUPITER', desc: ''}, {name: 'VENUS', desc: ''}, {name: 'SATURN', desc: ''}];
+
+    selected_lang = 'hi';
+    
     constructor(
         private modalService: NgbModal,
         private ngbActiveModal: NgbActiveModal,
@@ -184,12 +197,12 @@ export class UserKundliComponent implements OnInit {
     }
 
     getBasicDetails() {
-        this.apiService.postAPIWHeaders('https://json.astrologyapi.com/v1/astro_details', {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+        this.apiService.postAPIWHeaders("https://json.astrologyapi.com/v1/astro_details", {
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -231,12 +244,12 @@ export class UserKundliComponent implements OnInit {
         })
 
 
-        this.apiService.postAPIWHeaders('https://json.astrologyapi.com/v1/advanced_panchang/sunrise', {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+        this.apiService.postAPIWHeaders("https://json.astrologyapi.com/v1/advanced_panchang/sunrise", {
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -315,13 +328,12 @@ export class UserKundliComponent implements OnInit {
         this.Vimshottari = true;
     }
 
-
     openLife() {
         this.falsevalue();
         this.Life = true;
-        if (this.ascendant_report == '') {
-            this.openAscendant()
-        }
+        // if (this.ascendant_report == '') {
+        this.openAscendant()
+        // }
     }
 
     openNavamsa() {
@@ -344,23 +356,23 @@ export class UserKundliComponent implements OnInit {
     openDasha() {
         this.falsevalue();
         this.Dasha = true;
-        if (this.vimDasha.length == 0) {
-            this.getVimDasha();
-        }
-        if (this.yogDasha.length == 0) {
-            this.getYogDasha()
-        }
+        // if (this.vimDasha.length == 0) {
+        this.getVimDasha();
+        // }
+        // if (this.yogDasha.length == 0) {
+        this.getYogDasha()
+        // }
     }
 
     getVimDasha() {
         this.vimDasha = [];
-        let url = 'https://json.astrologyapi.com/v1/major_vdasha';
+        let url = "https://json.astrologyapi.com/v1/major_vdasha";
         this.apiService.postAPIWHeaders(url, {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -374,13 +386,13 @@ export class UserKundliComponent implements OnInit {
 
     getYogDasha() {
         this.yogDasha = [];
-        let url = 'https://json.astrologyapi.com/v1/major_yogini_dasha';
+        let url = "https://json.astrologyapi.com/v1/major_yogini_dasha";
         this.apiService.postAPIWHeaders(url, {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -411,13 +423,13 @@ export class UserKundliComponent implements OnInit {
 
     getPlantInfo() {
         this.planetData = [];
-        let url = 'https://json.astrologyapi.com/v1/planets';
+        let url = "https://json.astrologyapi.com/v1/planets";
         this.apiService.postAPIWHeaders(url, {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -430,54 +442,54 @@ export class UserKundliComponent implements OnInit {
     }
 
     getChart() {
-        let url = 'https://json.astrologyapi.com/v1/horo_chart_image/D1';
+        let url = "https://json.astrologyapi.com/v1/horo_chart_image/D1";
         if (this.Lagna) {
-            url = 'https://json.astrologyapi.com/v1/horo_chart_image/D1';
+            url = "https://json.astrologyapi.com/v1/horo_chart_image/D1";
         } else if (this.Navamsa) {
-            url = 'https://json.astrologyapi.com/v1/horo_chart_image/D9';
+            url = "https://json.astrologyapi.com/v1/horo_chart_image/D9";
         } else if (this.Dasha) {
-            url = 'https://json.astrologyapi.com/v1/horo_chart_image/D10';
+            url = "https://json.astrologyapi.com/v1/horo_chart_image/D10";
         } else if (this.Divisional) {
-            if (this.selectedDivisional == 'Chalit') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/chalit';
-            } else if (this.selectedDivisional == 'Sun') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/SUN';
-            } else if (this.selectedDivisional == 'Moon') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/MOON';
-            } else if (this.selectedDivisional == 'Hora (D-2)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D2';
-            } else if (this.selectedDivisional == 'Drekkana (D-3)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D3';
-            } else if (this.selectedDivisional == 'Chaturthamsa (D-4)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D4';
-            } else if (this.selectedDivisional == 'Saptamsa (D-7)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D7';
-            } else if (this.selectedDivisional == 'Dasamsa (D-10)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D10';
-            } else if (this.selectedDivisional == 'Dwadasamsa (D-12)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D12';
-            } else if (this.selectedDivisional == 'Shodasamsa (D-16)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D16';
-            } else if (this.selectedDivisional == 'Vimsamsa (D-20)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D20';
-            } else if (this.selectedDivisional == 'Chaturvimsamsa (D-24)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D24';
-            } else if (this.selectedDivisional == 'Trimsamsa (D-30)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D30';
-            } else if (this.selectedDivisional == 'Khavedamsa (D-40)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D40';
-            } else if (this.selectedDivisional == 'Akshavedamsa (D-45)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D45';
-            } else if (this.selectedDivisional == 'Shastiamsa (D-60)') {
-                url = 'https://json.astrologyapi.com/v1/horo_chart_image/D60';
+            if (this.selectedDivisional == "Chalit") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/chalit";
+            } else if (this.selectedDivisional == "Sun") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/SUN";
+            } else if (this.selectedDivisional == "Moon") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/MOON";
+            } else if (this.selectedDivisional == "Hora (D-2)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D2";
+            } else if (this.selectedDivisional == "Drekkana (D-3)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D3";
+            } else if (this.selectedDivisional == "Chaturthamsa (D-4)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D4";
+            } else if (this.selectedDivisional == "Saptamsa (D-7)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D7";
+            } else if (this.selectedDivisional == "Dasamsa (D-10)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D10";
+            } else if (this.selectedDivisional == "Dwadasamsa (D-12)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D12";
+            } else if (this.selectedDivisional == "Shodasamsa (D-16)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D16";
+            } else if (this.selectedDivisional == "Vimsamsa (D-20)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D20";
+            } else if (this.selectedDivisional == "Chaturvimsamsa (D-24)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D24";
+            } else if (this.selectedDivisional == "Trimsamsa (D-30)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D30";
+            } else if (this.selectedDivisional == "Khavedamsa (D-40)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D40";
+            } else if (this.selectedDivisional == "Akshavedamsa (D-45)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D45";
+            } else if (this.selectedDivisional == "Shastiamsa (D-60)") {
+                url = "https://json.astrologyapi.com/v1/horo_chart_image/D60";
             }
         }
         this.apiService.postAPIWHeaders(url, {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -508,20 +520,21 @@ export class UserKundliComponent implements OnInit {
         this.dashaTab = tabName;
     }
 
-    private getLifeReport() {
-        let url = '';
-        if (this.Ascendant && (this.ascendant_zodiac == '' || this.ascendant_report == '')) {
-            url = 'https://json.astrologyapi.com/v1/general_ascendant_report';
+    getLifeReport() {
+        // console.log(this.Ascendant)
+        let url = "";
+        if (this.Ascendant) {
+            url = "https://json.astrologyapi.com/v1/general_ascendant_report";
         }
         if (url == '') {
             return;
         }
         this.apiService.postAPIWHeaders(url, {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -534,12 +547,12 @@ export class UserKundliComponent implements OnInit {
         }, (error) => {
             console.log(error);
         })
-        this.apiService.postAPIWHeaders('https://json.astrologyapi.com/v1/current_vdasha', {
-            'day': this.date,
-            'month': this.month,
-            'year': this.year,
-            'hour': this.hour,
-            'min': this.min,
+        this.apiService.postAPIWHeaders("https://json.astrologyapi.com/v1/current_vdasha", {
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
             lat: this.lat,
             lon: this.lng,
             tzone: 5.5,
@@ -561,62 +574,49 @@ export class UserKundliComponent implements OnInit {
         })
     }
 
-    vim_major = null;
-    vim_minor = null;
-    vim_sub_minor = null;
-    vim_sub_sub_minor = null;
-    vim_sub_sub_sub_minor = null;
-
-    planets = [{name: 'SUN', desc: ''}, {name: 'MOON', desc: ''}, {name: 'MARS', desc: ''}, {
-        name: 'MERCURY',
-        desc: ''
-    }, {name: 'JUPITER', desc: ''}, {name: 'VENUS', desc: ''}, {name: 'SATURN', desc: ''}];
-
     getLifePlanetaryReport() {
         for (let i = 0; i < this.planets.length; i++) {
-            if (this.planets[i].desc == '') {
-                let url = 'https://json.astrologyapi.com/v1/general_house_report/' + (this.planets[i].name).toLowerCase();
-                this.apiService.postAPIWHeaders(url, {
-                    'day': this.date,
-                    'month': this.month,
-                    'year': this.year,
-                    'hour': this.hour,
-                    'min': this.min,
-                    lat: this.lat,
-                    lon: this.lng,
-                    tzone: 5.5,
-                    selected_lang:this.selected_lang
-                }).then((result) => {
-                    this.planets[i].desc = result.house_report;
-                }, (error) => {
-                    console.log(error);
-                })
-            }
-        }
-    }
-
-    getManglikReport() {
-        if (this.manglik_report == '') {
-            let url = 'https://json.astrologyapi.com/v1/manglik';
+            // if (this.planets[i].desc == '') {
+            let url = "https://json.astrologyapi.com/v1/general_house_report/" + (this.planets[i].name).toLowerCase();
             this.apiService.postAPIWHeaders(url, {
-                'day': this.date,
-                'month': this.month,
-                'year': this.year,
-                'hour': this.hour,
-                'min': this.min,
+                "day": this.date,
+                "month": this.month,
+                "year": this.year,
+                "hour": this.hour,
+                "min": this.min,
                 lat: this.lat,
                 lon: this.lng,
                 tzone: 5.5,
                 selected_lang:this.selected_lang
             }).then((result) => {
-                this.manglik_report = result.manglik_report;
+                this.planets[i].desc = result.house_report;
             }, (error) => {
                 console.log(error);
             })
+            // }
         }
     }
 
-    selected_lang = 'hi';
+    getManglikReport() {
+        // if (this.manglik_report == '') {
+        let url = "https://json.astrologyapi.com/v1/manglik";
+        this.apiService.postAPIWHeaders(url, {
+            "day": this.date,
+            "month": this.month,
+            "year": this.year,
+            "hour": this.hour,
+            "min": this.min,
+            lat: this.lat,
+            lon: this.lng,
+            tzone: 5.5,
+            selected_lang:this.selected_lang
+        }).then((result) => {
+            this.manglik_report = result.manglik_report;
+        }, (error) => {
+            console.log(error);
+        })
+        // }
+    }
 
     onLangChangeSelected() {
         this.utilService.setItem("selected_lang",this.selected_lang)

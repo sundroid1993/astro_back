@@ -10,10 +10,6 @@ export class ApiService {
     // BASE_IMAGE_URL = 'http://localhost/astro-api';
     // IMAGE_BASE_URL = 'http://localhost/astro-api/';
 
-    // BASE_URL = 'http://43.204.169.71:3000/';
-    // BASE_IMAGE_URL = 'http://43.204.169.71/astro-api';
-    // PROFILE_BASE_IMAGE_URL = 'http://43.204.169.71/astro-api/';
-
     BASE_URL = 'https://app.astroplus.co:3000/';
     BASE_IMAGE_URL = 'https://app.astroplus.co/astro-api';
     PROFILE_BASE_IMAGE_URL = 'https://app.astroplus.co/astro-api/';
@@ -149,5 +145,7 @@ export class ApiService {
             });
         });
     }
+
+
 
 }

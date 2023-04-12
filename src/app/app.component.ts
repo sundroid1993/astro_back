@@ -135,6 +135,10 @@ export class AppComponent implements OnInit {
             console.log(data)
             this.eventService.emit(new EmitEvent(Events.CHAT_REQUEST_UPDATED, data));
         });
+        this.socket.on('astro_notification', (data) => {
+            console.log("data:", data)
+            this.toaster.error(data.message)
+        });
     }
 
     interval

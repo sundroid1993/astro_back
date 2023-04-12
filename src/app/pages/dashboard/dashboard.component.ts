@@ -162,6 +162,9 @@ export class DashboardComponent implements OnInit {
                     }
 
                 }
+                setTimeout(()=>{
+                    window.dispatchEvent(new Event('resize'))
+                },500)
             }
         })
     }

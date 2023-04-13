@@ -26,21 +26,18 @@
                         <label><b> Phone </b></label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend"
-                                 style="border: solid 1.5px black; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none">
+                                style="border: solid 1.5px black; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none">
                                 <div class="input-group-text">+91 &nbsp;</div>
                             </div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup"
-                                   placeholder="Enter Phone" type="number" [(ngModel)]="phone" type="tel"
-                                   oninput="this.value=(parseInt(this.value)||'')" [attr.maxlength]="10">
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter Phone"
+                                type="number" [(ngModel)]="phone" type="tel"
+                                oninput="this.value=(parseInt(this.value)||'')" [attr.maxlength]="10">
                         </div>
                     </div>
-                    <div style="margin: -20px;"></div>
-                    <div class="custom-control custom-checkbox m-2 ml-5">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" readonly="true"
-                               [(ngModel)]="terms">
-                        <label class="custom-control-label" (click)="openTermsCondition()">I Agree To The <a
-                                style="text-decoration: underline;">Terms and
-                            Conditions*</a></label>
+                    <div class="d-flex checkbox m-2 ml-5" style="width: 90%;">
+                        <input type="checkbox" style="width: 20px;" [(ngModel)]="terms">
+                        <label style="width: 80%; margin: 5px;">I Agree To The
+                            <a (click)="openTermsCondition()">Terms and Conditions</a></label>
                     </div>
                     <div class="container-login100-form-btn m-t-32" style="margin-top: 20px;">
                         <button class="login100-form-btn" (click)="checkAstroByEmailPhone()" [disabled]="!terms">
@@ -62,7 +59,7 @@
                     <div class="form-group m-2 mb-0 p-3">
                         <label><b> OTP </b></label>
                         <input class="form-control" [(ngModel)]="otp" placeholder="Enter OTP" type="number" value=""
-                               type="tel" oninput="this.value=(parseInt(this.value)||'')" [attr.maxlength]="6">
+                            type="tel" oninput="this.value=(parseInt(this.value)||'')" [attr.maxlength]="6">
                     </div>
                     <div class="container-login100-form-btn m-t-32 d-flex" style="margin-top: 20px;">
                         <button class="smallBtn btn-secondary" (click)="backToBasic()">Back
@@ -74,7 +71,7 @@
                         available in <span class="text-primary">{{utilService.getTimerTimeLeft(timeLeft)}}</span>.</p>
 
                     <div class="container-login100-form-btn m-t-32 d-flex" *ngIf="!resend_disabled"
-                         style="margin-top: 20px;">
+                        style="margin-top: 20px;">
                         <button class="smallBtn" (click)="registerTempAsto()">Resend OTP</button> &nbsp;
                         <!--                        <button class="smallBtn ">Resend OTP on CALL</button>-->
                     </div>
@@ -92,12 +89,12 @@
                     <div class="row">
                         <div class="col-12">
                             <img *ngIf="profile_pic!=utilService.DEFAULT_IMAGE"
-                                 [src]="apiService.BASE_IMAGE_URL+profile_pic" class="mx-auto d-block m-4"
-                                 (click)="openCropper('profile_pic')"
-                                 style="width: 100px; height: auto; border-radius: 20%;" alt="">
+                                [src]="apiService.BASE_IMAGE_URL+profile_pic" class="mx-auto d-block m-4"
+                                (click)="openCropper('profile_pic')"
+                                style="width: 100px; height: auto; border-radius: 20%;" alt="">
                             <img *ngIf="profile_pic==utilService.DEFAULT_IMAGE" [src]="utilService.DEFAULT_IMAGE"
-                                 class="mx-auto d-block m-4" (click)="openCropper('profile_pic')"
-                                 style="width: 100px; height: auto; border-radius: 20%;" alt="">
+                                class="mx-auto d-block m-4" (click)="openCropper('profile_pic')"
+                                style="width: 100px; height: auto; border-radius: 20%;" alt="">
                         </div>
                     </div>
                     <div class="row">
@@ -124,7 +121,7 @@
                                 <!--                                <div class="form-group ">-->
                                 <label> <b> Date Of Birth </b></label>
                                 <input type="date" class="form-control" [(ngModel)]="dob" min='1922-01-01'
-                                       max="2022-09-01">
+                                    max="2022-09-01">
 
                                 <!--                                    <label><b> Why do you think we should onboard you?* </b></label>-->
                                 <!--                                    <input [(ngModel)]="onboard_reason" ngmode class="form-control" placeholder=""-->
@@ -136,8 +133,7 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label> <b> Language* </b></label>
                                 <ng-multiselect-dropdown [(ngModel)]="selectedLanguages" [settings]="dropdownSettings"
-                                                         [data]="languages" [placeholder]="'Select Languages'"
-                                                         style="flex-grow: 1;">
+                                    [data]="languages" [placeholder]="'Select Languages'" style="flex-grow: 1;">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
@@ -146,10 +142,10 @@
                                 <label> <b> Are you qualified* </b></label>
                                 <div style="display: flex;align-items: center">
                                     <input [(ngModel)]="qualification" type="radio" id="qual_yes" name="qualification"
-                                           value="yes">
+                                        value="yes">
                                     <label style="margin-left: 3px;">Yes</label><br>
                                     <input style="margin-left: 7px;" [(ngModel)]="qualification" type="radio"
-                                           id="qual_no" name="qualification" value="no">
+                                        id="qual_no" name="qualification" value="no">
                                     <label style="margin-left: 3px;">No</label><br>
                                 </div>
                             </div>
@@ -164,8 +160,7 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label> <b> All Skills* </b></label>
                                 <ng-multiselect-dropdown [(ngModel)]="selectAllSkills" [settings]="dropdownSettings"
-                                                         [data]="skills" [placeholder]="'Select All Skills'"
-                                                         style="flex-grow: 1;">
+                                    [data]="skills" [placeholder]="'Select All Skills'" style="flex-grow: 1;">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
@@ -181,8 +176,8 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label> <b> Primary Skills (Select any 3 skills)* </b></label>
                                 <ng-multiselect-dropdown [(ngModel)]="selectedPrimarySkills"
-                                                         [settings]="primaryDDSetting" [data]="selectAllSkills"
-                                                         [placeholder]="'Select Primary Skills'" style="flex-grow: 1;">
+                                    [settings]="primaryDDSetting" [data]="selectAllSkills"
+                                    [placeholder]="'Select Primary Skills'" style="flex-grow: 1;">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
@@ -190,8 +185,8 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label><b> Define Experience (in years)* </b></label>
                                 <ng-multiselect-dropdown [(ngModel)]="selectedExperience"
-                                                         [settings]="expdropdownSettings" [data]="experiences"
-                                                         [placeholder]="'Select Experience'" style="flex-grow: 1;">
+                                    [settings]="expdropdownSettings" [data]="experiences"
+                                    [placeholder]="'Select Experience'" style="flex-grow: 1;">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
@@ -231,10 +226,10 @@
                                 <label> <b> Are you working on any other online platform?* </b></label>
                                 <div style="display: flex;align-items: center">
                                     <input [(ngModel)]="other_platform" type="radio" id="yes1" name="other_platform"
-                                           value="yes">
+                                        value="yes">
                                     <label for="yes1" style="margin-left: 3px;">Yes</label><br>
                                     <input style="margin-left: 7px;" [(ngModel)]="other_platform" type="radio" id="no1"
-                                           name="other_platform" value="no">
+                                        name="other_platform" value="no">
                                     <label for="no1" style="margin-left: 3px;">No</label><br>
                                 </div>
                             </div>
@@ -271,7 +266,7 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label><b> Why do you think we should onboard you?* </b></label>
                                 <input [(ngModel)]="onboard_reason" ngmode class="form-control" placeholder=""
-                                       type="text" value="">
+                                    type="text" value="">
                             </div>
                         </div>
                         <!-- <div class="col-6">
@@ -288,8 +283,7 @@
                                 <!--                                    <option *ngFor="let city of cities;" [value]="city.id">{{city.name}}</option>-->
                                 <!--                                </select>-->
                                 <ng-multiselect-dropdown [(ngModel)]="selectedCities" [settings]="expdropdownSettings"
-                                                         [data]="cities" [placeholder]="'Select City'"
-                                                         style="flex-grow: 1;">
+                                    [data]="cities" [placeholder]="'Select City'" style="flex-grow: 1;">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
@@ -297,7 +291,7 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label><b> Main source of business (other than astrology* </b></label>
                                 <input [(ngModel)]="income_source" class="form-control" placeholder="" type="text"
-                                       value="">
+                                    value="">
                             </div>
                         </div>
 
@@ -308,7 +302,7 @@
                                     <input [(ngModel)]="refer" type="radio" id="refer_yes" name="refer" value="yes">
                                     <label for="refer_yes" style="margin-left: 3px;">Yes</label><br>
                                     <input style="margin-left: 7px;" [(ngModel)]="refer" type="radio" id="refer_no"
-                                           name="refer" value="no">
+                                        name="refer" value="no">
                                     <label for="refer_no" style="margin-left: 3px;">No</label><br>
                                 </div>
                             </div>
@@ -324,7 +318,7 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>Long Bio ({{200 - bio.length}} chars left)</label>
                                 <textarea [(ngModel)]="bio" class="form-control" placeholder="Long Bio" cols="30"
-                                          maxlength="200" rows="10"></textarea>
+                                    maxlength="200" rows="10"></textarea>
                             </div>
                         </div>
                     </div>
@@ -368,14 +362,14 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>Account Holder Name</label>
                                 <input [(ngModel)]="account_holder_name" class="form-control" placeholder="Name"
-                                       type="text" (keypress)="omit_special_char($event)">
+                                    type="text" (keypress)="omit_special_char($event)">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>Account Type</label>
                                 <select [(ngModel)]="account_type" class="form-control"
-                                        placeholder="Select Account Type" type="text">
+                                    placeholder="Select Account Type" type="text">
                                     <option value="savings">Savings</option>
                                     <option value="current">Current</option>
                                     <!--                                    <option value="overdaft">Overdraft</option>-->
@@ -390,25 +384,23 @@
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>Acc Number</label>
                                 <input [(ngModel)]="account_no" class="form-control" placeholder="Enter Acc Number"
-                                       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                       type = "number"
-                                       maxlength = "17" min="0">
+                                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    type="number" maxlength="17" min="0">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>IFSC Code</label>
-                                <input [(ngModel)]="ifsc" class="form-control" placeholder="Enter IFSC Code"
-                                       type="text" (keypress)="omit_special_char($event)"
-                                       maxlength = "11" min="0">
+                                <input [(ngModel)]="ifsc" class="form-control" placeholder="Enter IFSC Code" type="text"
+                                    (keypress)="omit_special_char($event)" maxlength="11" min="0">
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="form-group m-2 mb-0 p-3">
                                 <label>PAN Number</label>
                                 <input [(ngModel)]="pan_number" class="form-control" placeholder="Enter PAN Number"
-                                       maxlength="10" (keypress)="omit_special_char($event)" min="0"
-                                       title="Please enter valid PAN number. E.g. AAAAA9999A" required type="text">
+                                    maxlength="10" (keypress)="omit_special_char($event)" min="0"
+                                    title="Please enter valid PAN number. E.g. AAAAA9999A" required type="text">
                             </div>
                         </div>
                     </div>
@@ -418,14 +410,14 @@
                                 <label>PAN Card</label>
                                 <div style=" margin: auto; display: block;">
                                     <img *ngIf="pan_path==utilService.DEFAULT_BANNER" [src]="pan_path" alt=""
-                                         style="width: 100%; height: 150px; ">
+                                        style="width: 100%; height: 150px; ">
                                     <img *ngIf="pan_path!=utilService.DEFAULT_BANNER"
-                                         [src]="apiService.BASE_IMAGE_URL+pan_path" alt=""
-                                         style="width: 100%; height: 150px; ">
+                                        [src]="apiService.BASE_IMAGE_URL+pan_path" alt=""
+                                        style="width: 100%; height: 150px; ">
                                     <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                           style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
+                                        style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
                                         <i (click)="openCropper('pan')" aria-hidden="true"
-                                           class="fa fa-upload fa-2x text-white"></i>
+                                            class="fa fa-upload fa-2x text-white"></i>
                                     </label>
                                 </div>
                             </div>
@@ -435,14 +427,14 @@
                                 <label>Upload Cancel Cheque</label>
                                 <div style=" margin: auto; display: block;">
                                     <img *ngIf="cheque_path==utilService.DEFAULT_BANNER" [src]="cheque_path" alt=""
-                                         style="width: 100%; height: 150px; ">
+                                        style="width: 100%; height: 150px; ">
                                     <img *ngIf="cheque_path!=utilService.DEFAULT_BANNER"
-                                         [src]="apiService.BASE_IMAGE_URL+cheque_path" alt=""
-                                         style="width: 100%; height: 150px; ">
+                                        [src]="apiService.BASE_IMAGE_URL+cheque_path" alt=""
+                                        style="width: 100%; height: 150px; ">
                                     <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                           style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
+                                        style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
                                         <i (click)="openCropper('cheque')" aria-hidden="true"
-                                           class="fa fa-upload fa-2x text-white"></i>
+                                            class="fa fa-upload fa-2x text-white"></i>
                                     </label>
                                 </div>
                             </div>
@@ -452,14 +444,14 @@
                                 <label>Upload Gov Authorised Address Proof</label>
                                 <div style=" margin: auto; display: block;">
                                     <img *ngIf="address_proof==utilService.DEFAULT_BANNER" [src]="address_proof" alt=""
-                                         style="width: 100%; height: 150px; ">
+                                        style="width: 100%; height: 150px; ">
                                     <img *ngIf="address_proof!=utilService.DEFAULT_BANNER"
-                                         [src]="apiService.BASE_IMAGE_URL+address_proof" alt=""
-                                         style="width: 100%; height: 150px; ">
+                                        [src]="apiService.BASE_IMAGE_URL+address_proof" alt=""
+                                        style="width: 100%; height: 150px; ">
                                     <label class="btn btn-default btn-sm center-block btn-file m-0"
-                                           style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
+                                        style="position: absolute; bottom: 0%;right: 0%;transform: translate(0%, -50%);">
                                         <i (click)="openCropper('address')" aria-hidden="true"
-                                           class="fa fa-upload fa-2x text-white"></i>
+                                            class="fa fa-upload fa-2x text-white"></i>
                                     </label>
                                 </div>
                             </div>

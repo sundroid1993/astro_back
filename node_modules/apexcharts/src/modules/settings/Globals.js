@@ -10,7 +10,7 @@ export default class Globals {
     gl.seriesCandleC = []
     gl.seriesRangeStart = []
     gl.seriesRangeEnd = []
-    gl.seriesRangeBar = []
+    gl.seriesRange = []
     gl.seriesPercent = []
     gl.seriesGoals = []
     gl.seriesX = []
@@ -37,7 +37,6 @@ export default class Globals {
     gl.pointsArray = []
     gl.dataLabelsRects = []
     gl.isXNumeric = false
-    gl.xaxisLabelsCount = 0
     gl.skipLastTimelinelabel = false
     gl.skipFirstTimelinelabel = false
     gl.isDataXYZ = false

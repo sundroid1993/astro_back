@@ -125,9 +125,12 @@ export class DashboardComponent implements OnInit {
 
 
                 for (let item of result.result) {
-                    series.data.push(Number(item.total).toFixed(0))
+                    series.data.push(this.utilService.calc(item.total,2))
                     categories.push(item.month_name)
                 }
+
+                console.log("series:",series); 
+                
 
                 this.chartOptions={
                     series: [

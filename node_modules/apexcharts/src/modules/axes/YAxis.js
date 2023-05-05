@@ -9,8 +9,9 @@ import AxesUtils from './AxesUtils'
  **/
 
 export default class YAxis {
-  constructor(ctx) {
+  constructor(ctx, elgrid) {
     this.ctx = ctx
+    this.elgrid = elgrid
     this.w = ctx.w
     const w = this.w
 
@@ -79,6 +80,18 @@ export default class YAxis {
           xPad = xPad * -1
         }
 
+        let textAnchor = 'end'
+        if (w.config.yaxis[realIndex].opposite) {
+          textAnchor = 'start'
+        }
+        if (w.config.yaxis[realIndex].labels.align === 'left') {
+          textAnchor = 'start'
+        } else if (w.config.yaxis[realIndex].labels.align === 'center') {
+          textAnchor = 'middle'
+        } else if (w.config.yaxis[realIndex].labels.align === 'right') {
+          textAnchor = 'end'
+        }
+
         const yColors = this.axesUtils.getYAxisForeColor(
           yaxisStyle.colors,
           realIndex
@@ -91,7 +104,7 @@ export default class YAxis {
           x: xPad,
           y: l + tickAmount / 10 + w.config.yaxis[realIndex].labels.offsetY + 1,
           text: val,
-          textAnchor: w.config.yaxis[realIndex].opposite ? 'start' : 'end',
+          textAnchor,
           fontSize: yaxisFontSize,
           fontFamily: yaxisFontFamily,
           fontWeight: yaxisFontWeight,
@@ -318,7 +331,12 @@ export default class YAxis {
         axisBorder.height
       )
 
-      parent.add(elHorzLine)
+      // in horizontal bars, we append axisBorder to elGridBorders element to avoid z-index issues
+      if (this.elgrid && this.elgrid.elGridBorders) {
+        this.elgrid.elGridBorders.add(elHorzLine)
+      } else {
+        parent.add(elHorzLine)
+      }
     }
   }
 
@@ -517,7 +535,7 @@ export default class YAxis {
     yaxis.forEach((y, index) => {
       const yaxe = w.config.yaxis[index]
       // proceed only if user has specified alignment
-      if (yaxe && yaxe.labels.align !== undefined) {
+      if (yaxe && !yaxe.floating && yaxe.labels.align !== undefined) {
         const yAxisInner = w.globals.dom.baseEl.querySelector(
           `.apexcharts-yaxis[rel='${index}'] .apexcharts-yaxis-texts-g`
         )

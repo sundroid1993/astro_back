@@ -99,7 +99,7 @@ export class ReportsComponent implements OnInit {
     orders = [];
     from = '';
     to = '';
-    status = -1;
+    status = 0;
 
     today = 0;
     yesterday = 0;

@@ -235,6 +235,9 @@ export class ChatComponent implements OnInit {
     }
 
     sendMessage(type, path = '') {
+        if (type == 'text' && this.msg.trim() == '') {
+            return;
+        }
         let messsage: Msg = {
             sender: this.astro_id,
             message: this.msg,

@@ -18,7 +18,7 @@ class Grid {
     this.xaxisLabels = w.globals.labels.slice()
     this.axesUtils = new AxesUtils(ctx)
 
-    this.isRangeBar = w.globals.seriesRangeBar.length
+    this.isRangeBar = w.globals.seriesRange.length
 
     if (w.globals.timescaleLabels.length > 0) {
       //  timescaleLabels labels are there
@@ -180,7 +180,7 @@ class Grid {
 
     if (shouldDraw()) {
       if (w.config.grid.xaxis.lines.show) {
-        this._drawGridLine({ x1, y1, x2, y2, parent })
+        this._drawGridLine({ i, x1, y1, x2, y2, xCount, parent })
       }
       let y_2 = 0
       if (w.globals.hasGroups && w.config.xaxis.tickPlacement === 'between') {
@@ -197,12 +197,13 @@ class Grid {
       }
 
       let xAxis = new XAxis(this.ctx)
-      xAxis.drawXaxisTicks(x1, y_2, this.elg)
+      xAxis.drawXaxisTicks(x1, y_2, w.globals.dom.elGraphical)
     }
   }
 
-  _drawGridLine({ x1, y1, x2, y2, parent }) {
+  _drawGridLine({ i, x1, y1, x2, y2, xCount, parent }) {
     const w = this.w
+    let excludeBorders = false
 
     const isHorzLine = parent.node.classList.contains(
       'apexcharts-gridlines-horizontal'
@@ -210,6 +211,15 @@ class Grid {
 
     let strokeDashArray = w.config.grid.strokeDashArray
     const offX = w.globals.barPadForNumericAxis
+    if ((y1 === 0 && y2 === 0) || (x1 === 0 && x2 === 0)) {
+      excludeBorders = true
+    }
+    if (y1 === w.globals.gridHeight && y2 === w.globals.gridHeight) {
+      excludeBorders = true
+    }
+    if (w.globals.isBarHorizontal && (i === 0 || i === xCount - 1)) {
+      excludeBorders = true
+    }
 
     const graphics = new Graphics(this)
     let line = graphics.drawLine(
@@ -221,7 +231,12 @@ class Grid {
       strokeDashArray
     )
     line.node.classList.add('apexcharts-gridline')
-    parent.add(line)
+
+    if (excludeBorders) {
+      this.elGridBorders.add(line)
+    } else {
+      parent.add(line)
+    }
   }
 
   _drawGridBandRect({ c, x1, y1, x2, y2, type }) {
@@ -268,49 +283,24 @@ class Grid {
     }
 
     const categoryLines = ({ xC, x1, y1, x2, y2 }) => {
-      if (
-        typeof w.config.xaxis.tickAmount !== 'undefined' &&
-        w.config.xaxis.tickAmount !== 'dataPoints' &&
-        w.config.xaxis.tickPlacement === 'on'
-      ) {
-        // user has specified tickamount in a category x-axis chart
-        const visibleLabels = w.globals.dom.baseEl.querySelectorAll(
-          '.apexcharts-text.apexcharts-xaxis-label tspan:not(:empty)'
-        )
-
-        visibleLabels.forEach((d, i) => {
-          const textRect = d.getBBox()
-
-          this._drawGridLines({
-            i,
-            x1: textRect.x + textRect.width / 2,
-            y1,
-            x2: textRect.x + textRect.width / 2,
-            y2,
-            xCount,
-            parent: this.elgridLinesV
-          })
-        })
-      } else {
-        for (let i = 0; i < xC + (w.globals.isXNumeric ? 0 : 1); i++) {
-          if (i === 0 && xC === 1 && w.globals.dataPoints === 1) {
-            // single datapoint
-            x1 = w.globals.gridWidth / 2
-            x2 = x1
-          }
-          this._drawGridLines({
-            i,
-            x1,
-            y1,
-            x2,
-            y2,
-            xCount,
-            parent: this.elgridLinesV
-          })
-
-          x1 = x1 + w.globals.gridWidth / (w.globals.isXNumeric ? xC - 1 : xC)
+      for (let i = 0; i < xC + (w.globals.isXNumeric ? 0 : 1); i++) {
+        if (i === 0 && xC === 1 && w.globals.dataPoints === 1) {
+          // single datapoint
+          x1 = w.globals.gridWidth / 2
           x2 = x1
         }
+        this._drawGridLines({
+          i,
+          x1,
+          y1,
+          x2,
+          y2,
+          xCount,
+          parent: this.elgridLinesV
+        })
+
+        x1 = x1 + w.globals.gridWidth / (w.globals.isXNumeric ? xC - 1 : xC)
+        x2 = x1
       }
     }
 
@@ -326,10 +316,6 @@ class Grid {
       } else {
         if (w.globals.isXNumeric) {
           xCount = w.globals.xAxisScale.result.length
-        }
-        if (w.config.xaxis.convertedCatToNumeric) {
-          // in case of a convertedCatToNumeric, some labels might be skipped due to hideOverLapping labels, hence use this var to get the visible ticks
-          xCount = w.globals.xaxisLabelsCount
         }
         categoryLines({ xC: xCount, x1, y1, x2, y2 })
       }
@@ -348,7 +334,15 @@ class Grid {
       }
 
       for (let i = 0; i < tA + (this.isRangeBar ? 1 : 0); i++) {
-        this._drawGridLine({ x1, y1, x2, y2, parent: this.elgridLinesH })
+        this._drawGridLine({
+          i,
+          xCount: tA + (this.isRangeBar ? 1 : 0),
+          x1,
+          y1,
+          x2,
+          y2,
+          parent: this.elgridLinesH
+        })
 
         y1 = y1 + w.globals.gridHeight / (this.isRangeBar ? tA : tickAmount)
 
@@ -368,11 +362,19 @@ class Grid {
       let y2 = w.globals.gridHeight
       for (let i = 0; i < xCount + 1; i++) {
         if (w.config.grid.xaxis.lines.show) {
-          this._drawGridLine({ x1, y1, x2, y2, parent: this.elgridLinesV })
+          this._drawGridLine({
+            i,
+            xCount: xCount + 1,
+            x1,
+            y1,
+            x2,
+            y2,
+            parent: this.elgridLinesV
+          })
         }
 
         let xAxis = new XAxis(this.ctx)
-        xAxis.drawXaxisTicks(x1, 0, this.elg)
+        xAxis.drawXaxisTicks(x1, 0, w.globals.dom.elGraphical)
         x1 = x1 + w.globals.gridWidth / xCount + 0.3
         x2 = x1
       }
@@ -386,7 +388,15 @@ class Grid {
       let x2 = w.globals.gridWidth
 
       for (let i = 0; i < w.globals.dataPoints + 1; i++) {
-        this._drawGridLine({ x1, y1, x2, y2, parent: this.elgridLinesH })
+        this._drawGridLine({
+          i,
+          xCount: w.globals.dataPoints + 1,
+          x1,
+          y1,
+          x2,
+          y2,
+          parent: this.elgridLinesH
+        })
 
         y1 = y1 + w.globals.gridHeight / w.globals.dataPoints
         y2 = y1
@@ -408,6 +418,9 @@ class Grid {
     this.elgridLinesV = graphics.group({
       class: 'apexcharts-gridlines-vertical'
     })
+    this.elGridBorders = graphics.group({
+      class: 'apexcharts-grid-borders'
+    })
 
     this.elg.add(this.elgridLinesH)
     this.elg.add(this.elgridLinesV)
@@ -415,6 +428,7 @@ class Grid {
     if (!w.config.grid.show) {
       this.elgridLinesV.hide()
       this.elgridLinesH.hide()
+      this.elGridBorders.hide()
     }
 
     let yTickAmount = w.globals.yAxisScale.length
@@ -450,6 +464,7 @@ class Grid {
     this.drawGridBands(xCount, yTickAmount)
     return {
       el: this.elg,
+      elGridBorders: this.elGridBorders,
       xAxisTickWidth: w.globals.gridWidth / xCount
     }
   }

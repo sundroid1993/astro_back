@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { log } from 'console';
 
 @Injectable({
     providedIn: 'root'
@@ -150,6 +151,8 @@ export class UtilService {
     }
 
     getChatStatus(status) {
+        console.log("status:",status);
+        
         switch (status) {
             case null:
                 return "Declined";
@@ -182,5 +185,10 @@ export class UtilService {
             numString = number + '';
         }
         return numString;
+    }
+
+    calc(num, fixed) {
+        var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+        return num.toString().match(re)[0];
     }
 }

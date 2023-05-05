@@ -49,13 +49,13 @@
               ]
             },
             "development": {
-              "buildOptimizer": true,
-              "aot": true,
+              "buildOptimizer": false,
+              "aot": false,
               "optimization": false,
-              "vendorChunk": true,
+              "vendorChunk": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": false,
+              "namedChunks": false
             }
           }
         },

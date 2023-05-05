@@ -74,6 +74,7 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let order of orders | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <!-- {{order|json}} -->
                                 <td *ngIf="order.order_id!=null">
                                     {{order.order_id}}
                                 </td>

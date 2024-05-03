@@ -64,7 +64,7 @@ export class ChatRequestPopupComponent implements OnInit {
         // audio.play();
 
         const sound = new Howl({
-            src: ['assets/alarm.mp3']
+            src: ['assets/alarm_2.mp3']
         });
         sound.play();
         Howler.volume(1);
